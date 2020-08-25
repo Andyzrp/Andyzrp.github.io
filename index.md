@@ -44,7 +44,7 @@
 
 ![Selenium封装](Selenium封装.png)
 
-<img src="二维码.png" height="75px" />
+<img src="二维码.png" width="500" height="500" />
 
 ----
 
