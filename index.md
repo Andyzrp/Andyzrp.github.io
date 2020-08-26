@@ -40,11 +40,11 @@
 * `分布式并行 APP UI 测试`
 * 输出 [企业级测试报告](report/report.html/)。
 
-![自动化项目架构](自动化项目架构.png)
+![自动化项目架构](report/自动化项目架构.png)
 
-![Selenium封装](Selenium封装.png)
+![Selenium封装](report/Selenium封装.png)
 
-<img src="二维码.png" width="500" height="500" />
+<img src="report/二维码.png" width="500" height="500" />
 
 ----
 
