@@ -2,7 +2,7 @@
 
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
-* [回到首页](https://liushilive.github.io/)
+* [回到首页](https://andyzrp.github.io/)
 
 ## 驱动
 
@@ -10,9 +10,9 @@
 
 ## Android
 
-* [android-SDK](https://pan.baidu.com/s/1eotkTP_eOFEz1YIoM2J7lw) 提取密码：`w63x`
+* [android-SDK](https://pan.baidu.com/s/1WemX025vh0BvSO1GIi2-qQ) 提取密码：`wjzc`
 
-* [haxm-windows_v6_2_1](https://pan.baidu.com/s/1P4D1yGdfBmzptNzlAjWFRg) 提取密码：`5w2f`
+* [haxm-windows_v6_2_1](https://pan.baidu.com/s/1WeJbLR0fatvbUCfRakQ3fg) 提取密码：`mpdd`
 
 * [haxm 官方下载](https://github.com/intel/haxm/releases)
 
@@ -41,7 +41,7 @@ AC5XK-0ZD4H-088HP-9NQZV-ZG2R4
 ZC5XK-A6E0M-080XQ-04ZZG-YF08D
 ZY5H0-D3Y8K-M89EZ-AYPEG-MYUA8 -->
 
-* [大商创镜像链接](https://pan.baidu.com/s/1-EeNsfULn_oNdh2yyYi9gg) 提取密码：`z7oe`
+<!--* [大商创镜像链接](https://pan.baidu.com/s/1-EeNsfULn_oNdh2yyYi9gg) 提取密码：`z7oe` -->
 
 ## 版本管理
 
@@ -53,7 +53,7 @@ ZY5H0-D3Y8K-M89EZ-AYPEG-MYUA8 -->
 
 ## 思维导图
 
-* [Xmind8 下载](https://pan.baidu.com/s/1mcIfFWc31PT0_qAWZRFwEQ) 提取密码：`p5d0`
+* [Xmind8 下载](https://pan.baidu.com/s/1sp7ct2sZikWdoRSvc88WqA) 提取密码：`xi92`
 
 ## 开发工具
 
@@ -63,7 +63,7 @@ ZY5H0-D3Y8K-M89EZ-AYPEG-MYUA8 -->
 
 * [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 
-* [wxPython2.8-win64-unicode-2.8.12.1-py27](https://pan.baidu.com/s/13UFDjvVbOcYtVbITDY7gBw) 提取密码：`ep7a`
+* [wxPython2.8-win64-unicode-2.8.12.1-py27](https://pan.baidu.com/s/1nEdjrR2X_jdtQSaBOfYqjA) 提取密码：`jvdy`
 
 ## 性能测试工具
 
