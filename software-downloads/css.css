@@ -1,0 +1,25 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+table,
+th,
+td {
+  border: 2px solid black;
+  padding: 5px;
+}
+
+td {
+  text-align: left;
+}
+
+a {
+  padding: 5px
+}
+
+li {
+  min-height: 25px;
+}
