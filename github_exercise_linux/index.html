@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Linux 相关 - 介绍</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="" name="description">
+<meta content="刘士" name="author">
+
+<link href="../asserts/lsbook/less/website.css" rel="stylesheet">
+<link href="../asserts/lsbook/katex/katex.min.css" rel="stylesheet">
+<link href="../asserts/lsbook/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<meta content="true" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<link href="../asserts/lsbook/images/apple-touch-icon-precomposed-152.png"
+      rel="apple-touch-icon-precomposed" sizes="152x152">
+<link href="../asserts/lsbook/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--分页-->
+<link href="md/项目/高阶项目环境部署.html" rel="next"/>
+</head>
+<body>
+<div class="book match-braces"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input placeholder="输入并搜索" type="text"/>
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            <li class="header">Summary</li>
+<ul class="articles"><li class="chapter active" data-level="1.1" data-path="index.html"><a href="index.html"><b>1.1.</b>介绍</a></li></ul>
+<li class="header">项目</li>
+<ul class="articles"><li class="chapter" data-level="2.1" data-path="md/项目/高阶项目环境部署.html"><a href="md/项目/高阶项目环境部署.html"><b>2.1.</b>高阶项目环境部署</a></li></ul>
+<li class="header">Linux 常用工具部署</li>
+<ul class="articles"><li class="chapter" data-level="3.1" data-path="md/tools/linuxinstall.html"><a href="md/tools/linuxinstall.html"><b>3.1.</b>虚拟机部署 Linux</a></li>
+<li class="chapter" data-level="3.2" data-path="md/tools/bash-completion-zi-dong-bu-quan-gong-neng-zeng-qiang.html"><a href="md/tools/bash-completion-zi-dong-bu-quan-gong-neng-zeng-qiang.html"><b>3.2.</b>自动补全功能增强</a></li>
+<li class="chapter" data-level="3.3" data-path="md/tools/sudo.html"><a href="md/tools/sudo.html"><b>3.3.</b>配置 Sudo</a></li>
+<li class="chapter" data-level="3.4" data-path="md/tools/添加Swap.html"><a href="md/tools/添加Swap.html"><b>3.4.</b>添加 Swap</a></li>
+<li class="chapter" data-level="3.5" data-path="md/tools/LEMP.html"><a href="md/tools/LEMP.html"><b>3.5.</b>LEMP 环境</a></li>
+<li class="chapter" data-level="3.6" data-path="md/tools/install-oracle-11g-express-xe-on-centos-7.html"><a href="md/tools/install-oracle-11g-express-xe-on-centos-7.html"><b>3.6.</b>Oracle 11g Express (XE)</a></li>
+<li class="chapter" data-level="3.7" data-path="md/tools/部署SVN.html"><a href="md/tools/部署SVN.html"><b>3.7.</b>部署 SVN</a></li>
+<li class="chapter" data-level="3.8" data-path="md/tools/持续集成环境.html"><a href="md/tools/持续集成环境.html"><b>3.8.</b>Jenkins 部署</a></li>
+<li class="chapter" data-level="3.9" data-path="md/tools/持续集成环境-教学环境.html"><a href="md/tools/持续集成环境-教学环境.html"><b>3.9.</b>Jenkins 部署 教学环境</a></li></ul>
+            <li class="divider"></li>
+            <li>
+                <a class="lsbook-link" href="https://github.com/liushilive/lsbook" target="blank">
+                    本书使用 LsBook 发布
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="book-body">
+    <div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            <a href=".">介绍</a>
+        </h1>
+    </div>
+
+    <div class="page-wrapper" role="main" tabindex="-1">
+        <div class="page-inner">
+            <div class="search-plus" id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <div id='anchor-navigation-ex-navbar'><i class='fa fa-anchor'></i><ul><li><span class='title-icon fa fa-hand-o-right'></span><a aria-label class='on-toolbar-action' href='' onclick="$('.fa.fa-align-justify').parent()[0].click();">目录</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_1'><b></b>Linux 相关</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_2'><b>1. </b>Linux 常用命令</a></li></ul></ul></div><a href='#anchor_1' id='anchorNavigationExGoTop'><i class='fa fa-arrow-up'></i></a>
+                        <h1 id="anchor_1"><a class="anchor-navigation-ex-anchor" href="#anchor_1" name="anchor_1"><i aria-hidden="true" class="fa fa-link"></i></a>Linux 相关</h1>
+<p>我只是搬运工，如果文中有冒犯到你的地方，请告知我删除内容，或添加来源。</p>
+<h2 id="anchor_2"><a class="anchor-navigation-ex-anchor" href="#anchor_2" name="anchor_2"><i aria-hidden="true" class="fa fa-link"></i></a>1. Linux 常用命令</h2>
+<ul>
+<li><code class="language-vim">&amp;</code>：在后台执行</li>
+<li><code class="language-vim">&amp;&amp;</code>：逻辑与</li>
+<li><code class="language-vim">*</code>：匹配任意长度的任意字符</li>
+<li><code class="language-vim">?</code>：匹配任意一个字符</li>
+<li><code class="language-vim">[]</code>：匹配属于字符组的字符</li>
+<li><code class="language-vim">|</code>：管道符，用于连接多个命令，前一个命令的输出作为后一命令的输入</li>
+<li><code class="language-vim">||</code>：逻辑或</li>
+<li><code class="language-vim">&lt;</code>：输入重定向</li>
+<li><code class="language-vim">&gt;</code>：输出重定向</li>
+<li><code class="language-vim">&gt;&gt;</code>：附加到指定文件的结尾</li>
+<li><code class="language-vim">awk</code>：过滤器</li>
+<li><code class="language-vim">basename</code>：提取基本文件名</li>
+<li><code class="language-vim">cal</code>：显示日历</li>
+<li><code class="language-vim">cat</code>：一次性显示输出文件的全部内容</li>
+<li><code class="language-vim">cd</code>：改变当前工作目录</li>
+<li><code class="language-vim">chgrp</code>：修改文件或目录的用户组</li>
+<li><code class="language-vim">chmod</code>：修改文件或目录的权限</li>
+<li><code class="language-vim">chown</code>：修改文件或目录的所有者</li>
+<li><code class="language-vim">clear</code>：清屏，提示符回到屏幕左上方</li>
+<li><code class="language-vim">cp</code>：复制文件</li>
+<li><code class="language-vim">cut</code>：剪切文件</li>
+<li><code class="language-vim">date</code>：显示当前日期和时间</li>
+<li><code class="language-vim">df</code>：对文件系统的磁盘空间使用情况进行统计</li>
+<li><code class="language-vim">diff</code>：比较两个文件的差异</li>
+<li><code class="language-vim">echo</code>：回显，即将字符串输出到标准输出设备</li>
+<li><code class="language-vim">egrep</code>：支持正则表达式的 grep 命令</li>
+<li><code class="language-vim">file</code>：显示文件的类型</li>
+<li><code class="language-vim">find</code>：查找指定的文件</li>
+<li><code class="language-vim">grep</code>：查找指定的字符串</li>
+<li><code class="language-vim">head</code>：查看文件的开始部分，默认为前 10 行</li>
+<li><code class="language-vim">ls</code>：列出目录中的内容</li>
+<li><code class="language-vim">man</code>：显示联机参考手册</li>
+<li><code class="language-vim">mkdir</code>：创建目录</li>
+<li><code class="language-vim">more</code>：分屏显示文件的内容</li>
+<li><code class="language-vim">mv</code>：移动文件</li>
+<li><code class="language-vim">netstat</code>：显示网络状态</li>
+<li><code class="language-vim">passwd</code>：修改用户密码</li>
+<li><code class="language-vim">ps</code>：显示进程相关信息</li>
+<li><code class="language-vim">pwd</code>：显示当前目录</li>
+<li><code class="language-vim">rm</code>：删除文件</li>
+<li><code class="language-vim">rmdir</code>：删除目录，要求目录非空</li>
+<li><code class="language-vim">sed</code>：流编辑器</li>
+<li><code class="language-vim">sleep</code>：暂停指定的时间间隔</li>
+<li><code class="language-vim">su</code>：临时切换到另一用户</li>
+<li><code class="language-vim">tail</code>：查看文件的结尾部分，默认为后 10 行</li>
+<li><code class="language-vim">Talk</code>：与其他用户对话</li>
+<li><code class="language-vim">vi</code>：vim 编辑器</li>
+<li><code class="language-vim">wc</code>：计算文件的单词数、行数、字符数</li>
+<li><code class="language-vim">who</code>：显示当前登录的用户的信息</li>
+<li><code class="language-vim">write</code>：给指定用户发消息</li>
+</ul>
+
+                        <footer class="page-footer"><span class="copyright">© 2020 刘士. 
+All rights reserved.</span><span class="footer-modification">
+<span id="busuanzi_container_site_uv" style="display:none">本站访客数 <span id="busuanzi_value_site_uv">
+</span> 人次</span></span></footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+
+</script>
+                    </section>
+                </div>
+                <div class="search-results">
+                    <div class="has-results">
+                        <h1 class="search-results-title"><span class='search-results-count'></span> 结果匹配 "<span class='search-query'></span>"</h1>
+                        <ul class="search-results-list"></ul>
+                    </div>
+                    <div class="no-results">
+                        <h1 class="search-results-title">没有匹配的结果 "<span class='search-query'></span>"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<a aria-label="Next page: 高阶项目环境部署" class="navigation navigation-next" href="md/项目/高阶项目环境部署.html">
+    <i class="fa fa-angle-right"></i>
+</a>
+
+
+</div>
+<script>
+    var lsbook = lsbook || [];
+    lsbook.push(function () {
+        lsbook.page.hasChanged({
+            "config": {
+                "github_url":"https://liushilive.github.io/",
+                "language": "zh-cn",
+                "previous_page_link": "",
+                "next_page_link": "md/项目/高阶项目环境部署.html"
+            },
+            "basePath": ".",
+            "js": {'prism': ['../asserts/lsbook/prismjs/clipboard.min.js', '../asserts/lsbook/prismjs/prism.js']}
+        });
+    });
+</script>
+</div>
+
+<script src="../asserts/lsbook/jquery-3.3.1.min.js"></script>
+<script charset="UTF-8" src="../asserts/lsbook/jquery_mar/jquery.mark.js"></script>
+<script src="../asserts/lsbook/lightbox/js/lightbox.min.js"></script>
+<script src="../asserts/lsbook/lsbook.min.js"></script>
+
+</body>
+</html>

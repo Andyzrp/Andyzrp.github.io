@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Linux 相关 - Oracle 11g Express (XE)</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="" name="description">
+<meta content="曾润平" name="author">
+
+<link href="../../../asserts/lsbook/less/website.css" rel="stylesheet">
+<link href="../../../asserts/lsbook/katex/katex.min.css" rel="stylesheet">
+<link href="../../../asserts/lsbook/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<meta content="true" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<link href="../../../asserts/lsbook/images/apple-touch-icon-precomposed-152.png"
+      rel="apple-touch-icon-precomposed" sizes="152x152">
+<link href="../../../asserts/lsbook/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--分页-->
+<link href="部署SVN.html" rel="next"/>
+</head>
+<body>
+<div class="book match-braces"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input placeholder="输入并搜索" type="text"/>
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            <li class="header">Summary</li>
+<ul class="articles"><li class="chapter" data-level="1.1" data-path="../../index.html"><a href="../../index.html"><b>1.1.</b>介绍</a></li></ul>
+<li class="header">项目</li>
+<ul class="articles"><li class="chapter" data-level="2.1" data-path="../项目/高阶项目环境部署.html"><a href="../项目/高阶项目环境部署.html"><b>2.1.</b>高阶项目环境部署</a></li></ul>
+<li class="header">Linux 常用工具部署</li>
+<ul class="articles"><li class="chapter" data-level="3.1" data-path="linuxinstall.html"><a href="linuxinstall.html"><b>3.1.</b>虚拟机部署 Linux</a></li>
+<li class="chapter" data-level="3.2" data-path="bash-completion-zi-dong-bu-quan-gong-neng-zeng-qiang.html"><a href="bash-completion-zi-dong-bu-quan-gong-neng-zeng-qiang.html"><b>3.2.</b>自动补全功能增强</a></li>
+<li class="chapter" data-level="3.3" data-path="sudo.html"><a href="sudo.html"><b>3.3.</b>配置 Sudo</a></li>
+<li class="chapter" data-level="3.4" data-path="添加Swap.html"><a href="添加Swap.html"><b>3.4.</b>添加 Swap</a></li>
+<li class="chapter" data-level="3.5" data-path="LEMP.html"><a href="LEMP.html"><b>3.5.</b>LEMP 环境</a></li>
+<li class="chapter active" data-level="3.6" data-path="install-oracle-11g-express-xe-on-centos-7.html"><a href="install-oracle-11g-express-xe-on-centos-7.html"><b>3.6.</b>Oracle 11g Express (XE)</a></li>
+<li class="chapter" data-level="3.7" data-path="部署SVN.html"><a href="部署SVN.html"><b>3.7.</b>部署 SVN</a></li>
+<li class="chapter" data-level="3.8" data-path="持续集成环境.html"><a href="持续集成环境.html"><b>3.8.</b>Jenkins 部署</a></li>
+<li class="chapter" data-level="3.9" data-path="持续集成环境-教学环境.html"><a href="持续集成环境-教学环境.html"><b>3.9.</b>Jenkins 部署 教学环境</a></li></ul>
+            <li class="divider"></li>
+            <li>
+                <a class="lsbook-link" href="https://github.com/liushilive/RPbook" target="blank">
+                    本书使用 RPBook 发布
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="book-body">
+    <div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            <a href="../..">Oracle 11g Express (XE)</a>
+        </h1>
+    </div>
+
+    <div class="page-wrapper" role="main" tabindex="-1">
+        <div class="page-inner">
+            <div class="search-plus" id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <div id='anchor-navigation-ex-navbar'><i class='fa fa-anchor'></i><ul><li><span class='title-icon fa fa-hand-o-right'></span><a aria-label class='on-toolbar-action' href='' onclick="$('.fa.fa-align-justify').parent()[0].click();">目录</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_1'><b></b>Oracle 部署</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_2'><b>1. </b>安装必需的安装包</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_3'><b>2. </b>安装 Oracle</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_4'><b>3. </b>配置 Oracle</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_5'><b>4. </b>环境变量配置</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_6'><b>5. </b>允许远程访问 Oracle 11g XE GUI</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_7'><b>6. </b>配置防火墙</a></li></ul></ul></div><a href='#anchor_1' id='anchorNavigationExGoTop'><i class='fa fa-arrow-up'></i></a>
+                        <h1 id="anchor_1"><a class="anchor-navigation-ex-anchor" href="#anchor_1" name="anchor_1"><i aria-hidden="true" class="fa fa-link"></i></a>Oracle 部署</h1>
+<ul>
+<li>
+<p><a target=_Blank href="http://www.oracle.com/technetwork/database/database-technologies/express-edition/downloads/index.html">Oracle XE 下载</a></p>
+</li>
+<li>
+<p><a target=_Blank href="http://docs.oracle.com/cd/E17781_01/install.112/e18802/toc.htm">Oracle XE 官方文档</a></p>
+</li>
+</ul>
+<h2 id="anchor_2"><a class="anchor-navigation-ex-anchor" href="#anchor_2" name="anchor_2"><i aria-hidden="true" class="fa fa-link"></i></a>1. 安装必需的安装包</h2>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">yum install -y libaio bc flex net-tools
+</code></pre>
+<h2 id="anchor_3"><a class="anchor-navigation-ex-anchor" href="#anchor_3" name="anchor_3"><i aria-hidden="true" class="fa fa-link"></i></a>2. 安装 Oracle</h2>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">curl -L -O https://github.com/liushilive/github_exercise_linux/releases/download/1.0/oracle-xe-11.2.0-1.0.x86_64.rpm
+rpm -ivh oracle-xe-11.2.0-1.0.x86_64.rpm
+</code></pre>
+<h2 id="anchor_4"><a class="anchor-navigation-ex-anchor" href="#anchor_4" name="anchor_4"><i aria-hidden="true" class="fa fa-link"></i></a>3. 配置 Oracle</h2>
+<ul>
+<li>
+<p>Oracle Application Express 的有效 HTTP 端口（默认值为 <code class="language-vim">8080</code>）</p>
+</li>
+<li>
+<p>Oracle 数据库侦听器的有效端口（默认为 1521）</p>
+</li>
+<li>
+<p><code class="language-vim">SYS</code> 和 <code class="language-vim">SYSTEM</code> 管理员帐户密码：<code class="language-vim">123456</code></p>
+</li>
+<li>
+<p>确认 <code class="language-vim">SYS</code> 和 <code class="language-vim">SYSTEM</code> 管理员帐户的密码：<code class="language-vim">123456</code></p>
+</li>
+<li>
+<p>数据库在计算机启动时自动启动（下次重新引导）</p>
+</li>
+</ul>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">echo -e &quot;\n\n123456\n123456\ny&quot; | /etc/init.d/oracle-xe configure
+</code></pre>
+<h2 id="anchor_5"><a class="anchor-navigation-ex-anchor" href="#anchor_5" name="anchor_5"><i aria-hidden="true" class="fa fa-link"></i></a>4. 环境变量配置</h2>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">cat &gt;&gt; .bash_profile &lt;&lt; EOF
+. /u01/app/oracle/product/11.2.0/xe/bin/oracle_env.sh
+EOF
+</code></pre>
+<p>让环境变量生效</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">su -
+</code></pre>
+<h2 id="anchor_6"><a class="anchor-navigation-ex-anchor" href="#anchor_6" name="anchor_6"><i aria-hidden="true" class="fa fa-link"></i></a>5. 允许远程访问 Oracle 11g XE GUI</h2>
+<p>进入 SQL 命令窗口</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">sqlplus &quot;sys/123456 as sysdba&quot; &lt;&lt;EOF
+EXEC DBMS_XDB.SETLISTENERLOCALACCESS(FALSE);
+EOF
+</code></pre>
+<h2 id="anchor_7"><a class="anchor-navigation-ex-anchor" href="#anchor_7" name="anchor_7"><i aria-hidden="true" class="fa fa-link"></i></a>6. 配置防火墙</h2>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">firewall-cmd --zone=public --add-port=8080/tcp --permanent
+firewall-cmd --zone=public --add-port=1521/tcp --permanent
+firewall-cmd --reload
+</code></pre>
+<blockquote>
+<p>可通下面网址访问确认安装成功</p>
+<p><code class="language-vim">http://&lt;server-ip&gt;:8080/apex/f?p=4950:1</code>
+用户名：system
+密码：123456</p>
+</blockquote>
+
+                        <footer class="page-footer"><span class="copyright">© 2020 曾润平. 
+All rights reserved.</span><span class="footer-modification">
+<span id="busuanzi_container_site_uv" style="display:none">本站访客数 <span id="busuanzi_value_site_uv">
+</span> 人次</span></span></footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+
+</script>
+                    </section>
+                </div>
+                <div class="search-results">
+                    <div class="has-results">
+                        <h1 class="search-results-title"><span class='search-results-count'></span> 结果匹配 "<span class='search-query'></span>"</h1>
+                        <ul class="search-results-list"></ul>
+                    </div>
+                    <div class="no-results">
+                        <h1 class="search-results-title">没有匹配的结果 "<span class='search-query'></span>"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a aria-label="Previous page: LEMP 环境" class="navigation navigation-prev" href="LEMP.html">
+    <i class="fa fa-angle-left"></i>
+</a>
+
+
+<a aria-label="Next page: 部署 SVN" class="navigation navigation-next" href="部署SVN.html">
+    <i class="fa fa-angle-right"></i>
+</a>
+
+
+</div>
+<script>
+    var lsbook = lsbook || [];
+    lsbook.push(function () {
+        lsbook.page.hasChanged({
+            "config": {
+                "github_url":"https://liushilive.github.io/",
+                "language": "zh-cn",
+                "previous_page_link": "LEMP.html",
+                "next_page_link": "部署SVN.html"
+            },
+            "basePath": "../..",
+            "js": {'prism': ['../../../asserts/lsbook/prismjs/clipboard.min.js', '../../../asserts/lsbook/prismjs/prism.js']}
+        });
+    });
+</script>
+</div>
+
+<script src="../../../asserts/lsbook/jquery-3.3.1.min.js"></script>
+<script charset="UTF-8" src="../../../asserts/lsbook/jquery_mar/jquery.mark.js"></script>
+<script src="../../../asserts/lsbook/lightbox/js/lightbox.min.js"></script>
+<script src="../../../asserts/lsbook/lsbook.min.js"></script>
+
+</body>
+</html>
