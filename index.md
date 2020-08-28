@@ -140,7 +140,7 @@
 
 ## 常用资源
 
-* [常用软件下载](Software-Downloads/)
+* [常用软件下载](software-downloads/)
 
 <!-- ## 创作不易，欢迎打赏 -->
 
