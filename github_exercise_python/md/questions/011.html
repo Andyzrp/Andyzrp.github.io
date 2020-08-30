@@ -1,0 +1,334 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Python 相关 - 试题 011</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="" name="description">
+<meta content="曾润平" name="author">
+
+<link href="../../../asserts/lsbook/less/website.css" rel="stylesheet">
+<link href="../../../asserts/lsbook/katex/katex.min.css" rel="stylesheet">
+<link href="../../../asserts/lsbook/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<meta content="true" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<link href="../../../asserts/lsbook/images/apple-touch-icon-precomposed-152.png"
+      rel="apple-touch-icon-precomposed" sizes="152x152">
+<link href="../../../asserts/lsbook/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--分页-->
+<link href="012.html" rel="next"/>
+</head>
+<body>
+<div class="book match-braces"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input placeholder="输入并搜索" type="text"/>
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            <li class="header">Summary</li>
+<ul class="articles"><li class="chapter" data-level="1.1" data-path="../../index.html"><a href="../../index.html"><b>1.1.</b>介绍</a></li>
+<li class="chapter" data-level="1.2" data-path="../pep8/index.html"><a href="../pep8/index.html"><b>1.2.</b>PEP 8</a></li>
+<li class="chapter" data-level="1.3" data-path="../re/re_model.html"><a href="../re/re_model.html"><b>1.3.</b>正则表达式</a></li>
+<li class="chapter" data-level="1.4" data-path="../py3总结.html"><a href="../py3总结.html"><b>1.4.</b>Python 3 总结</a></li>
+<li class="chapter" data-level="1.5" data-path="../py速记.html"><a href="../py速记.html"><b>1.5.</b>Python 速记</a></li></ul>
+<li class="header">算法</li>
+<ul class="articles"><li class="chapter" data-level="2.1" data-path="../sort/index.html"><a href="../sort/index.html"><b>2.1.</b>Python 3 排序算法</a>
+<ul class="articles"><li class="chapter" data-level="2.1.1" data-path="../sort/冒泡排序.html"><a href="../sort/冒泡排序.html"><b>2.1.1.</b>冒泡排序</a></li>
+<li class="chapter" data-level="2.1.2" data-path="../sort/选择排序.html"><a href="../sort/选择排序.html"><b>2.1.2.</b>选择排序</a></li>
+<li class="chapter" data-level="2.1.3" data-path="../sort/插入排序.html"><a href="../sort/插入排序.html"><b>2.1.3.</b>插入排序</a></li>
+<li class="chapter" data-level="2.1.4" data-path="../sort/希尔排序.html"><a href="../sort/希尔排序.html"><b>2.1.4.</b>希尔排序</a></li>
+<li class="chapter" data-level="2.1.5" data-path="../sort/归并排序.html"><a href="../sort/归并排序.html"><b>2.1.5.</b>归并排序</a></li>
+<li class="chapter" data-level="2.1.6" data-path="../sort/快速排序.html"><a href="../sort/快速排序.html"><b>2.1.6.</b>快速排序</a></li>
+<li class="chapter" data-level="2.1.7" data-path="../sort/堆排序.html"><a href="../sort/堆排序.html"><b>2.1.7.</b>堆排序</a></li>
+<li class="chapter" data-level="2.1.8" data-path="../sort/计数排序.html"><a href="../sort/计数排序.html"><b>2.1.8.</b>计数排序</a></li>
+<li class="chapter" data-level="2.1.9" data-path="../sort/桶排序.html"><a href="../sort/桶排序.html"><b>2.1.9.</b>桶排序</a></li>
+<li class="chapter" data-level="2.1.10" data-path="../sort/基数排序.html"><a href="../sort/基数排序.html"><b>2.1.10.</b>基数排序</a></li></ul></li></ul>
+<li class="header">练习</li>
+<ul class="articles"><li class="chapter" data-level="3.1" data-path="../exercise/index.html"><a href="../exercise/index.html"><b>3.1.</b>Python 3 练习</a>
+<ul class="articles"><li class="chapter" data-level="3.1.1" data-path="../exercise/001.html"><a href="../exercise/001.html"><b>3.1.1.</b>Python 3 练习 001</a></li>
+<li class="chapter" data-level="3.1.2" data-path="../exercise/002.html"><a href="../exercise/002.html"><b>3.1.2.</b>Python 3 练习 002</a></li>
+<li class="chapter" data-level="3.1.3" data-path="../exercise/003.html"><a href="../exercise/003.html"><b>3.1.3.</b>Python 3 练习 003</a></li>
+<li class="chapter" data-level="3.1.4" data-path="../exercise/004.html"><a href="../exercise/004.html"><b>3.1.4.</b>Python 3 练习 004</a></li>
+<li class="chapter" data-level="3.1.5" data-path="../exercise/005.html"><a href="../exercise/005.html"><b>3.1.5.</b>Python 3 练习 005</a></li>
+<li class="chapter" data-level="3.1.6" data-path="../exercise/006.html"><a href="../exercise/006.html"><b>3.1.6.</b>Python 3 练习 006</a></li>
+<li class="chapter" data-level="3.1.7" data-path="../exercise/007.html"><a href="../exercise/007.html"><b>3.1.7.</b>Python 3 练习 007</a></li>
+<li class="chapter" data-level="3.1.8" data-path="../exercise/008.html"><a href="../exercise/008.html"><b>3.1.8.</b>Python 3 练习 008</a></li>
+<li class="chapter" data-level="3.1.9" data-path="../exercise/009.html"><a href="../exercise/009.html"><b>3.1.9.</b>Python 3 练习 009</a></li>
+<li class="chapter" data-level="3.1.10" data-path="../exercise/010.html"><a href="../exercise/010.html"><b>3.1.10.</b>Python 3 练习 010</a></li>
+<li class="chapter" data-level="3.1.11" data-path="../exercise/011.html"><a href="../exercise/011.html"><b>3.1.11.</b>Python 3 练习 011</a></li>
+<li class="chapter" data-level="3.1.12" data-path="../exercise/012.html"><a href="../exercise/012.html"><b>3.1.12.</b>Python 3 练习 012</a></li>
+<li class="chapter" data-level="3.1.13" data-path="../exercise/013.html"><a href="../exercise/013.html"><b>3.1.13.</b>Python 3 练习 013</a></li>
+<li class="chapter" data-level="3.1.14" data-path="../exercise/014.html"><a href="../exercise/014.html"><b>3.1.14.</b>Python 3 练习 014</a></li>
+<li class="chapter" data-level="3.1.15" data-path="../exercise/015.html"><a href="../exercise/015.html"><b>3.1.15.</b>Python 3 练习 015</a></li>
+<li class="chapter" data-level="3.1.16" data-path="../exercise/016.html"><a href="../exercise/016.html"><b>3.1.16.</b>Python 3 练习 016</a></li>
+<li class="chapter" data-level="3.1.17" data-path="../exercise/017.html"><a href="../exercise/017.html"><b>3.1.17.</b>Python 3 练习 017</a></li>
+<li class="chapter" data-level="3.1.18" data-path="../exercise/018.html"><a href="../exercise/018.html"><b>3.1.18.</b>Python 3 练习 018</a></li>
+<li class="chapter" data-level="3.1.19" data-path="../exercise/019.html"><a href="../exercise/019.html"><b>3.1.19.</b>Python 3 练习 019</a></li>
+<li class="chapter" data-level="3.1.20" data-path="../exercise/020.html"><a href="../exercise/020.html"><b>3.1.20.</b>Python 3 练习 020</a></li>
+<li class="chapter" data-level="3.1.21" data-path="../exercise/021.html"><a href="../exercise/021.html"><b>3.1.21.</b>Python 3 练习 021</a></li>
+<li class="chapter" data-level="3.1.22" data-path="../exercise/022.html"><a href="../exercise/022.html"><b>3.1.22.</b>Python 3 练习 022</a></li>
+<li class="chapter" data-level="3.1.23" data-path="../exercise/023.html"><a href="../exercise/023.html"><b>3.1.23.</b>Python 3 练习 023</a></li>
+<li class="chapter" data-level="3.1.24" data-path="../exercise/024.html"><a href="../exercise/024.html"><b>3.1.24.</b>Python 3 练习 024</a></li>
+<li class="chapter" data-level="3.1.25" data-path="../exercise/025.html"><a href="../exercise/025.html"><b>3.1.25.</b>Python 3 练习 025</a></li>
+<li class="chapter" data-level="3.1.26" data-path="../exercise/026.html"><a href="../exercise/026.html"><b>3.1.26.</b>Python 3 练习 026</a></li>
+<li class="chapter" data-level="3.1.27" data-path="../exercise/027.html"><a href="../exercise/027.html"><b>3.1.27.</b>Python 3 练习 027</a></li>
+<li class="chapter" data-level="3.1.28" data-path="../exercise/028.html"><a href="../exercise/028.html"><b>3.1.28.</b>Python 3 练习 028</a></li>
+<li class="chapter" data-level="3.1.29" data-path="../exercise/029.html"><a href="../exercise/029.html"><b>3.1.29.</b>Python 3 练习 029</a></li>
+<li class="chapter" data-level="3.1.30" data-path="../exercise/030.html"><a href="../exercise/030.html"><b>3.1.30.</b>Python 3 练习 030</a></li>
+<li class="chapter" data-level="3.1.31" data-path="../exercise/031.html"><a href="../exercise/031.html"><b>3.1.31.</b>Python 3 练习 031</a></li>
+<li class="chapter" data-level="3.1.32" data-path="../exercise/032.html"><a href="../exercise/032.html"><b>3.1.32.</b>Python 3 练习 032</a></li>
+<li class="chapter" data-level="3.1.33" data-path="../exercise/033.html"><a href="../exercise/033.html"><b>3.1.33.</b>Python 3 练习 033</a></li>
+<li class="chapter" data-level="3.1.34" data-path="../exercise/034.html"><a href="../exercise/034.html"><b>3.1.34.</b>Python 3 练习 034</a></li>
+<li class="chapter" data-level="3.1.35" data-path="../exercise/035.html"><a href="../exercise/035.html"><b>3.1.35.</b>Python 3 练习 035</a></li>
+<li class="chapter" data-level="3.1.36" data-path="../exercise/036.html"><a href="../exercise/036.html"><b>3.1.36.</b>Python 3 练习 036</a></li>
+<li class="chapter" data-level="3.1.37" data-path="../exercise/037.html"><a href="../exercise/037.html"><b>3.1.37.</b>Python 3 练习 037</a></li>
+<li class="chapter" data-level="3.1.38" data-path="../exercise/038.html"><a href="../exercise/038.html"><b>3.1.38.</b>Python 3 练习 038</a></li>
+<li class="chapter" data-level="3.1.39" data-path="../exercise/039.html"><a href="../exercise/039.html"><b>3.1.39.</b>Python 3 练习 039</a></li>
+<li class="chapter" data-level="3.1.40" data-path="../exercise/040.html"><a href="../exercise/040.html"><b>3.1.40.</b>Python 3 练习 040</a></li>
+<li class="chapter" data-level="3.1.41" data-path="../exercise/041.html"><a href="../exercise/041.html"><b>3.1.41.</b>Python 3 练习 041</a></li>
+<li class="chapter" data-level="3.1.42" data-path="../exercise/042.html"><a href="../exercise/042.html"><b>3.1.42.</b>Python 3 练习 042</a></li>
+<li class="chapter" data-level="3.1.43" data-path="../exercise/043.html"><a href="../exercise/043.html"><b>3.1.43.</b>Python 3 练习 043</a></li>
+<li class="chapter" data-level="3.1.44" data-path="../exercise/044.html"><a href="../exercise/044.html"><b>3.1.44.</b>Python 3 练习 044</a></li>
+<li class="chapter" data-level="3.1.45" data-path="../exercise/045.html"><a href="../exercise/045.html"><b>3.1.45.</b>Python 3 练习 045</a></li>
+<li class="chapter" data-level="3.1.46" data-path="../exercise/046.html"><a href="../exercise/046.html"><b>3.1.46.</b>Python 3 练习 046</a></li>
+<li class="chapter" data-level="3.1.47" data-path="../exercise/047.html"><a href="../exercise/047.html"><b>3.1.47.</b>Python 3 练习 047</a></li>
+<li class="chapter" data-level="3.1.48" data-path="../exercise/048.html"><a href="../exercise/048.html"><b>3.1.48.</b>Python 3 练习 048</a></li>
+<li class="chapter" data-level="3.1.49" data-path="../exercise/049.html"><a href="../exercise/049.html"><b>3.1.49.</b>Python 3 练习 049</a></li>
+<li class="chapter" data-level="3.1.50" data-path="../exercise/050.html"><a href="../exercise/050.html"><b>3.1.50.</b>Python 3 练习 050</a></li>
+<li class="chapter" data-level="3.1.51" data-path="../exercise/051.html"><a href="../exercise/051.html"><b>3.1.51.</b>Python 3 练习 051</a></li>
+<li class="chapter" data-level="3.1.52" data-path="../exercise/052.html"><a href="../exercise/052.html"><b>3.1.52.</b>Python 3 练习 052</a></li>
+<li class="chapter" data-level="3.1.53" data-path="../exercise/053.html"><a href="../exercise/053.html"><b>3.1.53.</b>Python 3 练习 053</a></li>
+<li class="chapter" data-level="3.1.54" data-path="../exercise/054.html"><a href="../exercise/054.html"><b>3.1.54.</b>Python 3 练习 054</a></li>
+<li class="chapter" data-level="3.1.55" data-path="../exercise/055.html"><a href="../exercise/055.html"><b>3.1.55.</b>Python 3 练习 055</a></li>
+<li class="chapter" data-level="3.1.56" data-path="../exercise/056.html"><a href="../exercise/056.html"><b>3.1.56.</b>Python 3 练习 056</a></li>
+<li class="chapter" data-level="3.1.57" data-path="../exercise/057.html"><a href="../exercise/057.html"><b>3.1.57.</b>Python 3 练习 057</a></li>
+<li class="chapter" data-level="3.1.58" data-path="../exercise/058.html"><a href="../exercise/058.html"><b>3.1.58.</b>Python 3 练习 058</a></li>
+<li class="chapter" data-level="3.1.59" data-path="../exercise/059.html"><a href="../exercise/059.html"><b>3.1.59.</b>Python 3 练习 059</a></li>
+<li class="chapter" data-level="3.1.60" data-path="../exercise/060.html"><a href="../exercise/060.html"><b>3.1.60.</b>Python 3 练习 060</a></li>
+<li class="chapter" data-level="3.1.61" data-path="../exercise/061.html"><a href="../exercise/061.html"><b>3.1.61.</b>Python 3 练习 061</a></li>
+<li class="chapter" data-level="3.1.62" data-path="../exercise/062.html"><a href="../exercise/062.html"><b>3.1.62.</b>Python 3 练习 062</a></li>
+<li class="chapter" data-level="3.1.63" data-path="../exercise/063.html"><a href="../exercise/063.html"><b>3.1.63.</b>Python 3 练习 063</a></li>
+<li class="chapter" data-level="3.1.64" data-path="../exercise/064.html"><a href="../exercise/064.html"><b>3.1.64.</b>Python 3 练习 064</a></li>
+<li class="chapter" data-level="3.1.65" data-path="../exercise/065.html"><a href="../exercise/065.html"><b>3.1.65.</b>Python 3 练习 065</a></li>
+<li class="chapter" data-level="3.1.66" data-path="../exercise/066.html"><a href="../exercise/066.html"><b>3.1.66.</b>Python 3 练习 066</a></li>
+<li class="chapter" data-level="3.1.67" data-path="../exercise/067.html"><a href="../exercise/067.html"><b>3.1.67.</b>Python 3 练习 067</a></li>
+<li class="chapter" data-level="3.1.68" data-path="../exercise/068.html"><a href="../exercise/068.html"><b>3.1.68.</b>Python 3 练习 068</a></li>
+<li class="chapter" data-level="3.1.69" data-path="../exercise/069.html"><a href="../exercise/069.html"><b>3.1.69.</b>Python 3 练习 069</a></li>
+<li class="chapter" data-level="3.1.70" data-path="../exercise/070.html"><a href="../exercise/070.html"><b>3.1.70.</b>Python 3 练习 070</a></li>
+<li class="chapter" data-level="3.1.71" data-path="../exercise/071.html"><a href="../exercise/071.html"><b>3.1.71.</b>Python 3 练习 071</a></li>
+<li class="chapter" data-level="3.1.72" data-path="../exercise/072.html"><a href="../exercise/072.html"><b>3.1.72.</b>Python 3 练习 072</a></li>
+<li class="chapter" data-level="3.1.73" data-path="../exercise/073.html"><a href="../exercise/073.html"><b>3.1.73.</b>Python 3 练习 073</a></li>
+<li class="chapter" data-level="3.1.74" data-path="../exercise/074.html"><a href="../exercise/074.html"><b>3.1.74.</b>Python 3 练习 074</a></li>
+<li class="chapter" data-level="3.1.75" data-path="../exercise/075.html"><a href="../exercise/075.html"><b>3.1.75.</b>Python 3 练习 075</a></li>
+<li class="chapter" data-level="3.1.76" data-path="../exercise/076.html"><a href="../exercise/076.html"><b>3.1.76.</b>Python 3 练习 076</a></li>
+<li class="chapter" data-level="3.1.77" data-path="../exercise/077.html"><a href="../exercise/077.html"><b>3.1.77.</b>Python 3 练习 077</a></li>
+<li class="chapter" data-level="3.1.78" data-path="../exercise/078.html"><a href="../exercise/078.html"><b>3.1.78.</b>Python 3 练习 078</a></li>
+<li class="chapter" data-level="3.1.79" data-path="../exercise/079.html"><a href="../exercise/079.html"><b>3.1.79.</b>Python 3 练习 079</a></li>
+<li class="chapter" data-level="3.1.80" data-path="../exercise/080.html"><a href="../exercise/080.html"><b>3.1.80.</b>Python 3 练习 080</a></li>
+<li class="chapter" data-level="3.1.81" data-path="../exercise/081.html"><a href="../exercise/081.html"><b>3.1.81.</b>Python 3 练习 081</a></li>
+<li class="chapter" data-level="3.1.82" data-path="../exercise/082.html"><a href="../exercise/082.html"><b>3.1.82.</b>Python 3 练习 082</a></li>
+<li class="chapter" data-level="3.1.83" data-path="../exercise/083.html"><a href="../exercise/083.html"><b>3.1.83.</b>Python 3 练习 083</a></li>
+<li class="chapter" data-level="3.1.84" data-path="../exercise/084.html"><a href="../exercise/084.html"><b>3.1.84.</b>Python 3 练习 084</a></li>
+<li class="chapter" data-level="3.1.85" data-path="../exercise/085.html"><a href="../exercise/085.html"><b>3.1.85.</b>Python 3 练习 085</a></li>
+<li class="chapter" data-level="3.1.86" data-path="../exercise/086.html"><a href="../exercise/086.html"><b>3.1.86.</b>Python 3 练习 086</a></li>
+<li class="chapter" data-level="3.1.87" data-path="../exercise/087.html"><a href="../exercise/087.html"><b>3.1.87.</b>Python 3 练习 087</a></li>
+<li class="chapter" data-level="3.1.88" data-path="../exercise/088.html"><a href="../exercise/088.html"><b>3.1.88.</b>Python 3 练习 088</a></li>
+<li class="chapter" data-level="3.1.89" data-path="../exercise/089.html"><a href="../exercise/089.html"><b>3.1.89.</b>Python 3 练习 089</a></li>
+<li class="chapter" data-level="3.1.90" data-path="../exercise/090.html"><a href="../exercise/090.html"><b>3.1.90.</b>Python 3 练习 090</a></li>
+<li class="chapter" data-level="3.1.91" data-path="../exercise/091.html"><a href="../exercise/091.html"><b>3.1.91.</b>Python 3 练习 091</a></li>
+<li class="chapter" data-level="3.1.92" data-path="../exercise/092.html"><a href="../exercise/092.html"><b>3.1.92.</b>Python 3 练习 092</a></li>
+<li class="chapter" data-level="3.1.93" data-path="../exercise/093.html"><a href="../exercise/093.html"><b>3.1.93.</b>Python 3 练习 093</a></li>
+<li class="chapter" data-level="3.1.94" data-path="../exercise/094.html"><a href="../exercise/094.html"><b>3.1.94.</b>Python 3 练习 094</a></li>
+<li class="chapter" data-level="3.1.95" data-path="../exercise/095.html"><a href="../exercise/095.html"><b>3.1.95.</b>Python 3 练习 095</a></li>
+<li class="chapter" data-level="3.1.96" data-path="../exercise/096.html"><a href="../exercise/096.html"><b>3.1.96.</b>Python 3 练习 096</a></li>
+<li class="chapter" data-level="3.1.97" data-path="../exercise/097.html"><a href="../exercise/097.html"><b>3.1.97.</b>Python 3 练习 097</a></li>
+<li class="chapter" data-level="3.1.98" data-path="../exercise/098.html"><a href="../exercise/098.html"><b>3.1.98.</b>Python 3 练习 098</a></li>
+<li class="chapter" data-level="3.1.99" data-path="../exercise/099.html"><a href="../exercise/099.html"><b>3.1.99.</b>Python 3 练习 099</a></li>
+<li class="chapter" data-level="3.1.100" data-path="../exercise/100.html"><a href="../exercise/100.html"><b>3.1.100.</b>Python 3 练习 100</a></li>
+<li class="chapter" data-level="3.1.101" data-path="../exercise/101.html"><a href="../exercise/101.html"><b>3.1.101.</b>Python 3 练习 101</a></li>
+<li class="chapter" data-level="3.1.102" data-path="../exercise/102.html"><a href="../exercise/102.html"><b>3.1.102.</b>Python 3 练习 102</a></li>
+<li class="chapter" data-level="3.1.103" data-path="../exercise/103.html"><a href="../exercise/103.html"><b>3.1.103.</b>Python 3 练习 103</a></li>
+<li class="chapter" data-level="3.1.104" data-path="../exercise/104.html"><a href="../exercise/104.html"><b>3.1.104.</b>Python 3 练习 104</a></li>
+<li class="chapter" data-level="3.1.105" data-path="../exercise/105.html"><a href="../exercise/105.html"><b>3.1.105.</b>Python 3 练习 105</a></li>
+<li class="chapter" data-level="3.1.106" data-path="../exercise/106.html"><a href="../exercise/106.html"><b>3.1.106.</b>Python 3 练习 106</a></li>
+<li class="chapter" data-level="3.1.107" data-path="../exercise/107.html"><a href="../exercise/107.html"><b>3.1.107.</b>Python 3 练习 107</a></li>
+<li class="chapter" data-level="3.1.108" data-path="../exercise/108.html"><a href="../exercise/108.html"><b>3.1.108.</b>Python 3 练习 108</a></li>
+<li class="chapter" data-level="3.1.109" data-path="../exercise/109.html"><a href="../exercise/109.html"><b>3.1.109.</b>Python 3 练习 109</a></li>
+<li class="chapter" data-level="3.1.110" data-path="../exercise/110.html"><a href="../exercise/110.html"><b>3.1.110.</b>Python 3 练习 110</a></li>
+<li class="chapter" data-level="3.1.111" data-path="../exercise/111.html"><a href="../exercise/111.html"><b>3.1.111.</b>Python 3 练习 111</a></li>
+<li class="chapter" data-level="3.1.112" data-path="../exercise/112.html"><a href="../exercise/112.html"><b>3.1.112.</b>Python 3 练习 112</a></li>
+<li class="chapter" data-level="3.1.113" data-path="../exercise/113.html"><a href="../exercise/113.html"><b>3.1.113.</b>Python 3 练习 113</a></li>
+<li class="chapter" data-level="3.1.114" data-path="../exercise/114.html"><a href="../exercise/114.html"><b>3.1.114.</b>Python 3 练习 114</a></li>
+<li class="chapter" data-level="3.1.115" data-path="../exercise/115.html"><a href="../exercise/115.html"><b>3.1.115.</b>Python 3 练习 115</a></li>
+<li class="chapter" data-level="3.1.116" data-path="../exercise/116.html"><a href="../exercise/116.html"><b>3.1.116.</b>Python 3 练习 116</a></li>
+<li class="chapter" data-level="3.1.117" data-path="../exercise/117.html"><a href="../exercise/117.html"><b>3.1.117.</b>Python 3 练习 117</a></li>
+<li class="chapter" data-level="3.1.118" data-path="../exercise/118.html"><a href="../exercise/118.html"><b>3.1.118.</b>Python 3 练习 118</a></li>
+<li class="chapter" data-level="3.1.119" data-path="../exercise/119.html"><a href="../exercise/119.html"><b>3.1.119.</b>Python 3 练习 119</a></li>
+<li class="chapter" data-level="3.1.120" data-path="../exercise/120.html"><a href="../exercise/120.html"><b>3.1.120.</b>Python 3 练习 120</a></li>
+<li class="chapter" data-level="3.1.121" data-path="../exercise/121.html"><a href="../exercise/121.html"><b>3.1.121.</b>Python 3 练习 121</a></li>
+<li class="chapter" data-level="3.1.122" data-path="../exercise/122.html"><a href="../exercise/122.html"><b>3.1.122.</b>Python 3 练习 122</a></li>
+<li class="chapter" data-level="3.1.123" data-path="../exercise/123.html"><a href="../exercise/123.html"><b>3.1.123.</b>Python 3 练习 123</a></li>
+<li class="chapter" data-level="3.1.124" data-path="../exercise/124.html"><a href="../exercise/124.html"><b>3.1.124.</b>Python 3 练习 124</a></li>
+<li class="chapter" data-level="3.1.125" data-path="../exercise/125.html"><a href="../exercise/125.html"><b>3.1.125.</b>Python 3 练习 125</a></li>
+<li class="chapter" data-level="3.1.126" data-path="../exercise/126.html"><a href="../exercise/126.html"><b>3.1.126.</b>Python 3 练习 126</a></li>
+<li class="chapter" data-level="3.1.127" data-path="../exercise/127.html"><a href="../exercise/127.html"><b>3.1.127.</b>Python 3 练习 127</a></li></ul></li></ul>
+<li class="header">面试题</li>
+<ul class="articles"><li class="chapter" data-level="4.1" data-path="index.html"><a href="index.html"><b>4.1.</b>面试题</a>
+<ul class="articles"><li class="chapter" data-level="4.1.1" data-path="001.html"><a href="001.html"><b>4.1.1.</b>试题 001</a></li>
+<li class="chapter" data-level="4.1.2" data-path="002.html"><a href="002.html"><b>4.1.2.</b>试题 002</a></li>
+<li class="chapter" data-level="4.1.3" data-path="003.html"><a href="003.html"><b>4.1.3.</b>试题 003</a></li>
+<li class="chapter" data-level="4.1.4" data-path="004.html"><a href="004.html"><b>4.1.4.</b>试题 004</a></li>
+<li class="chapter" data-level="4.1.5" data-path="005.html"><a href="005.html"><b>4.1.5.</b>试题 005</a></li>
+<li class="chapter" data-level="4.1.6" data-path="006.html"><a href="006.html"><b>4.1.6.</b>试题 006</a></li>
+<li class="chapter" data-level="4.1.7" data-path="007.html"><a href="007.html"><b>4.1.7.</b>试题 007</a></li>
+<li class="chapter" data-level="4.1.8" data-path="008.html"><a href="008.html"><b>4.1.8.</b>试题 008</a></li>
+<li class="chapter" data-level="4.1.9" data-path="009.html"><a href="009.html"><b>4.1.9.</b>试题 009</a></li>
+<li class="chapter" data-level="4.1.10" data-path="010.html"><a href="010.html"><b>4.1.10.</b>试题 010</a></li>
+<li class="chapter active" data-level="4.1.11" data-path="011.html"><a href="011.html"><b>4.1.11.</b>试题 011</a></li>
+<li class="chapter" data-level="4.1.12" data-path="012.html"><a href="012.html"><b>4.1.12.</b>试题 012</a></li>
+<li class="chapter" data-level="4.1.13" data-path="013.html"><a href="013.html"><b>4.1.13.</b>试题 013</a></li>
+<li class="chapter" data-level="4.1.14" data-path="014.html"><a href="014.html"><b>4.1.14.</b>试题 014</a></li>
+<li class="chapter" data-level="4.1.15" data-path="015.html"><a href="015.html"><b>4.1.15.</b>试题 015</a></li>
+<li class="chapter" data-level="4.1.16" data-path="016.html"><a href="016.html"><b>4.1.16.</b>试题 016</a></li>
+<li class="chapter" data-level="4.1.17" data-path="017.html"><a href="017.html"><b>4.1.17.</b>试题 017</a></li>
+<li class="chapter" data-level="4.1.18" data-path="018.html"><a href="018.html"><b>4.1.18.</b>试题 018</a></li>
+<li class="chapter" data-level="4.1.19" data-path="019.html"><a href="019.html"><b>4.1.19.</b>试题 019</a></li>
+<li class="chapter" data-level="4.1.20" data-path="020.html"><a href="020.html"><b>4.1.20.</b>试题 020</a></li>
+<li class="chapter" data-level="4.1.21" data-path="021.html"><a href="021.html"><b>4.1.21.</b>试题 021</a></li>
+<li class="chapter" data-level="4.1.22" data-path="022.html"><a href="022.html"><b>4.1.22.</b>试题 022</a></li>
+<li class="chapter" data-level="4.1.23" data-path="023.html"><a href="023.html"><b>4.1.23.</b>试题 023</a></li>
+<li class="chapter" data-level="4.1.24" data-path="024.html"><a href="024.html"><b>4.1.24.</b>试题 024</a></li>
+<li class="chapter" data-level="4.1.25" data-path="025.html"><a href="025.html"><b>4.1.25.</b>试题 025</a></li>
+<li class="chapter" data-level="4.1.26" data-path="026.html"><a href="026.html"><b>4.1.26.</b>试题 026</a></li>
+<li class="chapter" data-level="4.1.27" data-path="027.html"><a href="027.html"><b>4.1.27.</b>试题 027</a></li>
+<li class="chapter" data-level="4.1.28" data-path="028.html"><a href="028.html"><b>4.1.28.</b>试题 028</a></li>
+<li class="chapter" data-level="4.1.29" data-path="029.html"><a href="029.html"><b>4.1.29.</b>试题 029</a></li>
+<li class="chapter" data-level="4.1.30" data-path="030.html"><a href="030.html"><b>4.1.30.</b>试题 030</a></li>
+<li class="chapter" data-level="4.1.31" data-path="031.html"><a href="031.html"><b>4.1.31.</b>试题 031</a></li>
+<li class="chapter" data-level="4.1.32" data-path="032.html"><a href="032.html"><b>4.1.32.</b>试题 032</a></li>
+<li class="chapter" data-level="4.1.33" data-path="033.html"><a href="033.html"><b>4.1.33.</b>试题 033</a></li>
+<li class="chapter" data-level="4.1.34" data-path="034.html"><a href="034.html"><b>4.1.34.</b>试题 034</a></li>
+<li class="chapter" data-level="4.1.35" data-path="035.html"><a href="035.html"><b>4.1.35.</b>试题 035</a></li>
+<li class="chapter" data-level="4.1.36" data-path="036.html"><a href="036.html"><b>4.1.36.</b>试题 036</a></li>
+<li class="chapter" data-level="4.1.37" data-path="037.html"><a href="037.html"><b>4.1.37.</b>试题 037</a></li>
+<li class="chapter" data-level="4.1.38" data-path="038.html"><a href="038.html"><b>4.1.38.</b>试题 038</a></li>
+<li class="chapter" data-level="4.1.39" data-path="039.html"><a href="039.html"><b>4.1.39.</b>试题 039</a></li>
+<li class="chapter" data-level="4.1.40" data-path="040.html"><a href="040.html"><b>4.1.40.</b>试题 040</a></li>
+<li class="chapter" data-level="4.1.41" data-path="041.html"><a href="041.html"><b>4.1.41.</b>试题 041</a></li>
+<li class="chapter" data-level="4.1.42" data-path="042.html"><a href="042.html"><b>4.1.42.</b>试题 042</a></li>
+<li class="chapter" data-level="4.1.43" data-path="043.html"><a href="043.html"><b>4.1.43.</b>试题 043</a></li>
+<li class="chapter" data-level="4.1.44" data-path="044.html"><a href="044.html"><b>4.1.44.</b>试题 044</a></li>
+<li class="chapter" data-level="4.1.45" data-path="045.html"><a href="045.html"><b>4.1.45.</b>试题 045</a></li>
+<li class="chapter" data-level="4.1.46" data-path="046.html"><a href="046.html"><b>4.1.46.</b>试题 046</a></li>
+<li class="chapter" data-level="4.1.47" data-path="047.html"><a href="047.html"><b>4.1.47.</b>试题 047</a></li>
+<li class="chapter" data-level="4.1.48" data-path="048.html"><a href="048.html"><b>4.1.48.</b>试题 048</a></li>
+<li class="chapter" data-level="4.1.49" data-path="049.html"><a href="049.html"><b>4.1.49.</b>试题 049</a></li>
+<li class="chapter" data-level="4.1.50" data-path="050.html"><a href="050.html"><b>4.1.50.</b>试题 050</a></li>
+<li class="chapter" data-level="4.1.51" data-path="051.html"><a href="051.html"><b>4.1.51.</b>试题 051</a></li>
+<li class="chapter" data-level="4.1.52" data-path="052.html"><a href="052.html"><b>4.1.52.</b>试题 052</a></li>
+<li class="chapter" data-level="4.1.53" data-path="053.html"><a href="053.html"><b>4.1.53.</b>试题 053</a></li>
+<li class="chapter" data-level="4.1.54" data-path="054.html"><a href="054.html"><b>4.1.54.</b>试题 054</a></li>
+<li class="chapter" data-level="4.1.55" data-path="055.html"><a href="055.html"><b>4.1.55.</b>试题 055</a></li>
+<li class="chapter" data-level="4.1.56" data-path="056.html"><a href="056.html"><b>4.1.56.</b>试题 056</a></li>
+<li class="chapter" data-level="4.1.57" data-path="057.html"><a href="057.html"><b>4.1.57.</b>试题 057</a></li>
+<li class="chapter" data-level="4.1.58" data-path="058.html"><a href="058.html"><b>4.1.58.</b>试题 058</a></li>
+<li class="chapter" data-level="4.1.59" data-path="059.html"><a href="059.html"><b>4.1.59.</b>试题 059</a></li>
+<li class="chapter" data-level="4.1.60" data-path="060.html"><a href="060.html"><b>4.1.60.</b>试题 060</a></li>
+<li class="chapter" data-level="4.1.61" data-path="061.html"><a href="061.html"><b>4.1.61.</b>试题 061</a></li></ul></li></ul>
+            <li class="divider"></li>
+            <li>
+                <a class="lsbook-link" href="https://github.com/andyzrp/RPbook" target="blank">
+                    本书使用 RPBook 发布
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="book-body">
+    <div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            <a href="../..">试题 011</a>
+        </h1>
+    </div>
+
+    <div class="page-wrapper" role="main" tabindex="-1">
+        <div class="page-inner">
+            <div class="search-plus" id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <div id='anchor-navigation-ex-navbar'><i class='fa fa-anchor'></i><ul><li><span class='title-icon fa fa-hand-o-right'></span><a aria-label class='on-toolbar-action' href='' onclick="$('.fa.fa-align-justify').parent()[0].click();">目录</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_1'><b></b>Python 面试题</a></li></ul></div><a href='#anchor_1' id='anchorNavigationExGoTop'><i class='fa fa-arrow-up'></i></a>
+                        <h1 id="anchor_1"><a class="anchor-navigation-ex-anchor" href="#anchor_1" name="anchor_1"><i aria-hidden="true" class="fa fa-link"></i></a>Python 面试题</h1>
+<p>编写一个 Reg 表达式，使用 Python Reg 表达式模块 <code class="language-vim">Re</code> 确认电子邮件 ID？</p>
+<sec data-title="点我看答案"><div class="panel panel-default"><div class="panel-heading"><b>点我看答案<a class="pull-right section atTitle btn btn-default " target="sectionx1"><span class="fa fa-angle-down" /></a></b></div><div class="panel-collapse collapse" id="sectionx1"><div class="panel-body"><p>Python 有一个正则表达式模块<code class="language-vim">re</code>。</p><p>编写可以检查 <code class="language-vim">.com</code> 和 <code class="language-vim">.co.in</code> 子域的电子邮件 ID 的 <code class="language-vim">re</code> 表达式。</p><pre class="line-numbers"><code class="lang-python rainbow-braces">import re
+
+print(re.search(r&quot;[0-9a-zA-Z.]+@[a-zA-Z]+\.(com|co\.in)$&quot;,&quot;liushi.live@outlook.com&quot;))
+</code></pre></div></div></div></sec>
+
+                        <footer class="page-footer"><span class="copyright">© 2020 曾润平. 
+All rights reserved.</span><span class="footer-modification">
+<span id="busuanzi_container_site_uv" style="display:none">本站访客数 <span id="busuanzi_value_site_uv">
+</span> 人次</span></span></footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+
+</script>
+                    </section>
+                </div>
+                <div class="search-results">
+                    <div class="has-results">
+                        <h1 class="search-results-title"><span class='search-results-count'></span> 结果匹配 "<span class='search-query'></span>"</h1>
+                        <ul class="search-results-list"></ul>
+                    </div>
+                    <div class="no-results">
+                        <h1 class="search-results-title">没有匹配的结果 "<span class='search-query'></span>"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a aria-label="Previous page: 试题 010" class="navigation navigation-prev" href="010.html">
+    <i class="fa fa-angle-left"></i>
+</a>
+
+
+<a aria-label="Next page: 试题 012" class="navigation navigation-next" href="012.html">
+    <i class="fa fa-angle-right"></i>
+</a>
+
+
+</div>
+<script>
+    var lsbook = lsbook || [];
+    lsbook.push(function () {
+        lsbook.page.hasChanged({
+            "config": {
+                "github_url":"https://liushilive.github.io/",
+                "language": "zh-cn",
+                "previous_page_link": "010.html",
+                "next_page_link": "012.html"
+            },
+            "basePath": "../..",
+            "js": {'prism': ['../../../asserts/lsbook/prismjs/clipboard.min.js', '../../../asserts/lsbook/prismjs/prism.js']}
+        });
+    });
+</script>
+</div>
+
+<script src="../../../asserts/lsbook/jquery-3.3.1.min.js"></script>
+<script charset="UTF-8" src="../../../asserts/lsbook/jquery_mar/jquery.mark.js"></script>
+<script src="../../../asserts/lsbook/lightbox/js/lightbox.min.js"></script>
+<script src="../../../asserts/lsbook/lsbook.min.js"></script>
+
+</body>
+</html>
