@@ -90,9 +90,9 @@
 
 * [中级测试人员 **必知必会**](github_exercise_rjpcs_ex/)
 
-* [软件测试](github_testing/)
+<!--* [软件测试](github_testing/)-->
 
-* [软件测试词典](github_software_testing_dictionary/)
+<!--* [软件测试词典](github_software_testing_dictionary/)--->
 
 ## UI 测试
 
@@ -108,7 +108,11 @@
 
 * [接口测试页面](http://httpbin.org/)
 
-## Android
+##性能测试
+
+* [性能测试相关](github_exercise_performance_testing/)
+
+## 操作系统
 
 * [Android 相关](github_exercise_android/)
 
@@ -126,15 +130,13 @@
 
 <!-- * ![微信扫我打开调试](微信调试二维码.gif) -->
 
-## linux
-
 * [Linux 相关](github_exercise_linux/)
 
-## Oracle
+## 数据库
 
 * [Oracle 相关](github_exercise_oracle/)
 
-## Python
+## 编程语言
 
 * [Python 相关](github_exercise_python/)
 
