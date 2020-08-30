@@ -1,0 +1,2487 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Android 相关 - ADB</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="" name="description">
+<meta content="曾润平" name="author">
+
+<link href="../../asserts/lsbook/less/website.css" rel="stylesheet">
+<link href="../../asserts/lsbook/katex/katex.min.css" rel="stylesheet">
+<link href="../../asserts/lsbook/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<meta content="true" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<link href="../../asserts/lsbook/images/apple-touch-icon-precomposed-152.png"
+      rel="apple-touch-icon-precomposed" sizes="152x152">
+<link href="../../asserts/lsbook/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--分页-->
+<link href="monkey.html" rel="next"/>
+</head>
+<body>
+<div class="book match-braces"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input placeholder="输入并搜索" type="text"/>
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            <li class="header">Summary</li>
+<ul class="articles"><li class="chapter" data-level="1.1" data-path="../index.html"><a href="../index.html"><b>1.1.</b>介绍</a></li></ul>
+<li class="header">常用工具</li>
+<ul class="articles"><li class="chapter active" data-level="2.1" data-path="adb.html"><a href="adb.html"><b>2.1.</b>ADB</a></li>
+<li class="chapter" data-level="2.2" data-path="monkey.html"><a href="monkey.html"><b>2.2.</b>Monkey</a></li></ul>
+            <li class="divider"></li>
+            <li>
+                <a class="lsbook-link" href="https://github.com/andyzrp/RPbook" target="blank">
+                    本书使用 RPBook 发布
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="book-body">
+    <div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            <a href="..">ADB</a>
+        </h1>
+    </div>
+
+    <div class="page-wrapper" role="main" tabindex="-1">
+        <div class="page-inner">
+            <div class="search-plus" id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <div id='anchor-navigation-ex-navbar'><i class='fa fa-anchor'></i><ul><li><span class='title-icon fa fa-hand-o-right'></span><a aria-label class='on-toolbar-action' href='' onclick="$('.fa.fa-align-justify').parent()[0].click();">目录</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_1'><b></b>ADB</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_2'><b>1. </b>adb 的工作原理</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_3'><b>2. </b>在你的设备上启用 adb 调试</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_4'><b>2.1. </b>USB 连接</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_5'><b>2.2. </b>无线连接（需要借助 USB 线）</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_6'><b>3. </b>基本用法</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_7'><b>3.1. </b>命令语法</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_8'><b>3.2. </b>为命令指定目标设备</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_9'><b>3.3. </b>启动 / 停止</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_10'><b>3.4. </b>查看 adb 版本</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_11'><b>3.5. </b>以 root 权限运行 adb</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_12'><b>3.6. </b>指定 adb server 的网络端口</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_13'><b>4. </b>设备连接管理</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_14'><b>4.1. </b>查询已连接设备 / 模拟器</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_15'><b>5. </b>应用管理</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_16'><b>5.1. </b>查看应用列表</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_21'><b>5.2. </b>安装 APK</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_22'><b>5.3. </b>卸载应用</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_23'><b>5.4. </b>清除应用数据与缓存</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_24'><b>5.5. </b>查看前台 Activity</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_25'><b>5.6. </b>查看正在运行的 Services</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_26'><b>5.7. </b>查看应用详细信息</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_27'><b>5.8. </b>查看应用安装路径</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_28'><b>6. </b>与应用交互</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_29'><b>6.1. </b>启动应用 / 调起 Activity</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_30'><b>6.2. </b>调起 Service</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_31'><b>6.3. </b>停止 Service</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_32'><b>6.4. </b>发送广播</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_33'><b>6.5. </b>强制停止应用</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_34'><b>6.6. </b>收紧内存</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_35'><b>7. </b>文件管理</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_36'><b>7.1. </b>复制设备里的文件到电脑</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_37'><b>7.2. </b>复制电脑里的文件到设备</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_38'><b>8. </b>模拟按键 / 输入</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_39'><b>8.1. </b>电源键</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_40'><b>8.2. </b>菜单键</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_41'><b>8.3. </b>HOME 键</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_42'><b>8.4. </b>返回键</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_43'><b>8.5. </b>音量控制</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_44'><b>8.6. </b>媒体控制</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_45'><b>8.7. </b>点亮 / 熄灭屏幕</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_46'><b>8.8. </b>滑动解锁</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_47'><b>8.9. </b>输入文本</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_48'><b>9. </b>查看日志</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_49'><b>9.1. </b>Android 日志</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_54'><b>9.2. </b>内核日志</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_55'><b>10. </b>查看设备信息</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_56'><b>10.1. </b>型号</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_57'><b>10.2. </b>电池状况</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_58'><b>10.3. </b>屏幕分辨率</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_59'><b>10.4. </b>输出屏幕密度</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_60'><b>10.5. </b>显示屏参数</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_61'><b>10.6. </b>android_id</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_62'><b>10.7. </b>IMEI</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_63'><b>10.8. </b>Android 系统版本</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_64'><b>10.9. </b>IP 地址</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_65'><b>10.10. </b>Mac 地址</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_66'><b>10.11. </b>CPU 信息</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_67'><b>10.12. </b>内存信息</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_68'><b>10.13. </b>更多硬件与系统属性</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_69'><b>11. </b>修改设置</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_70'><b>11.1. </b>分辨率</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_71'><b>11.2. </b>修改屏幕密度</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_72'><b>11.3. </b>显示区域</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_73'><b>11.4. </b>关闭 USB 调试模式</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_74'><b>11.5. </b>允许 / 禁止访问非 SDK API</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_75'><b>11.6. </b>状态栏和导航栏的显示隐藏</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_76'><b>12. </b>实用功能</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_77'><b>12.1. </b>屏幕截图</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_78'><b>12.2. </b>录制屏幕</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_79'><b>12.3. </b>重新挂载 system 分区为可写</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_80'><b>12.4. </b>查看连接过的 WiFi 密码</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_81'><b>12.5. </b>设置系统日期和时间</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_82'><b>12.6. </b>重启手机</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_83'><b>12.7. </b>检测设备是否已 root</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_84'><b>12.8. </b>使用 Monkey 进行压力测试</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_85'><b>12.9. </b>开启 / 关闭 WiFi</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_86'><b>13. </b>刷机相关命令</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_87'><b>13.1. </b>重启到 Recovery 模式</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_88'><b>13.2. </b>从 Recovery 重启到 Android</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_89'><b>13.3. </b>重启到 Fastboot 模式</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_90'><b>13.4. </b>通过 sideload 更新系统</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_91'><b>14. </b>安全相关命令</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_92'><b>14.1. </b>启用 / 禁用 SELinux</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_93'><b>14.2. </b>启用 / 禁用 dm_verity</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_94'><b>15. </b>更多 adb shell 命令</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_95'><b>15.1. </b>查看进程</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_96'><b>15.2. </b>查看实时资源占用情况</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_97'><b>15.3. </b>查看进程 UID</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_98'><b>15.4. </b>其它</a></li></ul></ul></ul></div><a href='#anchor_1' id='anchorNavigationExGoTop'><i class='fa fa-arrow-up'></i></a>
+                        <h1 id="anchor_1"><a class="anchor-navigation-ex-anchor" href="#anchor_1" name="anchor_1"><i aria-hidden="true" class="fa fa-link"></i></a>ADB</h1>
+<p><a target=_Blank href="https://developer.android.com/studio/command-line/adb?hl=zh-cn">官方文档</a></p>
+<p>Android 调试桥 (<code class="language-vim">adb</code>) 是一种功能多样的命令行工具，可让您与设备进行通信。<code class="language-vim">adb</code> 命令可用于执行各种设备操作（例如安装和调试应用），并提供对 Unix shell（可用来在设备上运行各种命令）的访问权限。它是一种客户端 - 服务器程序，包括以下三个组件：</p>
+<ul>
+<li><strong>客户端</strong>：用于发送命令。客户端在开发计算机上运行。您可以通过发出 <code class="language-vim">adb</code> 命令来从命令行终端调用客户端。</li>
+<li><strong>守护进程</strong> (<code class="language-vim">adbd</code>)：在设备上运行命令。守护进程在每个设备上作为后台进程运行。</li>
+<li><strong>服务器</strong>：管理客户端和守护进程之间的通信。服务器在开发机器上作为后台进程运行。</li>
+</ul>
+<p>可以在 <code class="language-vim">android_sdk/platform-tools/</code> 中找到 <code class="language-vim">adb</code> 工具。</p>
+<blockquote>
+<p>建议将该路径加入 <code class="language-vim">PATH</code> 环境变量中</p>
+</blockquote>
+<h2 id="anchor_2"><a class="anchor-navigation-ex-anchor" href="#anchor_2" name="anchor_2"><i aria-hidden="true" class="fa fa-link"></i></a>1. adb 的工作原理</h2>
+<p>当你启动一个 <code class="language-vim">adb</code> 客户端，客户端首先确认是否已有一个 <code class="language-vim">adb</code> 服务进程在运行。如果没有，则启动服务进程。当服务器运行，<code class="language-vim">adb</code> 服务器就会绑定本地的 <code class="language-vim">TCP</code> 端口 <code class="language-vim">5037</code> 并监听 <code class="language-vim">adb</code> 客户端发来的命令，所有的 <code class="language-vim">adb</code> 客户端都是用端口 <code class="language-vim">5037</code> 与 <code class="language-vim">adb</code> 服务器通信。</p>
+<p>然后，服务器将所有运行中的模拟器或设备实例建立连接。它通过扫描所有 <code class="language-vim">5555</code> 到 <code class="language-vim">5585</code> 范围内（该范围供前 16 个模拟器使用）的 <code class="language-vim">奇数端口</code> 来定位所有的模拟器或设备。一旦服务器找到了 <code class="language-vim">adb</code> 守护程序 (<code class="language-vim">adbd</code>)，它将建立一个到该端口的连接。请注意，任何模拟器或设备实例会取得两个连续的端口——一个<code class="language-vim">偶数端口</code>用来响应控制台的连接，和一个 <code class="language-vim">奇数端口</code> 用来响应 <code class="language-vim">adb</code> 连接。比如说：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">模拟器1，控制台：5554
+模拟器1，adb：5555
+模拟器2，控制台：5556
+模拟器2，adb：5557
+以此类推...
+</code></pre>
+<p>如上所示，模拟器实例通过 <code class="language-vim">5555</code> 端口连接 <code class="language-vim">adb</code>，就如同使用 <code class="language-vim">5554</code> 端口连接控制台一样。</p>
+<p>一旦服务器与所有模拟器实例建立连接，就可以使用 <code class="language-vim">adb</code> 命令控制和访问该实例。因为服务器管理 <code class="language-vim">模拟器 / 设备实例</code>的连接，和控制处理从来自多个 <code class="language-vim">adb</code> 客户端来的命令，你可以通过任何客户端（或脚本）来控制任何模拟器或设备实例。</p>
+<h2 id="anchor_3"><a class="anchor-navigation-ex-anchor" href="#anchor_3" name="anchor_3"><i aria-hidden="true" class="fa fa-link"></i></a>2. 在你的设备上启用 adb 调试</h2>
+<p>要在通过 USB 连接的设备上使用 <code class="language-vim">adb</code>，必须在设备系统设置中启用 <code class="language-vim">USB 调试</code>（位于 <code class="language-vim">开发者选项</code> 下）。</p>
+<ol>
+<li>在运行 Android 4.2 及更高版本的设备上，<code class="language-vim">开发者选项</code> 屏幕默认情况下处于隐藏状态。</li>
+<li>如需将其显示出来，请转到 <code class="language-vim">设置</code> &gt; <code class="language-vim">关于手机</code> 并点按 <code class="language-vim">软件版本号</code> 七次。</li>
+<li>返回上一屏幕，在底部可以找到 <code class="language-vim">开发者选项</code>。</li>
+<li>在某些设备上，<code class="language-vim">开发者选项</code> 屏幕所在的位置或命名方式可能有所不同。</li>
+</ol>
+<p>现在，可以将设备与 USB 连接。可以从命令行执行 <code class="language-vim">adb devices</code> 来验证设备是否连接。</p>
+<blockquote>
+<p>注：当连接运行 Android 4.2.2 或更高版本的设备时，系统将显示一个对话框，询问 <code class="language-vim">你是否接受允许在这台计算机上调试</code> 的 RSA 密钥。这种安全机制可以保护用户设备，因为它可以确保只有在你能够解锁设备并确认对话框的情况下才能执行 USB 调试和其他 <code class="language-vim">ADB</code> 命令。</p>
+</blockquote>
+<h3 id="anchor_4"><a class="anchor-navigation-ex-anchor" href="#anchor_4" name="anchor_4"><i aria-hidden="true" class="fa fa-link"></i></a>2.1. USB 连接</h3>
+<p>通过 USB 连接来正常使用 adb 需要保证几点：</p>
+<ol>
+<li>
+<p>硬件状态正常。</p>
+<p>包括 Android 设备处于正常开机状态，USB 连接线和各种接口完好。</p>
+</li>
+<li>
+<p>Android 设备的开发者选项和 USB 调试模式已开启。</p>
+<p>可以到 <code class="language-vim">设置</code> - <code class="language-vim">开发者选项</code> - <code class="language-vim">Android 调试</code> 查看。</p>
+<p>如果在设置里找不到开发者选项，那需要通过一个彩蛋来让它显示出来：在 <code class="language-vim">设置</code>-<code class="language-vim">关于手机</code>连续点击<code class="language-vim">版本号</code>7 次。</p>
+</li>
+<li>
+<p>设备驱动状态正常。</p>
+<p>这一点貌似在 Linux 和 Mac OS X 下不用操心，在 Windows 下有可能遇到需要安装驱动的情况，确认这一点可以右键<code class="language-vim">计算机</code>-<code class="language-vim">属性</code>，到<code class="language-vim">设备管理器</code>里查看相关设备上是否有黄色感叹号或问号，如果没有就说明驱动状态已经好了。否则可以下载一个手机助手类程序来安装驱动先。</p>
+</li>
+<li>
+<p>通过 USB 线连接好电脑和设备后确认状态。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb devices
+</code></pre>
+<p>如果能看到</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">xxxxxx device
+</code></pre>
+<p>说明连接成功。</p>
+</li>
+</ol>
+<h3 id="anchor_5"><a class="anchor-navigation-ex-anchor" href="#anchor_5" name="anchor_5"><i aria-hidden="true" class="fa fa-link"></i></a>2.2. 无线连接（需要借助 USB 线）</h3>
+<p>除了可以通过 USB 连接设备与电脑来使用 adb，也可以通过无线连接——虽然连接过程中也有需要使用 USB 的步骤，但是连接成功之后你的设备就可以在一定范围内摆脱 USB 连接线的限制啦！</p>
+<p>操作步骤：</p>
+<ol>
+<li>
+<p>将 Android 设备与要运行 adb 的电脑连接到同一个局域网，比如连到同一个 WiFi。</p>
+</li>
+<li>
+<p>将设备与电脑通过 USB 线连接。</p>
+<p>应确保连接成功（可运行 <code class="language-vim">adb devices</code> 看是否能列出该设备）。</p>
+</li>
+<li>
+<p>让设备在 5555 端口监听 TCP/IP 连接：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb tcpip 5555
+</code></pre>
+</li>
+<li>
+<p>断开 USB 连接。</p>
+</li>
+<li>
+<p>找到设备的 IP 地址。</p>
+<p>一般能在<code class="language-vim">设置</code>-<code class="language-vim">关于手机</code>-<code class="language-vim">状态信息</code>-<code class="language-vim">IP 地址</code>找到，也可以使用下文里 <code class="language-vim">查看设备信息</code>-<code class="language-vim">IP 地址</code> 一节里的方法用 adb 命令来查看。</p>
+</li>
+<li>
+<p>通过 IP 地址连接设备。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb connect &lt;device-ip-address&gt;
+</code></pre>
+<p>这里的 <code class="language-vim">&lt;device-ip-address&gt;</code> 就是上一步中找到的设备 IP 地址。</p>
+</li>
+<li>
+<p>确认连接状态。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb devices
+</code></pre>
+<p>如果能看到</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;device-ip-address&gt;:5555 device
+</code></pre>
+<p>说明连接成功。</p>
+</li>
+</ol>
+<p>如果连接不了，请确认 Android 设备与电脑是连接到了同一个 WiFi，然后再次执行 <code class="language-vim">adb connect &lt;device-ip-address&gt;</code> 那一步；</p>
+<p>如果还是不行的话，通过 <code class="language-vim">adb kill-server</code> 重新启动 adb 然后从头再来一次试试。</p>
+<blockquote>
+<p>断开无线连接</p>
+</blockquote>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb disconnect &lt;device-ip-address&gt;
+</code></pre>
+<h2 id="anchor_6"><a class="anchor-navigation-ex-anchor" href="#anchor_6" name="anchor_6"><i aria-hidden="true" class="fa fa-link"></i></a>3. 基本用法</h2>
+<h3 id="anchor_7"><a class="anchor-navigation-ex-anchor" href="#anchor_7" name="anchor_7"><i aria-hidden="true" class="fa fa-link"></i></a>3.1. 命令语法</h3>
+<p>adb 命令的基本语法如下：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb [-d|-e|-s &lt;serialNumber&gt;] &lt;command&gt;
+</code></pre>
+<p>如果只有一个设备 / 模拟器连接时，可以省略掉 <code class="language-vim">[-d|-e|-s &lt;serialNumber&gt;]</code> 这一部分，直接使用 <code class="language-vim">adb &lt;command&gt;</code>。</p>
+<h3 id="anchor_8"><a class="anchor-navigation-ex-anchor" href="#anchor_8" name="anchor_8"><i aria-hidden="true" class="fa fa-link"></i></a>3.2. 为命令指定目标设备</h3>
+<p>如果有多个设备 / 模拟器连接，则需要为命令指定目标设备。</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">-d</td>
+<td align="left">指定当前唯一通过 USB 连接的 Android 设备为命令目标</td>
+</tr>
+<tr>
+<td align="left">-e</td>
+<td align="left">指定当前唯一运行的模拟器为命令目标</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-s &lt;serialNumber&gt;</code></td>
+<td align="left">指定相应 serialNumber 号的设备 / 模拟器为命令目标</td>
+</tr>
+</tbody>
+</table>
+<p>在多个设备 / 模拟器连接的情况下较常用的是 <code class="language-vim">-s &lt;serialNumber&gt;</code> 参数，serialNumber 可以通过 <code class="language-vim">adb devices</code> 命令获取。如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&gt; adb devices
+
+List of devices attached
+cf264b8f  device
+emulator-5554  device
+10.129.164.6:5555  device
+</code></pre>
+<p>输出里的 <code class="language-vim">cf264b8f</code>、<code class="language-vim">emulator-5554</code> 和 <code class="language-vim">10.129.164.6:5555</code> 即为 serialNumber。</p>
+<p>比如这时想指定 <code class="language-vim">cf264b8f</code> 这个设备来运行 adb 命令获取屏幕分辨率：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb -s cf264b8f shell wm size
+</code></pre>
+<p>又如想给 <code class="language-vim">10.129.164.6:5555</code> 这个设备安装应用（<em>这种形式的 serialNumber 格式为 <code class="language-vim">&lt;IP&gt;:&lt;Port&gt;</code>，一般为无线连接的设备或 Genymotion 等第三方 Android 模拟器</em>）：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb -s 10.129.164.6:5555 install test.apk
+</code></pre>
+<blockquote>
+<p>遇到多设备 / 模拟器的情况均使用这几个参数为命令指定目标设备，下文中为简化描述，不再重复。</p>
+</blockquote>
+<h3 id="anchor_9"><a class="anchor-navigation-ex-anchor" href="#anchor_9" name="anchor_9"><i aria-hidden="true" class="fa fa-link"></i></a>3.3. 启动 / 停止</h3>
+<p>启动 adb server 命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb start-server
+</code></pre>
+<p>（一般无需手动执行此命令，在运行 adb 命令时若发现 adb server 没有启动会自动调起。）</p>
+<p>停止 adb server 命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb kill-server
+</code></pre>
+<h3 id="anchor_10"><a class="anchor-navigation-ex-anchor" href="#anchor_10" name="anchor_10"><i aria-hidden="true" class="fa fa-link"></i></a>3.4. 查看 adb 版本</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb version
+</code></pre>
+<p>示例输出：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Android Debug Bridge version 1.0.36
+Revision 8f855a3d9b35-android
+</code></pre>
+<h3 id="anchor_11"><a class="anchor-navigation-ex-anchor" href="#anchor_11" name="anchor_11"><i aria-hidden="true" class="fa fa-link"></i></a>3.5. 以 root 权限运行 adb</h3>
+<p>adb 的运行原理是 PC 端的 adb server 与手机端的守护进程 adb 建立连接，然后 PC 端的 adb client 通过 adb server 转发命令，adb 接收命令后解析运行。</p>
+<p>所以如果 adb 以普通权限执行，有些需要 root 权限才能执行的命令无法直接用 <code class="language-vim">adb xxx</code> 执行。这时可以 <code class="language-vim">adb shell</code> 然后 <code class="language-vim">su</code> 后执行命令，也可以让 adb 以 root 权限执行，这个就能随意执行高权限命令了。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+</code></pre>
+<p>正常输出：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">restarting adb as root
+</code></pre>
+<p>现在再运行 <code class="language-vim">adb shell</code>，看看命令行提示符是不是变成 <code class="language-vim">#</code> 了？</p>
+<p>有些手机 root 后也无法通过 <code class="language-vim">adb root</code> 命令让 adb 以 root 权限执行，比如三星的部分机型，会提示 <code class="language-vim">adb cannot run as root in production builds</code>，此时可以先安装 adb Insecure，然后 <code class="language-vim">adb root</code> 试试。</p>
+<p>相应地，如果要恢复 adb 为非 root 权限的话，可以使用 <code class="language-vim">adb unroot</code> 命令。</p>
+<h3 id="anchor_12"><a class="anchor-navigation-ex-anchor" href="#anchor_12" name="anchor_12"><i aria-hidden="true" class="fa fa-link"></i></a>3.6. 指定 adb server 的网络端口</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb -P &lt;port&gt; start-server
+</code></pre>
+<p>默认端口为 5037。</p>
+<h2 id="anchor_13"><a class="anchor-navigation-ex-anchor" href="#anchor_13" name="anchor_13"><i aria-hidden="true" class="fa fa-link"></i></a>4. 设备连接管理</h2>
+<h3 id="anchor_14"><a class="anchor-navigation-ex-anchor" href="#anchor_14" name="anchor_14"><i aria-hidden="true" class="fa fa-link"></i></a>4.1. 查询已连接设备 / 模拟器</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb devices [-l]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">显示列表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">-l</code></td>
+<td align="left">如果包含 <code class="language-vim">-l</code> 选项，则 devices 命令会告知你设备是什么。当您连接了多个设备时，此信息很有用，可帮助您将它们区分开来。</td>
+</tr>
+</tbody>
+</table>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">List of devices attached
+cf264b8f  device
+emulator-5554  device
+10.129.164.6:5555  device
+</code></pre>
+<p>输出格式为 <code class="language-vim">[serialNumber] [state]</code>，serialNumber 即我们常说的 SN，state 有如下几种：</p>
+<ul>
+<li>
+<p><code class="language-vim">offline</code></p>
+<p>表示设备未连接成功或无响应。</p>
+</li>
+<li>
+<p><code class="language-vim">device</code></p>
+<p>设备已连接。</p>
+<p>注意这个状态并不能标识 Android 系统已经完全启动和可操作，在设备启动过程中设备实例就可连接到 adb，但启动完毕后系统才处于可操作状态。</p>
+</li>
+<li>
+<p><code class="language-vim">no device</code></p>
+<p>没有设备 / 模拟器连接。</p>
+</li>
+</ul>
+<p>以上输出显示当前已经连接了三台设备 / 模拟器，<code class="language-vim">cf264b8f</code>、<code class="language-vim">emulator-5554</code> 和 <code class="language-vim">10.129.164.6:5555</code> 分别是它们的 SN。从 <code class="language-vim">emulator-5554</code> 这个名字可以看出它是一个 Android 模拟器，而 <code class="language-vim">10.129.164.6:5555</code> 这种形为 <code class="language-vim">&lt;IP&gt;:&lt;Port&gt;</code> 的 serialNumber 一般是无线连接的设备或 Genymotion 等第三方 Android 模拟器。</p>
+<p>常见异常输出：</p>
+<ol>
+<li>
+<p>没有设备 / 模拟器连接成功。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">List of devices attached
+</code></pre>
+</li>
+<li>
+<p>设备 / 模拟器未连接到 adb 或无响应。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">List of devices attached
+cf264b8f  offline
+</code></pre>
+</li>
+</ol>
+<h2 id="anchor_15"><a class="anchor-navigation-ex-anchor" href="#anchor_15" name="anchor_15"><i aria-hidden="true" class="fa fa-link"></i></a>5. 应用管理</h2>
+<h3 id="anchor_16"><a class="anchor-navigation-ex-anchor" href="#anchor_16" name="anchor_16"><i aria-hidden="true" class="fa fa-link"></i></a>5.1. 查看应用列表</h3>
+<p>查看应用列表的基本命令格式是</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages [-f] [-d] [-e] [-s] [-3] [-i] [-u] [--user USER_ID] [FILTER]
+</code></pre>
+<p>即在 <code class="language-vim">adb shell pm list packages</code> 的基础上可以加一些参数进行过滤查看不同的列表，支持的过滤参数如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">显示列表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">无</td>
+<td align="left">所有应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-f</code></td>
+<td align="left">显示应用关联的 apk 文件</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-d</code></td>
+<td align="left">只显示 disabled 的应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-e</code></td>
+<td align="left">只显示 enabled 的应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-s</code></td>
+<td align="left">只显示系统应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-3</code></td>
+<td align="left">只显示第三方应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-i</code></td>
+<td align="left">显示应用的 installer</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-u</code></td>
+<td align="left">包含已卸载应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">&lt;FILTER&gt;</code></td>
+<td align="left">包名包含 <code class="language-vim">&lt;FILTER&gt;</code> 字符串</td>
+</tr>
+</tbody>
+</table>
+<h4 id="anchor_17"><a class="anchor-navigation-ex-anchor" href="#anchor_17" name="anchor_17"><i aria-hidden="true" class="fa fa-link"></i></a>5.1.1. 所有应用</h4>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">package:com.android.smoketest
+package:com.example.android.livecubes
+package:com.android.providers.telephony
+package:com.google.android.googlequicksearchbox
+package:com.android.providers.calendar
+package:com.android.providers.media
+package:com.android.protips
+package:com.android.documentsui
+package:com.android.gallery
+package:com.android.externalstorage
+...
+// other packages here
+...
+</code></pre>
+<h4 id="anchor_18"><a class="anchor-navigation-ex-anchor" href="#anchor_18" name="anchor_18"><i aria-hidden="true" class="fa fa-link"></i></a>5.1.2. 系统应用</h4>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages -s
+</code></pre>
+<h4 id="anchor_19"><a class="anchor-navigation-ex-anchor" href="#anchor_19" name="anchor_19"><i aria-hidden="true" class="fa fa-link"></i></a>5.1.3. 第三方应用</h4>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages -3
+</code></pre>
+<h4 id="anchor_20"><a class="anchor-navigation-ex-anchor" href="#anchor_20" name="anchor_20"><i aria-hidden="true" class="fa fa-link"></i></a>5.1.4. 包名包含某字符串的应用</h4>
+<p>比如要查看包名包含字符串 <code class="language-vim">mazhuang</code> 的应用列表，命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages mazhuang
+</code></pre>
+<p>当然也可以使用 grep 来过滤：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm list packages | grep mazhuang
+</code></pre>
+<h3 id="anchor_21"><a class="anchor-navigation-ex-anchor" href="#anchor_21" name="anchor_21"><i aria-hidden="true" class="fa fa-link"></i></a>5.2. 安装 APK</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb install [-lrtsdg] &lt;path_to_apk&gt;
+</code></pre>
+<p>参数：</p>
+<p><code class="language-vim">adb install</code> 后面可以跟一些可选参数来控制安装 APK 的行为，可用参数及含义如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">-l</code></td>
+<td align="left">将应用安装到保护目录 <code class="language-vim">/mnt/asec</code></td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-r</code></td>
+<td align="left">允许覆盖安装</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-t</code></td>
+<td align="left">允许安装 <code class="language-vim">AndroidManifest.xml</code> 里 application 指定 <code class="language-vim">android:testOnly=&quot;true&quot;</code> 的应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-s</code></td>
+<td align="left">将应用安装到 <code class="language-vim">sdcard</code></td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-d</code></td>
+<td align="left">允许降级覆盖安装</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-g</code></td>
+<td align="left">授予所有运行时权限</td>
+</tr>
+</tbody>
+</table>
+<p>运行命令后如果见到类似如下输出（状态为 <code class="language-vim">Success</code>）代表安装成功：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">[100%] /data/local/tmp/1.apk
+  pkg: /data/local/tmp/1.apk
+Success
+</code></pre>
+<p>上面是当前最新版 v1.0.36 的 adb 的输出，会显示 push apk 文件到手机的进度百分比。</p>
+<p>使用旧版本 adb 的输出则是这样的：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">12040 KB/s (22205609 bytes in 1.801s)
+        pkg: /data/local/tmp/SogouInput_android_v8.3_sweb.apk
+Success
+</code></pre>
+<p>而如果状态为 <code class="language-vim">Failure</code> 则表示安装失败，比如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">[100%] /data/local/tmp/map-20160831.apk
+        pkg: /data/local/tmp/map-20160831.apk
+Failure [INSTALL_FAILED_ALREADY_EXISTS]
+</code></pre>
+<p>常见安装失败输出代码、含义及可能的解决办法如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">输出</th>
+<th align="left">含义</th>
+<th align="left">解决办法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">INSTALL_FAILED_ALREADY_EXISTS</td>
+<td align="left">应用已经存在，或卸载了但没卸载干净</td>
+<td align="left"><code class="language-vim">adb install</code> 时使用 <code class="language-vim">-r</code> 参数，或者先 <code class="language-vim">adb uninstall &lt;packagename&gt;</code> 再安装</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_INVALID_APK</td>
+<td align="left">无效的 APK 文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_INVALID_URI</td>
+<td align="left">无效的 APK 文件名</td>
+<td align="left">确保 APK 文件名里无中文</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_INSUFFICIENT_STORAGE</td>
+<td align="left">空间不足</td>
+<td align="left">清理空间</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_DUPLICATE_PACKAGE</td>
+<td align="left">已经存在同名程序</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_NO_SHARED_USER</td>
+<td align="left">请求的共享用户不存在</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_UPDATE_INCOMPATIBLE</td>
+<td align="left">以前安装过同名应用，但卸载时数据没有移除；或者已安装该应用，但签名不一致</td>
+<td align="left">先 <code class="language-vim">adb uninstall &lt;packagename&gt;</code> 再安装</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_SHARED_USER_INCOMPATIBLE</td>
+<td align="left">请求的共享用户存在但签名不一致</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_MISSING_SHARED_LIBRARY</td>
+<td align="left">安装包使用了设备上不可用的共享库</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_REPLACE_COULDNT_DELETE</td>
+<td align="left">替换时无法删除</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_DEXOPT</td>
+<td align="left">dex 优化验证失败或空间不足</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_OLDER_SDK</td>
+<td align="left">设备系统版本低于应用要求</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_CONFLICTING_PROVIDER</td>
+<td align="left">设备里已经存在与应用里同名的 content provider</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_NEWER_SDK</td>
+<td align="left">设备系统版本高于应用要求</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_TEST_ONLY</td>
+<td align="left">应用是 test-only 的，但安装时没有指定 <code class="language-vim">-t</code> 参数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_CPU_ABI_INCOMPATIBLE</td>
+<td align="left">包含不兼容设备 CPU 应用程序二进制接口的 native code</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_MISSING_FEATURE</td>
+<td align="left">应用使用了设备不可用的功能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_CONTAINER_ERROR</td>
+<td align="left">1. sdcard 访问失败；<br />2. 应用签名与 ROM 签名一致，被当作内置应用。</td>
+<td align="left">1. 确认 sdcard 可用，或者安装到内置存储；<br />2. 打包时不与 ROM 使用相同签名。</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_INVALID_INSTALL_LOCATION</td>
+<td align="left">1. 不能安装到指定位置；<br />2. 应用签名与 ROM 签名一致，被当作内置应用。</td>
+<td align="left">1. 切换安装位置，添加或删除 <code class="language-vim">-s</code> 参数；<br />2. 打包时不与 ROM 使用相同签名。</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_MEDIA_UNAVAILABLE</td>
+<td align="left">安装位置不可用</td>
+<td align="left">一般为 sdcard，确认 sdcard 可用或安装到内置存储</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_VERIFICATION_TIMEOUT</td>
+<td align="left">验证安装包超时</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_VERIFICATION_FAILURE</td>
+<td align="left">验证安装包失败</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_PACKAGE_CHANGED</td>
+<td align="left">应用与调用程序期望的不一致</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_UID_CHANGED</td>
+<td align="left">以前安装过该应用，与本次分配的 UID 不一致</td>
+<td align="left">清除以前安装过的残留文件</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_VERSION_DOWNGRADE</td>
+<td align="left">已经安装了该应用更高版本</td>
+<td align="left">使用 <code class="language-vim">-d</code> 参数</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_PERMISSION_MODEL_DOWNGRADE</td>
+<td align="left">已安装 target SDK 支持运行时权限的同名应用，要安装的版本不支持运行时权限</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_NOT_APK</td>
+<td align="left">指定路径不是文件，或不是以 <code class="language-vim">.apk</code> 结尾</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_BAD_MANIFEST</td>
+<td align="left">无法解析的 AndroidManifest.xml 文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_UNEXPECTED_EXCEPTION</td>
+<td align="left">解析器遇到异常</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_NO_CERTIFICATES</td>
+<td align="left">安装包没有签名</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES</td>
+<td align="left">已安装该应用，且签名与 APK 文件不一致</td>
+<td align="left">先卸载设备上的该应用，再安装</td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_CERTIFICATE_ENCODING</td>
+<td align="left">解析 APK 文件时遇到 <code class="language-vim">CertificateEncodingException</code></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_BAD_PACKAGE_NAME</td>
+<td align="left">manifest 文件里没有或者使用了无效的包名</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_BAD_SHARED_USER_ID</td>
+<td align="left">manifest 文件里指定了无效的共享用户 ID</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_MANIFEST_MALFORMED</td>
+<td align="left">解析 manifest 文件时遇到结构性错误</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_PARSE_FAILED_MANIFEST_EMPTY</td>
+<td align="left">在 manifest 文件里找不到找可操作标签（instrumentation 或 application）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_INTERNAL_ERROR</td>
+<td align="left">因系统问题安装失败</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_USER_RESTRICTED</td>
+<td align="left">用户被限制安装应用</td>
+<td align="left">在开发者选项里将「USB 安装」打开，如果已经打开了，那先关闭再打开。</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_DUPLICATE_PERMISSION</td>
+<td align="left">应用尝试定义一个已经存在的权限名称</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_NO_MATCHING_ABIS</td>
+<td align="left">应用包含设备的应用程序二进制接口不支持的 native code</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_CANCELED_BY_USER</td>
+<td align="left">应用安装需要在设备上确认，但未操作设备或点了取消</td>
+<td align="left">在设备上同意安装</td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_ACWF_INCOMPATIBLE</td>
+<td align="left">应用程序与设备不兼容</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">INSTALL_FAILED_TEST_ONLY</td>
+<td align="left">APK 文件是使用 Android Studio 直接 RUN 编译出来的文件</td>
+<td align="left">通过 Gradle 的 assembleDebug 或 assembleRelease 重新编译，或者 Generate Signed APK</td>
+</tr>
+<tr>
+<td align="left">does not contain AndroidManifest.xml</td>
+<td align="left">无效的 APK 文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">is not a valid zip file</td>
+<td align="left">无效的 APK 文件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">Offline</td>
+<td align="left">设备未连接成功</td>
+<td align="left">先将设备与 adb 连接成功</td>
+</tr>
+<tr>
+<td align="left">unauthorized</td>
+<td align="left">设备未授权允许调试</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">error: device not found</td>
+<td align="left">没有连接成功的设备</td>
+<td align="left">先将设备与 adb 连接成功</td>
+</tr>
+<tr>
+<td align="left">protocol failure</td>
+<td align="left">设备已断开连接</td>
+<td align="left">先将设备与 adb 连接成功</td>
+</tr>
+<tr>
+<td align="left">Unknown option: -s</td>
+<td align="left">Android 2.2 以下不支持安装到 sdcard</td>
+<td align="left">不使用 <code class="language-vim">-s</code> 参数</td>
+</tr>
+<tr>
+<td align="left">No space left on device</td>
+<td align="left">空间不足</td>
+<td align="left">清理空间</td>
+</tr>
+<tr>
+<td align="left">Permission denied ... sdcard ...</td>
+<td align="left">sdcard 不可用</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">signatures do not match the previously installed version; ignoring!</td>
+<td align="left">已安装该应用且签名不一致</td>
+<td align="left">先卸载设备上的该应用，再安装</td>
+</tr>
+</tbody>
+</table>
+<p>参考：<a target=_Blank href="https://github.com/android/platform_frameworks_base/blob/master/core%2Fjava%2Fandroid%2Fcontent%2Fpm%2FPackageManager.java">PackageManager.java</a></p>
+<p>*<code class="language-vim">adb install</code> 内部原理简介*</p>
+<p><code class="language-vim">adb install</code> 实际是分三步完成：</p>
+<ol>
+<li>
+<p>push apk 文件到 /data/local/tmp。</p>
+</li>
+<li>
+<p>调用 pm install 安装。</p>
+</li>
+<li>
+<p>删除 /data/local/tmp 下的对应 apk 文件。</p>
+</li>
+</ol>
+<p>所以，必要的时候也可以根据这个步骤，手动分步执行安装过程。</p>
+<h3 id="anchor_22"><a class="anchor-navigation-ex-anchor" href="#anchor_22" name="anchor_22"><i aria-hidden="true" class="fa fa-link"></i></a>5.3. 卸载应用</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb uninstall [-k] &lt;packagename&gt;
+</code></pre>
+<p><code class="language-vim">&lt;packagename&gt;</code> 表示应用的包名，<code class="language-vim">-k</code> 参数可选，表示卸载应用但保留数据和缓存目录。</p>
+<p>命令示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb uninstall com.qihoo360.mobilesafe
+</code></pre>
+<p>表示卸载 360 手机卫士。</p>
+<h3 id="anchor_23"><a class="anchor-navigation-ex-anchor" href="#anchor_23" name="anchor_23"><i aria-hidden="true" class="fa fa-link"></i></a>5.4. 清除应用数据与缓存</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm clear &lt;packagename&gt;
+</code></pre>
+<p><code class="language-vim">&lt;packagename&gt;</code> 表示应用名包，这条命令的效果相当于在设置里的应用信息界面点击了「清除缓存」和「清除数据」。</p>
+<p>命令示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm clear com.qihoo360.mobilesafe
+</code></pre>
+<p>表示清除 360 手机卫士的数据和缓存。</p>
+<h3 id="anchor_24"><a class="anchor-navigation-ex-anchor" href="#anchor_24" name="anchor_24"><i aria-hidden="true" class="fa fa-link"></i></a>5.5. 查看前台 Activity</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys activity activities | grep mFocusedActivity
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">mFocusedActivity: ActivityRecord{8079d7e u0 com.cyanogenmod.trebuchet/com.android.launcher3.Launcher t42}
+</code></pre>
+<p>其中的 <code class="language-vim">com.cyanogenmod.trebuchet/com.android.launcher3.Launcher</code> 就是当前处于前台的 Activity。</p>
+<h3 id="anchor_25"><a class="anchor-navigation-ex-anchor" href="#anchor_25" name="anchor_25"><i aria-hidden="true" class="fa fa-link"></i></a>5.6. 查看正在运行的 Services</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys activity services [&lt;packagename&gt;]
+</code></pre>
+<p><code class="language-vim">&lt;packagename&gt;</code> 参数不是必须的，指定 <code class="language-vim">&lt;packagename&gt;</code> 表示查看与某个包名相关的 Services，不指定表示查看所有 Services。</p>
+<p><code class="language-vim">&lt;packagename&gt;</code> 不一定要给出完整的包名，比如运行 <code class="language-vim">adb shell dumpsys activity services org.mazhuang</code>，那么包名 <code class="language-vim">org.mazhuang.demo1</code>、<code class="language-vim">org.mazhuang.demo2</code> 和 <code class="language-vim">org.mazhuang123</code> 等相关的 Services 都会列出来。</p>
+<h3 id="anchor_26"><a class="anchor-navigation-ex-anchor" href="#anchor_26" name="anchor_26"><i aria-hidden="true" class="fa fa-link"></i></a>5.7. 查看应用详细信息</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys package &lt;packagename&gt;
+</code></pre>
+<p>输出中包含很多信息，包括 Activity Resolver Table、Registered ContentProviders、包名、userId、安装后的文件资源代码等路径、版本信息、权限信息和授予状态、签名版本信息等。</p>
+<p><code class="language-vim">&lt;packagename&gt;</code> 表示应用包名。</p>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        5b4cba8 org.mazhuang.guanggoo/.SplashActivity filter 5ec9dcc
+          Action: &quot;android.intent.action.MAIN&quot;
+          Category: &quot;android.intent.category.LAUNCHER&quot;
+          AutoVerify=false
+
+Registered ContentProviders:
+  org.mazhuang.guanggoo/com.tencent.bugly.beta.utils.BuglyFileProvider:
+    Provider{7a3c394 org.mazhuang.guanggoo/com.tencent.bugly.beta.utils.BuglyFileProvider}
+
+ContentProvider Authorities:
+  [org.mazhuang.guanggoo.fileProvider]:
+    Provider{7a3c394 org.mazhuang.guanggoo/com.tencent.bugly.beta.utils.BuglyFileProvider}
+      applicationInfo=ApplicationInfo{7754242 org.mazhuang.guanggoo}
+
+Key Set Manager:
+  [org.mazhuang.guanggoo]
+      Signing KeySets: 501
+
+Packages:
+  Package [org.mazhuang.guanggoo] (c1d7f):
+    userId=10394
+    pkg=Package{55f714c org.mazhuang.guanggoo}
+    codePath=/data/app/org.mazhuang.guanggoo-2
+    resourcePath=/data/app/org.mazhuang.guanggoo-2
+    legacyNativeLibraryDir=/data/app/org.mazhuang.guanggoo-2/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=74 minSdk=15 targetSdk=25
+    versionName=1.1.74
+    splits=[base]
+    apkSigningVersion=2
+    applicationInfo=ApplicationInfo{7754242 org.mazhuang.guanggoo}
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ RESIZEABLE_ACTIVITIES ]
+    dataDir=/data/user/0/org.mazhuang.guanggoo
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2017-10-22 23:50:53
+    firstInstallTime=2017-10-22 23:50:25
+    lastUpdateTime=2017-10-22 23:50:55
+    installerPackageName=com.miui.packageinstaller
+    signatures=PackageSignatures{af09595 [53c7caa2]}
+    installPermissionsFixed=true installStatus=1
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    requested permissions:
+      android.permission.READ_PHONE_STATE
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.ACCESS_WIFI_STATE
+      android.permission.READ_LOGS
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.READ_EXTERNAL_STORAGE
+    install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.ACCESS_WIFI_STATE: granted=true
+    User 0: ceDataInode=1155675 installed=true hidden=false suspended=false stopped=true notLaunched=false enabled=0
+      gids=[3003]
+      runtime permissions:
+        android.permission.READ_EXTERNAL_STORAGE: granted=true
+        android.permission.READ_PHONE_STATE: granted=true
+        android.permission.WRITE_EXTERNAL_STORAGE: granted=true
+    User 999: ceDataInode=0 installed=false hidden=false suspended=false stopped=true notLaunched=true enabled=0
+      gids=[3003]
+      runtime permissions:
+
+Dexopt state:
+  [org.mazhuang.guanggoo]
+    Instruction Set: arm64
+      path: /data/app/org.mazhuang.guanggoo-2/base.apk
+      status: /data/app/org.mazhuang.guanggoo-2/oat/arm64/base.odex [compilation_filter=speed-profile, status=kOatUpToDa
+      te]
+</code></pre>
+<h3 id="anchor_27"><a class="anchor-navigation-ex-anchor" href="#anchor_27" name="anchor_27"><i aria-hidden="true" class="fa fa-link"></i></a>5.8. 查看应用安装路径</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm path &lt;PACKAGE&gt;
+</code></pre>
+<p>输出应用安装路径</p>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell pm path ecarx.weather
+
+package:/data/app/ecarx.weather-1.apk
+</code></pre>
+<h2 id="anchor_28"><a class="anchor-navigation-ex-anchor" href="#anchor_28" name="anchor_28"><i aria-hidden="true" class="fa fa-link"></i></a>6. 与应用交互</h2>
+<p>主要是使用 <code class="language-vim">am &lt;command&gt;</code> 命令，常用的 <code class="language-vim">&lt;command&gt;</code> 如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">command</th>
+<th align="left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">start [options] &lt;INTENT&gt;</code></td>
+<td align="left">启动 <code class="language-vim">&lt;INTENT&gt;</code> 指定的 Activity</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">startservice [options] &lt;INTENT&gt;</code></td>
+<td align="left">启动 <code class="language-vim">&lt;INTENT&gt;</code> 指定的 Service</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">broadcast [options] &lt;INTENT&gt;</code></td>
+<td align="left">发送 <code class="language-vim">&lt;INTENT&gt;</code> 指定的广播</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">force-stop &lt;packagename&gt;</code></td>
+<td align="left">停止 <code class="language-vim">&lt;packagename&gt;</code> 相关的进程</td>
+</tr>
+</tbody>
+</table>
+<p><code class="language-vim">&lt;INTENT&gt;</code> 参数很灵活，和写 Android 程序时代码里的 Intent 相对应。</p>
+<p>用于决定 intent 对象的选项如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">-a &lt;ACTION&gt;</code></td>
+<td align="left">指定 action，比如 <code class="language-vim">android.intent.action.VIEW</code></td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-c &lt;CATEGORY&gt;</code></td>
+<td align="left">指定 category，比如 <code class="language-vim">android.intent.category.APP_CONTACTS</code></td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-n &lt;COMPONENT&gt;</code></td>
+<td align="left">指定完整 component 名，用于明确指定启动哪个 Activity，如 <code class="language-vim">com.example.app/.ExampleActivity</code></td>
+</tr>
+</tbody>
+</table>
+<p><code class="language-vim">&lt;INTENT&gt;</code> 里还能带数据，就像写代码时的 Bundle 一样：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">--esn &lt;EXTRA_KEY&gt;</code></td>
+<td align="left">null 值（只有 key 名）</td>
+</tr>
+<tr>
+<td align="left">`-e</td>
+<td align="left">--es &lt;EXTRA_KEY&gt; &lt;EXTRA_STRING_VALUE&gt;`</td>
+<td align="left">string 值</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--ez &lt;EXTRA_KEY&gt; &lt;EXTRA_BOOLEAN_VALUE&gt;</code></td>
+<td align="left">boolean 值</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--ei &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt;</code></td>
+<td align="left">integer 值</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--el &lt;EXTRA_KEY&gt; &lt;EXTRA_LONG_VALUE&gt;</code></td>
+<td align="left">long 值</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--ef &lt;EXTRA_KEY&gt; &lt;EXTRA_FLOAT_VALUE&gt;</code></td>
+<td align="left">float 值</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--eu &lt;EXTRA_KEY&gt; &lt;EXTRA_URI_VALUE&gt;</code></td>
+<td align="left">URI</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--ecn &lt;EXTRA_KEY&gt; &lt;EXTRA_COMPONENT_NAME_VALUE&gt;</code></td>
+<td align="left">component name</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--eia &lt;EXTRA_KEY&gt; &lt;EXTRA_INT_VALUE&gt;[,&lt;EXTRA_INT_VALUE...]</code></td>
+<td align="left">integer 数组</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">--ela &lt;EXTRA_KEY&gt; &lt;EXTRA_LONG_VALUE&gt;[,&lt;EXTRA_LONG_VALUE...]</code></td>
+<td align="left">long 数组</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anchor_29"><a class="anchor-navigation-ex-anchor" href="#anchor_29" name="anchor_29"><i aria-hidden="true" class="fa fa-link"></i></a>6.1. 启动应用 / 调起 Activity</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am start [options] &lt;INTENT&gt;
+</code></pre>
+<p>例如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am start -n com.tencent.mm/.ui.LauncherUI
+</code></pre>
+<p>表示调起微信主界面。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am start -n org.mazhuang.boottimemeasure/.MainActivity --es &quot;toast&quot; &quot;hello, world&quot;
+</code></pre>
+<p>表示调起 <code class="language-vim">org.mazhuang.boottimemeasure/.MainActivity</code> 并传给它 string 数据键值对 <code class="language-vim">toast - hello, world</code>。</p>
+<h3 id="anchor_30"><a class="anchor-navigation-ex-anchor" href="#anchor_30" name="anchor_30"><i aria-hidden="true" class="fa fa-link"></i></a>6.2. 调起 Service</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am startservice [options] &lt;INTENT&gt;
+</code></pre>
+<p>例如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am startservice -n com.tencent.mm/.plugin.accountsync.model.AccountAuthenticatorService
+</code></pre>
+<p>表示调起微信的某 Service。</p>
+<p>另外一个典型的用例是如果设备上原本应该显示虚拟按键但是没有显示，可以试试这个：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am startservice -n com.android.systemui/.SystemUIService
+</code></pre>
+<h3 id="anchor_31"><a class="anchor-navigation-ex-anchor" href="#anchor_31" name="anchor_31"><i aria-hidden="true" class="fa fa-link"></i></a>6.3. 停止 Service</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am stopservice [options] &lt;INTENT&gt;
+</code></pre>
+<h3 id="anchor_32"><a class="anchor-navigation-ex-anchor" href="#anchor_32" name="anchor_32"><i aria-hidden="true" class="fa fa-link"></i></a>6.4. 发送广播</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am broadcast [options] &lt;INTENT&gt;
+</code></pre>
+<p>可以向所有组件广播，也可以只向指定组件广播。</p>
+<p>例如，向所有组件广播 <code class="language-vim">BOOT_COMPLETED</code>：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am broadcast -a android.intent.action.BOOT_COMPLETED
+</code></pre>
+<p>又例如，只向 <code class="language-vim">org.mazhuang.boottimemeasure/.BootCompletedReceiver</code> 广播 <code class="language-vim">BOOT_COMPLETED</code>：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am broadcast -a android.intent.action.BOOT_COMPLETED -n org.mazhuang.boottimemeasure/.BootCompletedReceiver
+</code></pre>
+<p>这类用法在测试的时候很实用，比如某个广播的场景很难制造，可以考虑通过这种方式来发送广播。</p>
+<p>既能发送系统预定义的广播，也能发送自定义广播。如下是部分系统预定义广播及正常触发时机：</p>
+<table>
+<thead>
+<tr>
+<th align="left">action</th>
+<th align="left">触发时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">android.net.conn.CONNECTIVITY_CHANGE</td>
+<td align="left">网络连接发生变化</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.SCREEN_ON</td>
+<td align="left">屏幕点亮</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.SCREEN_OFF</td>
+<td align="left">屏幕熄灭</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.BATTERY_LOW</td>
+<td align="left">电量低，会弹出电量低提示框</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.BATTERY_OKAY</td>
+<td align="left">电量恢复了</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.BOOT_COMPLETED</td>
+<td align="left">设备启动完毕</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.DEVICE_STORAGE_LOW</td>
+<td align="left">存储空间过低</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.DEVICE_STORAGE_OK</td>
+<td align="left">存储空间恢复</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.PACKAGE_ADDED</td>
+<td align="left">安装了新的应用</td>
+</tr>
+<tr>
+<td align="left">android.net.wifi.STATE_CHANGE</td>
+<td align="left">WiFi 连接状态发生变化</td>
+</tr>
+<tr>
+<td align="left">android.net.wifi.WIFI_STATE_CHANGED</td>
+<td align="left">WiFi 状态变为启用 / 关闭 / 正在启动 / 正在关闭 / 未知</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.BATTERY_CHANGED</td>
+<td align="left">电池电量发生变化</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.INPUT_METHOD_CHANGED</td>
+<td align="left">系统输入法发生变化</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.ACTION_POWER_CONNECTED</td>
+<td align="left">外部电源连接</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.ACTION_POWER_DISCONNECTED</td>
+<td align="left">外部电源断开连接</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.DREAMING_STARTED</td>
+<td align="left">系统开始休眠</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.DREAMING_STOPPED</td>
+<td align="left">系统停止休眠</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.WALLPAPER_CHANGED</td>
+<td align="left">壁纸发生变化</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.HEADSET_PLUG</td>
+<td align="left">插入耳机</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.MEDIA_UNMOUNTED</td>
+<td align="left">卸载外部介质</td>
+</tr>
+<tr>
+<td align="left">android.intent.action.MEDIA_MOUNTED</td>
+<td align="left">挂载外部介质</td>
+</tr>
+<tr>
+<td align="left">android.os.action.POWER_SAVE_MODE_CHANGED</td>
+<td align="left">省电模式开启</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>（以上广播均可使用 adb 触发）</p>
+</blockquote>
+<h3 id="anchor_33"><a class="anchor-navigation-ex-anchor" href="#anchor_33" name="anchor_33"><i aria-hidden="true" class="fa fa-link"></i></a>6.5. 强制停止应用</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am force-stop &lt;packagename&gt;
+</code></pre>
+<p>命令示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am force-stop com.qihoo360.mobilesafe
+</code></pre>
+<p>表示停止 360 安全卫士的一切进程与服务。</p>
+<h3 id="anchor_34"><a class="anchor-navigation-ex-anchor" href="#anchor_34" name="anchor_34"><i aria-hidden="true" class="fa fa-link"></i></a>6.6. 收紧内存</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am send-trim-memory  &lt;pid&gt; &lt;level&gt;
+</code></pre>
+<p>pid: 进程 ID
+level:
+HIDDEN、RUNNING_MODERATE、BACKGROUND、
+RUNNING_LOW、MODERATE、RUNNING_CRITICAL、COMPLETE</p>
+<p>命令示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell am send-trim-memory 12345 RUNNING_LOW
+</code></pre>
+<p>表示向 pid=12345 的进程，发出 level=RUNNING_LOW 的收紧内存命令。</p>
+<h2 id="anchor_35"><a class="anchor-navigation-ex-anchor" href="#anchor_35" name="anchor_35"><i aria-hidden="true" class="fa fa-link"></i></a>7. 文件管理</h2>
+<h3 id="anchor_36"><a class="anchor-navigation-ex-anchor" href="#anchor_36" name="anchor_36"><i aria-hidden="true" class="fa fa-link"></i></a>7.1. 复制设备里的文件到电脑</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb pull &lt;设备里的文件路径&gt; [电脑上的目录]
+</code></pre>
+<p>其中 <code class="language-vim">电脑上的目录</code> 参数可以省略，默认复制到当前目录。</p>
+<p>例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb pull /sdcard/sr.mp4 ~/tmp/
+</code></pre>
+<p><em>小技巧：</em>设备上的文件路径可能需要 root 权限才能访问，如果你的设备已经 root 过，可以先使用 <code class="language-vim">adb shell</code> 和 <code class="language-vim">su</code> 命令在 adb shell 里获取 root 权限后，先 <code class="language-vim">cp /path/on/device /sdcard/filename</code> 将文件复制到 sdcard，然后 <code class="language-vim">adb pull /sdcard/filename /path/on/pc</code>。</p>
+<h3 id="anchor_37"><a class="anchor-navigation-ex-anchor" href="#anchor_37" name="anchor_37"><i aria-hidden="true" class="fa fa-link"></i></a>7.2. 复制电脑里的文件到设备</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb push &lt;电脑上的文件路径&gt; &lt;设备里的目录&gt;
+</code></pre>
+<p>例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb push ~/sr.mp4 /sdcard/
+</code></pre>
+<p><em>小技巧：</em>设备上的文件路径普通权限可能无法直接写入，如果你的设备已经 root 过，可以先 <code class="language-vim">adb push /path/on/pc /sdcard/filename</code>，然后 <code class="language-vim">adb shell</code> 和 <code class="language-vim">su</code> 在 adb shell 里获取 root 权限后，<code class="language-vim">cp /sdcard/filename /path/on/device</code>。</p>
+<h2 id="anchor_38"><a class="anchor-navigation-ex-anchor" href="#anchor_38" name="anchor_38"><i aria-hidden="true" class="fa fa-link"></i></a>8. 模拟按键 / 输入</h2>
+<p>在 <code class="language-vim">adb shell</code> 里有个很实用的命令叫 <code class="language-vim">input</code>，通过它可以做一些有趣的事情。</p>
+<p><code class="language-vim">input</code> 命令的完整 help 信息如下：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Usage: input [&lt;source&gt;] &lt;command&gt; [&lt;arg&gt;...]
+
+The sources are:
+      mouse
+      keyboard
+      joystick
+      touchnavigation
+      touchpad
+      trackball
+      stylus
+      dpad
+      gesture
+      touchscreen
+      gamepad
+
+The commands and default sources are:
+      text &lt;string&gt; (Default: touchscreen)
+      keyevent [--longpress] &lt;key code number or name&gt; ... (Default: keyboard)
+      tap &lt;x&gt; &lt;y&gt; (Default: touchscreen)
+      swipe &lt;x1&gt; &lt;y1&gt; &lt;x2&gt; &lt;y2&gt; [duration(ms)] (Default: touchscreen)
+      press (Default: trackball)
+      roll &lt;dx&gt; &lt;dy&gt; (Default: trackball)
+</code></pre>
+<p>比如使用 <code class="language-vim">adb shell input keyevent &lt;keycode&gt;</code> 命令，不同的 keycode 能实现不同的功能，完整的 keycode 列表详见 <a target=_Blank href="https://developer.android.com/reference/android/view/KeyEvent.html">KeyEvent</a>，摘引部分我觉得有意思的如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">keycode</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">3</td>
+<td align="left">HOME 键</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">返回键</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">打开拨号应用</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">挂断电话</td>
+</tr>
+<tr>
+<td align="left">24</td>
+<td align="left">增加音量</td>
+</tr>
+<tr>
+<td align="left">25</td>
+<td align="left">降低音量</td>
+</tr>
+<tr>
+<td align="left">26</td>
+<td align="left">电源键</td>
+</tr>
+<tr>
+<td align="left">27</td>
+<td align="left">拍照（需要在相机应用里）</td>
+</tr>
+<tr>
+<td align="left">64</td>
+<td align="left">打开浏览器</td>
+</tr>
+<tr>
+<td align="left">82</td>
+<td align="left">菜单键</td>
+</tr>
+<tr>
+<td align="left">85</td>
+<td align="left">播放 / 暂停</td>
+</tr>
+<tr>
+<td align="left">86</td>
+<td align="left">停止播放</td>
+</tr>
+<tr>
+<td align="left">87</td>
+<td align="left">播放下一首</td>
+</tr>
+<tr>
+<td align="left">88</td>
+<td align="left">播放上一首</td>
+</tr>
+<tr>
+<td align="left">122</td>
+<td align="left">移动光标到行首或列表顶部</td>
+</tr>
+<tr>
+<td align="left">123</td>
+<td align="left">移动光标到行末或列表底部</td>
+</tr>
+<tr>
+<td align="left">126</td>
+<td align="left">恢复播放</td>
+</tr>
+<tr>
+<td align="left">127</td>
+<td align="left">暂停播放</td>
+</tr>
+<tr>
+<td align="left">164</td>
+<td align="left">静音</td>
+</tr>
+<tr>
+<td align="left">176</td>
+<td align="left">打开系统设置</td>
+</tr>
+<tr>
+<td align="left">187</td>
+<td align="left">切换应用</td>
+</tr>
+<tr>
+<td align="left">207</td>
+<td align="left">打开联系人</td>
+</tr>
+<tr>
+<td align="left">208</td>
+<td align="left">打开日历</td>
+</tr>
+<tr>
+<td align="left">209</td>
+<td align="left">打开音乐</td>
+</tr>
+<tr>
+<td align="left">210</td>
+<td align="left">打开计算器</td>
+</tr>
+<tr>
+<td align="left">220</td>
+<td align="left">降低屏幕亮度</td>
+</tr>
+<tr>
+<td align="left">221</td>
+<td align="left">提高屏幕亮度</td>
+</tr>
+<tr>
+<td align="left">223</td>
+<td align="left">系统休眠</td>
+</tr>
+<tr>
+<td align="left">224</td>
+<td align="left">点亮屏幕</td>
+</tr>
+<tr>
+<td align="left">231</td>
+<td align="left">打开语音助手</td>
+</tr>
+<tr>
+<td align="left">276</td>
+<td align="left">如果没有 wakelock 则让系统休眠</td>
+</tr>
+</tbody>
+</table>
+<p>下面是 <code class="language-vim">input</code> 命令的一些用法举例。</p>
+<h3 id="anchor_39"><a class="anchor-navigation-ex-anchor" href="#anchor_39" name="anchor_39"><i aria-hidden="true" class="fa fa-link"></i></a>8.1. 电源键</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 26
+</code></pre>
+<p>执行效果相当于按电源键。</p>
+<h3 id="anchor_40"><a class="anchor-navigation-ex-anchor" href="#anchor_40" name="anchor_40"><i aria-hidden="true" class="fa fa-link"></i></a>8.2. 菜单键</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 82
+</code></pre>
+<h3 id="anchor_41"><a class="anchor-navigation-ex-anchor" href="#anchor_41" name="anchor_41"><i aria-hidden="true" class="fa fa-link"></i></a>8.3. HOME 键</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 3
+</code></pre>
+<h3 id="anchor_42"><a class="anchor-navigation-ex-anchor" href="#anchor_42" name="anchor_42"><i aria-hidden="true" class="fa fa-link"></i></a>8.4. 返回键</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 4
+</code></pre>
+<h3 id="anchor_43"><a class="anchor-navigation-ex-anchor" href="#anchor_43" name="anchor_43"><i aria-hidden="true" class="fa fa-link"></i></a>8.5. 音量控制</h3>
+<p>增加音量：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 24
+</code></pre>
+<p>降低音量：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 25
+</code></pre>
+<p>静音：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 164
+</code></pre>
+<h3 id="anchor_44"><a class="anchor-navigation-ex-anchor" href="#anchor_44" name="anchor_44"><i aria-hidden="true" class="fa fa-link"></i></a>8.6. 媒体控制</h3>
+<p>播放 / 暂停：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 85
+</code></pre>
+<p>停止播放：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 86
+</code></pre>
+<p>播放下一首：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 87
+</code></pre>
+<p>播放上一首：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 88
+</code></pre>
+<p>恢复播放：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 126
+</code></pre>
+<p>暂停播放：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 127
+</code></pre>
+<h3 id="anchor_45"><a class="anchor-navigation-ex-anchor" href="#anchor_45" name="anchor_45"><i aria-hidden="true" class="fa fa-link"></i></a>8.7. 点亮 / 熄灭屏幕</h3>
+<p>可以通过上文讲述过的模拟电源键来切换点亮和熄灭屏幕，但如果明确地想要点亮或者熄灭屏幕，那可以使用如下方法。</p>
+<p>点亮屏幕：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 224
+</code></pre>
+<p>熄灭屏幕：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input keyevent 223
+</code></pre>
+<h3 id="anchor_46"><a class="anchor-navigation-ex-anchor" href="#anchor_46" name="anchor_46"><i aria-hidden="true" class="fa fa-link"></i></a>8.8. 滑动解锁</h3>
+<p>如果锁屏没有密码，是通过滑动手势解锁，那么可以通过 <code class="language-vim">input swipe</code> 来解锁。</p>
+<p>命令（参数以机型 Nexus 5，向上滑动手势解锁举例）：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input swipe 300 1000 300 500
+</code></pre>
+<p>参数 <code class="language-vim">300 1000 300 500</code> 分别表示<code class="language-vim">起始点 x 坐标 起始点 y 坐标 结束点 x 坐标 结束点 y 坐标</code>。</p>
+<h3 id="anchor_47"><a class="anchor-navigation-ex-anchor" href="#anchor_47" name="anchor_47"><i aria-hidden="true" class="fa fa-link"></i></a>8.9. 输入文本</h3>
+<p>在焦点处于某文本框时，可以通过 <code class="language-vim">input</code> 命令来输入文本。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell input text hello
+</code></pre>
+<p>现在 <code class="language-vim">hello</code> 出现在文本框了。</p>
+<h2 id="anchor_48"><a class="anchor-navigation-ex-anchor" href="#anchor_48" name="anchor_48"><i aria-hidden="true" class="fa fa-link"></i></a>9. 查看日志</h2>
+<p>Android 系统的日志分为两部分，底层的 Linux 内核日志输出到 /proc/kmsg，Android 的日志输出到 /dev/log。</p>
+<h3 id="anchor_49"><a class="anchor-navigation-ex-anchor" href="#anchor_49" name="anchor_49"><i aria-hidden="true" class="fa fa-link"></i></a>9.1. Android 日志</h3>
+<p>命令格式：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">[adb] logcat [&lt;option&gt;] ... [&lt;filter-spec&gt;] ...
+</code></pre>
+<p>常用用法列举如下：</p>
+<h4 id="anchor_50"><a class="anchor-navigation-ex-anchor" href="#anchor_50" name="anchor_50"><i aria-hidden="true" class="fa fa-link"></i></a>9.1.1. 按级别过滤日志</h4>
+<p>Android 的日志分为如下几个优先级（priority）：</p>
+<ul>
+<li>
+<p><code class="language-vim">V</code> —— Verbose（最低，输出得最多）</p>
+</li>
+<li>
+<p><code class="language-vim">D</code> —— Debug</p>
+</li>
+<li>
+<p><code class="language-vim">I</code> —— Info</p>
+</li>
+<li>
+<p><code class="language-vim">W</code> —— Warning</p>
+</li>
+<li>
+<p><code class="language-vim">E</code> —— Error</p>
+</li>
+<li>
+<p><code class="language-vim">F</code> —— Fatal</p>
+</li>
+<li>
+<p><code class="language-vim">S</code> —— Silent（最高，啥也不输出）</p>
+</li>
+</ul>
+<p>按某级别过滤日志则会将该级别及以上的日志输出。</p>
+<p>比如，命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb logcat *:W
+</code></pre>
+<p>会将 Warning、Error、Fatal 和 Silent 日志输出。</p>
+<p>（<strong>注：</strong> 在 macOS 下需要给 <code class="language-vim">*:W</code> 这样以 <code class="language-vim">*</code> 作为 tag 的参数加双引号，如 <code class="language-vim">adb logcat &quot;*:W&quot;</code>，不然会报错 <code class="language-vim">no matches found: *:W</code>。）</p>
+<h4 id="anchor_51"><a class="anchor-navigation-ex-anchor" href="#anchor_51" name="anchor_51"><i aria-hidden="true" class="fa fa-link"></i></a>9.1.2. 按 tag 和级别过滤日志</h4>
+<p><code class="language-vim">&lt;filter-spec&gt;</code> 可以由多个 <code class="language-vim">&lt;tag&gt;[:priority]</code> 组成。</p>
+<p>比如，命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb logcat ActivityManager:I MyApp:D *:S
+</code></pre>
+<p>表示输出 tag <code class="language-vim">ActivityManager</code> 的 Info 以上级别日志，输出 tag <code class="language-vim">MyApp</code> 的 Debug 以上级别日志，及其它 tag 的 Silent 级别日志（即屏蔽其它 tag 日志）。</p>
+<h4 id="anchor_52"><a class="anchor-navigation-ex-anchor" href="#anchor_52" name="anchor_52"><i aria-hidden="true" class="fa fa-link"></i></a>9.1.3. 日志格式</h4>
+<p>可以用 <code class="language-vim">adb logcat -v &lt;format&gt;</code> 选项指定日志输出格式。</p>
+<p>日志支持按以下几种 <code class="language-vim">&lt;format&gt;</code>：</p>
+<ul>
+<li>
+<p>brief</p>
+<p>默认格式。格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">D/HeadsetStateMachine( 1785): Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+<li>
+<p>process</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;priority&gt;(&lt;pid&gt;) &lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">D( 1785) Disconnected process message: 10, size: 0  (HeadsetStateMachine)
+</code></pre>
+</li>
+<li>
+<p>tag</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;priority&gt;/&lt;tag&gt;: &lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">D/HeadsetStateMachine: Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+<li>
+<p>raw</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+<li>
+<p>time</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;datetime&gt; &lt;priority&gt;/&lt;tag&gt;(&lt;pid&gt;): &lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">08-28 22:39:39.974 D/HeadsetStateMachine( 1785): Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+<li>
+<p>threadtime</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;datetime&gt; &lt;pid&gt; &lt;tid&gt; &lt;priority&gt; &lt;tag&gt;: &lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">08-28 22:39:39.974  1785  1832 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+<li>
+<p>long</p>
+<p>格式为：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">[ &lt;datetime&gt; &lt;pid&gt;:&lt;tid&gt; &lt;priority&gt;/&lt;tag&gt; ]
+&lt;message&gt;
+</code></pre>
+<p>示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">[ 08-28 22:39:39.974  1785: 1832 D/HeadsetStateMachine ]
+Disconnected process message: 10, size: 0
+</code></pre>
+</li>
+</ul>
+<p>指定格式可与上面的过滤同时使用。比如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb logcat -v long ActivityManager:I *:S
+</code></pre>
+<h4 id="anchor_53"><a class="anchor-navigation-ex-anchor" href="#anchor_53" name="anchor_53"><i aria-hidden="true" class="fa fa-link"></i></a>9.1.4. 清空日志</h4>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb logcat -c
+</code></pre>
+<h3 id="anchor_54"><a class="anchor-navigation-ex-anchor" href="#anchor_54" name="anchor_54"><i aria-hidden="true" class="fa fa-link"></i></a>9.2. 内核日志</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dmesg
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&lt;6&gt;[14201.684016] PM: noirq resume of devices complete after 0.982 msecs
+&lt;6&gt;[14201.685525] PM: early resume of devices complete after 0.838 msecs
+&lt;6&gt;[14201.753642] PM: resume of devices complete after 68.106 msecs
+&lt;4&gt;[14201.755954] Restarting tasks ... done.
+&lt;6&gt;[14201.771229] PM: suspend exit 2016-08-28 13:31:32.679217193 UTC
+&lt;6&gt;[14201.872373] PM: suspend entry 2016-08-28 13:31:32.780363596 UTC
+&lt;6&gt;[14201.872498] PM: Syncing filesystems ... done.
+</code></pre>
+<p>中括号里的 <code class="language-vim">[14201.684016]</code> 代表内核开始启动后的时间，单位为秒。</p>
+<p>通过内核日志我们可以做一些事情，比如衡量内核启动时间，在系统启动完毕后的内核日志里找到 <code class="language-vim">Freeing init memory</code> 那一行前面的时间就是。</p>
+<h2 id="anchor_55"><a class="anchor-navigation-ex-anchor" href="#anchor_55" name="anchor_55"><i aria-hidden="true" class="fa fa-link"></i></a>10. 查看设备信息</h2>
+<h3 id="anchor_56"><a class="anchor-navigation-ex-anchor" href="#anchor_56" name="anchor_56"><i aria-hidden="true" class="fa fa-link"></i></a>10.1. 型号</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell getprop ro.product.model
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Nexus 5
+</code></pre>
+<h3 id="anchor_57"><a class="anchor-navigation-ex-anchor" href="#anchor_57" name="anchor_57"><i aria-hidden="true" class="fa fa-link"></i></a>10.2. 电池状况</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys battery
+</code></pre>
+<p>输入示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Current Battery Service state:
+  AC powered: false
+  USB powered: true
+  Wireless powered: false
+  status: 2
+  health: 2
+  present: true
+  level: 44
+  scale: 100
+  voltage: 3872
+  temperature: 280
+  technology: Li-poly
+</code></pre>
+<p>其中 <code class="language-vim">scale</code> 代表最大电量，<code class="language-vim">level</code> 代表当前电量。上面的输出表示还剩下 44% 的电量。</p>
+<h3 id="anchor_58"><a class="anchor-navigation-ex-anchor" href="#anchor_58" name="anchor_58"><i aria-hidden="true" class="fa fa-link"></i></a>10.3. 屏幕分辨率</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm size
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Physical size: 1080x1920
+</code></pre>
+<p>该设备屏幕分辨率为 1080px * 1920px。</p>
+<p>如果使用命令修改过，那输出可能是：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Physical size: 1080x1920
+Override size: 480x1024
+</code></pre>
+<p>表明设备的屏幕分辨率原本是 <code class="language-vim">1080px * 1920px</code>，当前被修改为 <code class="language-vim">480px * 1024px</code>。</p>
+<h3 id="anchor_59"><a class="anchor-navigation-ex-anchor" href="#anchor_59" name="anchor_59"><i aria-hidden="true" class="fa fa-link"></i></a>10.4. 输出屏幕密度</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm density
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Physical density: 420
+</code></pre>
+<p>该设备屏幕密度为 420dpi。</p>
+<p>如果使用命令修改过，那输出可能是：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Physical density: 480
+Override density: 160
+</code></pre>
+<p>表明设备的屏幕密度原来是 480dpi，当前被修改为 160dpi。</p>
+<h3 id="anchor_60"><a class="anchor-navigation-ex-anchor" href="#anchor_60" name="anchor_60"><i aria-hidden="true" class="fa fa-link"></i></a>10.5. 显示屏参数</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys window displays
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">WINDOW MANAGER DISPLAY CONTENTS (dumpsys window displays)
+  Display: mDisplayId=0
+    init=1080x1920 420dpi cur=1080x1920 app=1080x1794 rng=1080x1017-1810x1731
+    deferred=false layoutNeeded=false
+</code></pre>
+<p>其中 <code class="language-vim">mDisplayId</code> 为 显示屏编号，<code class="language-vim">init</code> 是初始分辨率和屏幕密度，<code class="language-vim">app</code> 的高度比 <code class="language-vim">init</code> 里的要小，表示屏幕底部有虚拟按键，高度为 1920 - 1794 = 126px 合 42dp。</p>
+<h3 id="anchor_61"><a class="anchor-navigation-ex-anchor" href="#anchor_61" name="anchor_61"><i aria-hidden="true" class="fa fa-link"></i></a>10.6. android_id</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings get secure android_id
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">51b6be48bac8c569
+</code></pre>
+<h3 id="anchor_62"><a class="anchor-navigation-ex-anchor" href="#anchor_62" name="anchor_62"><i aria-hidden="true" class="fa fa-link"></i></a>10.7. IMEI</h3>
+<p>在 Android 4.4 及以下版本可通过如下命令获取 IMEI：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell dumpsys iphonesubinfo
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Phone Subscriber Info:
+  Phone Type = GSM
+  Device ID = 860955027785041
+</code></pre>
+<p>其中的 <code class="language-vim">Device ID</code> 就是 IMEI。</p>
+<p>而在 Android 5.0 及以上版本里这个命令输出为空，得通过其它方式获取了（需要 root 权限）：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell
+su
+service call iphonesubinfo 1
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Result: Parcel(
+  0x00000000: 00000000 0000000f 00360038 00390030 &#x27;........8.6.0.9.&#x27;
+  0x00000010: 00350035 00320030 00370037 00350038 &#x27;5.5.0.2.7.7.8.5.&#x27;
+  0x00000020: 00340030 00000031                   &#x27;0.4.1...        &#x27;)
+</code></pre>
+<p>把里面的有效内容提取出来就是 IMEI 了，比如这里的是 <code class="language-vim">860955027785041</code>。</p>
+<p>参考：<a target=_Blank href="http://stackoverflow.com/questions/27002663/adb-shell-dumpsys-iphonesubinfo-not-working-since-android-5-0-lollipop">adb shell dumpsys iphonesubinfo not working since Android 5.0 Lollipop</a></p>
+<h3 id="anchor_63"><a class="anchor-navigation-ex-anchor" href="#anchor_63" name="anchor_63"><i aria-hidden="true" class="fa fa-link"></i></a>10.8. Android 系统版本</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell getprop ro.build.version.release
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">5.0.2
+</code></pre>
+<h3 id="anchor_64"><a class="anchor-navigation-ex-anchor" href="#anchor_64" name="anchor_64"><i aria-hidden="true" class="fa fa-link"></i></a>10.9. IP 地址</h3>
+<p>每次想知道设备的 IP 地址的时候都得「设置」-「关于手机」-「状态信息」-「IP 地址」很烦对不对？通过 adb 可以方便地查看。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell ifconfig | grep Mask
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">inet addr:10.130.245.230  Mask:255.255.255.252
+inet addr:127.0.0.1  Mask:255.0.0.0
+</code></pre>
+<p>那么 <code class="language-vim">10.130.245.230</code> 就是设备 IP 地址。</p>
+<p>在有的设备上这个命令没有输出，如果设备连着 WiFi，可以使用如下命令来查看局域网 IP：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell ifconfig wlan0
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">wlan0: ip 10.129.160.99 mask 255.255.240.0 flags [up broadcast running multicast]
+</code></pre>
+<p>或</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">wlan0     Link encap:UNSPEC
+          inet addr:10.129.168.57  Bcast:10.129.175.255  Mask:255.255.240.0
+          inet6 addr: fe80::66cc:2eff:fe68:b6b6/64 Scope: Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:496520 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:68215 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:3000
+          RX bytes:116266821 TX bytes:8311736
+</code></pre>
+<p>如果以上命令仍然不能得到期望的信息，那可以试试以下命令（部分系统版本里可用）：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell netcfg
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">wlan0    UP                               10.129.160.99/20  0x00001043 f8:a9:d0:17:42:4d
+lo       UP                                   127.0.0.1/8   0x00000049 00:00:00:00:00:00
+p2p0     UP                                     0.0.0.0/0   0x00001003 fa:a9:d0:17:42:4d
+sit0     DOWN                                   0.0.0.0/0   0x00000080 00:00:00:00:00:00
+rmnet0   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet1   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet3   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet2   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet4   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet6   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet5   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rmnet7   DOWN                                   0.0.0.0/0   0x00000000 00:00:00:00:00:00
+rev_rmnet3 DOWN                                   0.0.0.0/0   0x00001002 4e:b7:e4:2e:17:58
+rev_rmnet2 DOWN                                   0.0.0.0/0   0x00001002 4e:f0:c8:bf:7a:cf
+rev_rmnet4 DOWN                                   0.0.0.0/0   0x00001002 a6:c0:3b:6b:c4:1f
+rev_rmnet6 DOWN                                   0.0.0.0/0   0x00001002 66:bb:5d:64:2e:e9
+rev_rmnet5 DOWN                                   0.0.0.0/0   0x00001002 0e:1b:eb:b9:23:a0
+rev_rmnet7 DOWN                                   0.0.0.0/0   0x00001002 7a:d9:f6:81:40:5a
+rev_rmnet8 DOWN                                   0.0.0.0/0   0x00001002 4e:e2:a9:bb:d0:1b
+rev_rmnet0 DOWN                                   0.0.0.0/0   0x00001002 fe:65:d0:ca:82:a9
+rev_rmnet1 DOWN                                   0.0.0.0/0   0x00001002 da:d8:e8:4f:2e:fe
+</code></pre>
+<p>可以看到网络连接名称、启用状态、IP 地址和 Mac 地址等信息。</p>
+<h3 id="anchor_65"><a class="anchor-navigation-ex-anchor" href="#anchor_65" name="anchor_65"><i aria-hidden="true" class="fa fa-link"></i></a>10.10. Mac 地址</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell cat /sys/class/net/wlan0/address
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">f8:a9:d0:17:42:4d
+</code></pre>
+<p>这查看的是局域网 Mac 地址，移动网络或其它连接的信息可以通过前面的小节「IP 地址」里提到的 <code class="language-vim">adb shell netcfg</code> 命令来查看。</p>
+<h3 id="anchor_66"><a class="anchor-navigation-ex-anchor" href="#anchor_66" name="anchor_66"><i aria-hidden="true" class="fa fa-link"></i></a>10.11. CPU 信息</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell cat /proc/cpuinfo
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Processor       : ARMv7 Processor rev 0 (v7l)
+processor       : 0
+BogoMIPS        : 38.40
+
+processor       : 1
+BogoMIPS        : 38.40
+
+processor       : 2
+BogoMIPS        : 38.40
+
+processor       : 3
+BogoMIPS        : 38.40
+
+Features        : swp half thumb fastmult vfp edsp neon vfpv3 tls vfpv4 idiva idivt
+CPU implementer : 0x51
+CPU architecture: 7
+CPU variant     : 0x2
+CPU part        : 0x06f
+CPU revision    : 0
+
+Hardware        : Qualcomm MSM 8974 HAMMERHEAD (Flattened Device Tree)
+Revision        : 000b
+Serial          : 0000000000000000
+</code></pre>
+<p>这是 Nexus 5 的 CPU 信息，我们从输出里可以看到使用的硬件是 <code class="language-vim">Qualcomm MSM 8974</code>，processor 的编号是 0 到 3，所以它是四核的，采用的架构是 <code class="language-vim">ARMv7 Processor rev 0 (v71)</code>。</p>
+<h3 id="anchor_67"><a class="anchor-navigation-ex-anchor" href="#anchor_67" name="anchor_67"><i aria-hidden="true" class="fa fa-link"></i></a>10.12. 内存信息</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell cat /proc/meminfo
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">MemTotal:        1027424 kB
+MemFree:          486564 kB
+Buffers:           15224 kB
+Cached:            72464 kB
+SwapCached:        24152 kB
+Active:           110572 kB
+Inactive:         259060 kB
+Active(anon):      79176 kB
+Inactive(anon):   207736 kB
+Active(file):      31396 kB
+Inactive(file):    51324 kB
+Unevictable:        3948 kB
+Mlocked:               0 kB
+HighTotal:        409600 kB
+HighFree:         132612 kB
+LowTotal:         617824 kB
+LowFree:          353952 kB
+SwapTotal:        262140 kB
+SwapFree:         207572 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        265324 kB
+Mapped:            47072 kB
+Shmem:              1020 kB
+Slab:              57372 kB
+SReclaimable:       7692 kB
+SUnreclaim:        49680 kB
+KernelStack:        4512 kB
+PageTables:         5912 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:      775852 kB
+Committed_AS:   13520632 kB
+VmallocTotal:     385024 kB
+VmallocUsed:       61004 kB
+VmallocChunk:     209668 kB
+</code></pre>
+<p>其中，<code class="language-vim">MemTotal</code> 就是设备的总内存，<code class="language-vim">MemFree</code> 是当前空闲内存。</p>
+<h3 id="anchor_68"><a class="anchor-navigation-ex-anchor" href="#anchor_68" name="anchor_68"><i aria-hidden="true" class="fa fa-link"></i></a>10.13. 更多硬件与系统属性</h3>
+<p>设备的更多硬件与系统属性可以通过如下命令查看：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell cat /system/build.prop
+</code></pre>
+<p>这会输出很多信息，包括前面几个小节提到的「型号」和「Android 系统版本」等。</p>
+<p>输出里还包括一些其它有用的信息，它们也可通过 <code class="language-vim">adb shell getprop 《属性名》</code> 命令单独查看，列举一部分属性如下：</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ro.build.version.sdk</td>
+<td align="left">SDK 版本</td>
+</tr>
+<tr>
+<td align="left">ro.build.version.release</td>
+<td align="left">Android 系统版本</td>
+</tr>
+<tr>
+<td align="left">ro.build.version.security_patch</td>
+<td align="left">Android 安全补丁程序级别</td>
+</tr>
+<tr>
+<td align="left">ro.product.model</td>
+<td align="left">型号</td>
+</tr>
+<tr>
+<td align="left">ro.product.brand</td>
+<td align="left">品牌</td>
+</tr>
+<tr>
+<td align="left">ro.product.name</td>
+<td align="left">设备名</td>
+</tr>
+<tr>
+<td align="left">ro.product.board</td>
+<td align="left">处理器型号</td>
+</tr>
+<tr>
+<td align="left">ro.product.cpu.abilist</td>
+<td align="left">CPU 支持的 abi 列表 [<em>节注一</em>]</td>
+</tr>
+<tr>
+<td align="left">persist.sys.isUsbOtgEnabled</td>
+<td align="left">是否支持 OTG</td>
+</tr>
+<tr>
+<td align="left">dalvik.vm.heapsize</td>
+<td align="left">每个应用程序的内存上限</td>
+</tr>
+<tr>
+<td align="left">ro.sf.lcd_density</td>
+<td align="left">屏幕密度</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>节注一：</p>
+</blockquote>
+<p>一些小厂定制的 ROM 可能修改过 CPU 支持的 abi 列表的属性名，如果用 <code class="language-vim">ro.product.cpu.abilist</code> 属性名查找不到，可以这样试试：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell cat /system/build.prop | grep ro.product.cpu.abi
+</code></pre>
+<p>示例输出：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">ro.product.cpu.abi=armeabi-v7a
+ro.product.cpu.abi2=armeabi
+</code></pre>
+<h2 id="anchor_69"><a class="anchor-navigation-ex-anchor" href="#anchor_69" name="anchor_69"><i aria-hidden="true" class="fa fa-link"></i></a>11. 修改设置</h2>
+<p><strong>注：</strong> 修改设置之后，运行恢复命令有可能显示仍然不太正常，可以运行 <code class="language-vim">adb reboot</code> 重启设备，或手动重启。</p>
+<p>修改设置的原理主要是通过 settings 命令修改 /data/data/com.android.providers.settings/databases/settings.db 里存放的设置值。</p>
+<h3 id="anchor_70"><a class="anchor-navigation-ex-anchor" href="#anchor_70" name="anchor_70"><i aria-hidden="true" class="fa fa-link"></i></a>11.1. 分辨率</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm size 480x1024
+</code></pre>
+<p>表示将分辨率修改为 480px * 1024px。</p>
+<p>恢复原分辨率命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm size reset
+</code></pre>
+<h3 id="anchor_71"><a class="anchor-navigation-ex-anchor" href="#anchor_71" name="anchor_71"><i aria-hidden="true" class="fa fa-link"></i></a>11.2. 修改屏幕密度</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm density 160
+</code></pre>
+<p>表示将屏幕密度修改为 160dpi。</p>
+<p>恢复原屏幕密度命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm density reset
+</code></pre>
+<h3 id="anchor_72"><a class="anchor-navigation-ex-anchor" href="#anchor_72" name="anchor_72"><i aria-hidden="true" class="fa fa-link"></i></a>11.3. 显示区域</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm overscan 0,0,0,200
+</code></pre>
+<p>四个数字分别表示距离左、上、右、下边缘的留白像素，以上命令表示将屏幕底部 200px 留白。</p>
+<p>恢复原显示区域命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell wm overscan reset
+</code></pre>
+<h3 id="anchor_73"><a class="anchor-navigation-ex-anchor" href="#anchor_73" name="anchor_73"><i aria-hidden="true" class="fa fa-link"></i></a>11.4. 关闭 USB 调试模式</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings put global adb_enabled 0
+</code></pre>
+<p>恢复：</p>
+<p>用命令恢复不了了，毕竟关闭了 USB 调试 adb 就连接不上 Android 设备了。</p>
+<p>去设备上手动恢复吧：「设置」-「开发者选项」-「Android 调试」。</p>
+<h3 id="anchor_74"><a class="anchor-navigation-ex-anchor" href="#anchor_74" name="anchor_74"><i aria-hidden="true" class="fa fa-link"></i></a>11.5. 允许 / 禁止访问非 SDK API</h3>
+<p>允许访问非 SDK API：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings put global hidden_api_policy_pre_p_apps 1
+adb shell settings put global hidden_api_policy_p_apps 1
+</code></pre>
+<p>禁止访问非 SDK API：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings delete global hidden_api_policy_pre_p_apps
+adb shell settings delete global hidden_api_policy_p_apps
+</code></pre>
+<p>不需要设备获得 Root 权限。</p>
+<p>命令最后的数字的含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">0</td>
+<td align="left">禁止检测非 SDK 接口的调用。该情况下，日志记录功能被禁用，并且令 strict mode API，即 detectNonSdkApiUsage() 无效。不推荐。</td>
+</tr>
+<tr>
+<td align="left">1</td>
+<td align="left">仅警告——允许访问所有非 SDK 接口，但保留日志中的警告信息，可继续使用 strick mode API。</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">禁止调用深灰名单和黑名单中的接口。</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">禁止调用黑名单中的接口，但允许调用深灰名单中的接口。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anchor_75"><a class="anchor-navigation-ex-anchor" href="#anchor_75" name="anchor_75"><i aria-hidden="true" class="fa fa-link"></i></a>11.6. 状态栏和导航栏的显示隐藏</h3>
+<p>本节所说的相关设置对应 Cyanogenmod 里的「扩展桌面」。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings put global policy_control &lt;key-values&gt;
+</code></pre>
+<p><code class="language-vim">&lt;key-values&gt;</code> 可由如下几种键及其对应的值组成，格式为 <code class="language-vim">&lt;key1&gt;=&lt;value1&gt;:&lt;key2&gt;=&lt;value2&gt;</code>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">key</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">immersive.full</td>
+<td align="left">同时隐藏</td>
+</tr>
+<tr>
+<td align="left">immersive.status</td>
+<td align="left">隐藏状态栏</td>
+</tr>
+<tr>
+<td align="left">immersive.navigation</td>
+<td align="left">隐藏导航栏</td>
+</tr>
+<tr>
+<td align="left">immersive.preconfirms</td>
+<td align="left">?</td>
+</tr>
+</tbody>
+</table>
+<p>这些键对应的值可则如下值用逗号组合：</p>
+<table>
+<thead>
+<tr>
+<th align="left">value</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">apps</code></td>
+<td align="left">所有应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">*</code></td>
+<td align="left">所有界面</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">packagename</code></td>
+<td align="left">指定应用</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">-packagename</code></td>
+<td align="left">排除指定应用</td>
+</tr>
+</tbody>
+</table>
+<p>例如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings put global policy_control immersive.full=*
+</code></pre>
+<p>表示设置在所有界面下都同时隐藏状态栏和导航栏。</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell settings put global policy_control immersive.status=com.package1,com.package2:immersive.navigation=apps,-com.package3
+</code></pre>
+<p>表示设置在包名为 <code class="language-vim">com.package1</code> 和 <code class="language-vim">com.package2</code> 的应用里隐藏状态栏，在除了包名为 <code class="language-vim">com.package3</code> 的所有应用里隐藏导航栏。</p>
+<h2 id="anchor_76"><a class="anchor-navigation-ex-anchor" href="#anchor_76" name="anchor_76"><i aria-hidden="true" class="fa fa-link"></i></a>12. 实用功能</h2>
+<h3 id="anchor_77"><a class="anchor-navigation-ex-anchor" href="#anchor_77" name="anchor_77"><i aria-hidden="true" class="fa fa-link"></i></a>12.1. 屏幕截图</h3>
+<p>截图保存到电脑：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb exec-out screencap -p &gt; sc.png
+</code></pre>
+<p>如果 adb 版本较老，无法使用 <code class="language-vim">exec-out</code> 命令，这时候建议更新 adb 版本。无法更新的话可以使用以下麻烦点的办法：</p>
+<p>先截图保存到设备里：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell screencap -p /sdcard/sc.png
+</code></pre>
+<p>然后将 png 文件导出到电脑：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb pull /sdcard/sc.png
+</code></pre>
+<p>可以使用 <code class="language-vim">adb shell screencap -h</code> 查看 <code class="language-vim">screencap</code> 命令的帮助信息，下面是两个有意义的参数及含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">-p</td>
+<td align="left">指定保存文件为 png 格式</td>
+</tr>
+<tr>
+<td align="left">-d display-id</td>
+<td align="left">指定截图的显示屏编号（有多显示屏的情况下）</td>
+</tr>
+</tbody>
+</table>
+<p>实测如果指定文件名以 <code class="language-vim">.png</code> 结尾时可以省略 -p 参数；否则需要使用 -p 参数。如果不指定文件名，截图文件的内容将直接输出到 stdout。</p>
+<p>另外一种一行命令截图并保存到电脑的方法：</p>
+<blockquote>
+<p>Linux 和 Windows</p>
+</blockquote>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell screencap -p | sed &quot;s/\r$//&quot; &gt; sc.png
+</code></pre>
+<blockquote>
+<p>Mac OS X</p>
+</blockquote>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell screencap -p | gsed &quot;s/\r$//&quot; &gt; sc.png
+</code></pre>
+<p>这个方法需要用到 gnu sed 命令，在 Linux 下直接就有，在 Windows 下 Git 安装目录的 bin 文件夹下也有。如果确实找不到该命令，可以下载 <a target=_Blank href="http://gnuwin32.sourceforge.net/packages/sed.htm">sed for Windows</a> 并将 sed.exe 所在文件夹添加到 PATH 环境变量里。</p>
+<p>而在 Mac 下使用系统自带的 sed 命令会报错：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">sed: RE error: illegal byte sequence
+</code></pre>
+<p>需要安装 gnu-sed，然后使用 gsed 命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">brew install gnu-sed
+</code></pre>
+<h3 id="anchor_78"><a class="anchor-navigation-ex-anchor" href="#anchor_78" name="anchor_78"><i aria-hidden="true" class="fa fa-link"></i></a>12.2. 录制屏幕</h3>
+<p>录制屏幕以 mp4 格式保存到 /sdcard：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell screenrecord /sdcard/filename.mp4
+</code></pre>
+<p>需要停止时按 <kbd>Ctrl-C</kbd>，默认录制时间和最长录制时间都是 180 秒。</p>
+<p>如果需要导出到电脑：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb pull /sdcard/filename.mp4
+</code></pre>
+<p>可以使用 <code class="language-vim">adb shell screenrecord --help</code> 查看 <code class="language-vim">screenrecord</code> 命令的帮助信息，下面是常见参数及含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">--size WIDTHxHEIGHT</td>
+<td align="left">视频的尺寸，比如 <code class="language-vim">1280x720</code>，默认是屏幕分辨率。</td>
+</tr>
+<tr>
+<td align="left">--bit-rate RATE</td>
+<td align="left">视频的比特率，默认是 4Mbps。</td>
+</tr>
+<tr>
+<td align="left">--time-limit TIME</td>
+<td align="left">录制时长，单位秒。</td>
+</tr>
+<tr>
+<td align="left">--verbose</td>
+<td align="left">输出更多信息。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anchor_79"><a class="anchor-navigation-ex-anchor" href="#anchor_79" name="anchor_79"><i aria-hidden="true" class="fa fa-link"></i></a>12.3. 重新挂载 system 分区为可写</h3>
+<blockquote>
+<p>注：需要 root 权限</p>
+</blockquote>
+<p>/system 分区默认挂载为只读，但有些操作比如给 Android 系统添加命令、删除自带应用等需要对 /system 进行写操作，所以需要重新挂载它为可读写。</p>
+<p>步骤：</p>
+<ol>
+<li>
+<p>进入 shell 并切换到 root 用户权限。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell
+su
+</code></pre>
+</li>
+<li>
+<p>查看当前分区挂载情况。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">mount
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">rootfs / rootfs ro,relatime 0 0
+tmpfs /dev tmpfs rw,seclabel,nosuid,relatime,mode=755 0 0
+devpts /dev/pts devpts rw,seclabel,relatime,mode=600 0 0
+proc /proc proc rw,relatime 0 0
+sysfs /sys sysfs rw,seclabel,relatime 0 0
+selinuxfs /sys/fs/selinux selinuxfs rw,relatime 0 0
+debugfs /sys/kernel/debug debugfs rw,relatime 0 0
+none /var tmpfs rw,seclabel,relatime,mode=770,gid=1000 0 0
+none /acct cgroup rw,relatime,cpuacct 0 0
+none /sys/fs/cgroup tmpfs rw,seclabel,relatime,mode=750,gid=1000 0 0
+none /sys/fs/cgroup/memory cgroup rw,relatime,memory 0 0
+tmpfs /mnt/asec tmpfs rw,seclabel,relatime,mode=755,gid=1000 0 0
+tmpfs /mnt/obb tmpfs rw,seclabel,relatime,mode=755,gid=1000 0 0
+none /dev/memcg cgroup rw,relatime,memory 0 0
+none /dev/cpuctl cgroup rw,relatime,cpu 0 0
+none /sys/fs/cgroup tmpfs rw,seclabel,relatime,mode=750,gid=1000 0 0
+none /sys/fs/cgroup/memory cgroup rw,relatime,memory 0 0
+none /sys/fs/cgroup/freezer cgroup rw,relatime,freezer 0 0
+/dev/block/platform/msm_sdcc.1/by-name/system /system ext4 ro,seclabel,relatime,data=ordered 0 0
+/dev/block/platform/msm_sdcc.1/by-name/userdata /data ext4 rw,seclabel,nosuid,nodev,relatime,noauto_da_alloc,data=ordered 0 0
+/dev/block/platform/msm_sdcc.1/by-name/cache /cache ext4 rw,seclabel,nosuid,nodev,relatime,data=ordered 0 0
+/dev/block/platform/msm_sdcc.1/by-name/persist /persist ext4 rw,seclabel,nosuid,nodev,relatime,data=ordered 0 0
+/dev/block/platform/msm_sdcc.1/by-name/modem /firmware vfat ro,context=u:object_r:firmware_file:s0,relatime,uid=1000,gid=1000,fmask=0337,dmask=0227,codepage=cp437,iocharset=iso8859-1,shortname=lower,errors=remount-ro 0 0
+/dev/fuse /mnt/shell/emulated fuse rw,nosuid,nodev,relatime,user_id=1023,group_id=1023,default_permissions,allow_other 0 0
+/dev/fuse /mnt/shell/emulated/0 fuse rw,nosuid,nodev,relatime,user_id=1023,group_id=1023,default_permissions,allow_other 0 0
+</code></pre>
+<p>找到其中我们关注的带 /system 的那一行：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">/dev/block/platform/msm_sdcc.1/by-name/system /system ext4 ro,seclabel,relatime,data=ordered 0 0
+</code></pre>
+</li>
+<li>
+<p>重新挂载。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">mount -o remount,rw -t yaffs2 /dev/block/platform/msm_sdcc.1/by-name/system /system
+</code></pre>
+<p>这里的 <code class="language-vim">/dev/block/platform/msm_sdcc.1/by-name/system</code> 就是我们从上一步的输出里得到的文件路径。</p>
+</li>
+</ol>
+<p>如果输出没有提示错误的话，操作就成功了，可以对 <code class="language-vim">/system</code> 下的文件为所欲为了。</p>
+<h3 id="anchor_80"><a class="anchor-navigation-ex-anchor" href="#anchor_80" name="anchor_80"><i aria-hidden="true" class="fa fa-link"></i></a>12.4. 查看连接过的 WiFi 密码</h3>
+<blockquote>
+<p>注：需要 root 权限。</p>
+</blockquote>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell
+su
+cat /data/misc/wifi/*.conf
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">network={
+  ssid=&quot;TP-LINK_9DFC&quot;
+  scan_ssid=1
+  psk=&quot;123456789&quot;
+  key_mgmt=WPA-PSK
+  group=CCMP TKIP
+  auth_alg=OPEN
+  sim_num=1
+  priority=13893
+}
+
+network={
+  ssid=&quot;TP-LINK_F11E&quot;
+  psk=&quot;987654321&quot;
+  key_mgmt=WPA-PSK
+  sim_num=1
+  priority=17293
+}
+</code></pre>
+<p><code class="language-vim">ssid</code> 即为我们在 WLAN 设置里看到的名称，<code class="language-vim">psk</code> 为密码，<code class="language-vim">key_mgmt</code> 为安全加密方式。</p>
+<h3 id="anchor_81"><a class="anchor-navigation-ex-anchor" href="#anchor_81" name="anchor_81"><i aria-hidden="true" class="fa fa-link"></i></a>12.5. 设置系统日期和时间</h3>
+<blockquote>
+<p>注：需要 root 权限。</p>
+</blockquote>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell
+su
+date -s 20160823.131500
+</code></pre>
+<p>表示将系统日期和时间更改为 2016 年 08 月 23 日 13 点 15 分 00 秒。</p>
+<h3 id="anchor_82"><a class="anchor-navigation-ex-anchor" href="#anchor_82" name="anchor_82"><i aria-hidden="true" class="fa fa-link"></i></a>12.6. 重启手机</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb reboot
+</code></pre>
+<h3 id="anchor_83"><a class="anchor-navigation-ex-anchor" href="#anchor_83" name="anchor_83"><i aria-hidden="true" class="fa fa-link"></i></a>12.7. 检测设备是否已 root</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell
+su
+</code></pre>
+<p>此时命令行提示符是 <code class="language-vim">$</code> 则表示没有 root 权限，是 <code class="language-vim">#</code> 则表示已 root。</p>
+<h3 id="anchor_84"><a class="anchor-navigation-ex-anchor" href="#anchor_84" name="anchor_84"><i aria-hidden="true" class="fa fa-link"></i></a>12.8. 使用 Monkey 进行压力测试</h3>
+<p>Monkey 可以生成伪随机用户事件来模拟单击、触摸、手势等操作，可以对正在开发中的程序进行随机压力测试。</p>
+<p>简单用法：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell monkey -p &lt;packagename&gt; -v 500
+</code></pre>
+<p>表示向 <code class="language-vim">&lt;packagename&gt;</code> 指定的应用程序发送 500 个伪随机事件。</p>
+<p>Monkey 的详细用法参考 <a target=_Blank href="https://developer.android.com/studio/test/monkey.html">官方文档</a>。</p>
+<h3 id="anchor_85"><a class="anchor-navigation-ex-anchor" href="#anchor_85" name="anchor_85"><i aria-hidden="true" class="fa fa-link"></i></a>12.9. 开启 / 关闭 WiFi</h3>
+<blockquote>
+<p>注：需要 root 权限。</p>
+</blockquote>
+<p>有时需要控制设备的 WiFi 状态，可以用以下指令完成。</p>
+<p>开启 WiFi：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb shell svc wifi enable
+</code></pre>
+<p>关闭 WiFi：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb shell svc wifi disable
+</code></pre>
+<p>若执行成功，输出为空；若未取得 root 权限执行此命令，将执行失败，输出 <code class="language-vim">Killed</code>。</p>
+<h2 id="anchor_86"><a class="anchor-navigation-ex-anchor" href="#anchor_86" name="anchor_86"><i aria-hidden="true" class="fa fa-link"></i></a>13. 刷机相关命令</h2>
+<h3 id="anchor_87"><a class="anchor-navigation-ex-anchor" href="#anchor_87" name="anchor_87"><i aria-hidden="true" class="fa fa-link"></i></a>13.1. 重启到 Recovery 模式</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb reboot recovery
+</code></pre>
+<h3 id="anchor_88"><a class="anchor-navigation-ex-anchor" href="#anchor_88" name="anchor_88"><i aria-hidden="true" class="fa fa-link"></i></a>13.2. 从 Recovery 重启到 Android</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb reboot
+</code></pre>
+<h3 id="anchor_89"><a class="anchor-navigation-ex-anchor" href="#anchor_89" name="anchor_89"><i aria-hidden="true" class="fa fa-link"></i></a>13.3. 重启到 Fastboot 模式</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb reboot bootloader
+</code></pre>
+<h3 id="anchor_90"><a class="anchor-navigation-ex-anchor" href="#anchor_90" name="anchor_90"><i aria-hidden="true" class="fa fa-link"></i></a>13.4. 通过 sideload 更新系统</h3>
+<p>如果我们下载了 Android 设备对应的系统更新包到电脑上，那么也可以通过 adb 来完成更新。</p>
+<p>以 Recovery 模式下更新为例：</p>
+<ol>
+<li>
+<p>重启到 Recovery 模式。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb reboot recovery
+</code></pre>
+</li>
+<li>
+<p>在设备的 Recovery 界面上操作进入 <code class="language-vim">Apply update</code>-<code class="language-vim">Apply from ADB</code>。</p>
+<p>注：不同的 Recovery 菜单可能与此有差异，有的是一级菜单就有 <code class="language-vim">Apply update from ADB</code>。</p>
+</li>
+<li>
+<p>通过 adb 上传和更新系统。</p>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb sideload &lt;path-to-update.zip&gt;
+</code></pre>
+</li>
+</ol>
+<h2 id="anchor_91"><a class="anchor-navigation-ex-anchor" href="#anchor_91" name="anchor_91"><i aria-hidden="true" class="fa fa-link"></i></a>14. 安全相关命令</h2>
+<h3 id="anchor_92"><a class="anchor-navigation-ex-anchor" href="#anchor_92" name="anchor_92"><i aria-hidden="true" class="fa fa-link"></i></a>14.1. 启用 / 禁用 SELinux</h3>
+<p>启用 SELinux</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb shell setenforce 1
+</code></pre>
+<p>禁用 SELinux</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb shell setenforce 0
+</code></pre>
+<h3 id="anchor_93"><a class="anchor-navigation-ex-anchor" href="#anchor_93" name="anchor_93"><i aria-hidden="true" class="fa fa-link"></i></a>14.2. 启用 / 禁用 dm_verity</h3>
+<p>启用 dm_verity</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb enable-verity
+</code></pre>
+<p>禁用 dm_verity</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb root
+adb disable-verity
+</code></pre>
+<h2 id="anchor_94"><a class="anchor-navigation-ex-anchor" href="#anchor_94" name="anchor_94"><i aria-hidden="true" class="fa fa-link"></i></a>15. 更多 adb shell 命令</h2>
+<p>Android 系统是基于 Linux 内核的，所以 Linux 里的很多命令在 Android 里也有相同或类似的实现，在 <code class="language-vim">adb shell</code> 里可以调用。本文档前面的部分内容已经用到了 <code class="language-vim">adb shell</code> 命令。</p>
+<h3 id="anchor_95"><a class="anchor-navigation-ex-anchor" href="#anchor_95" name="anchor_95"><i aria-hidden="true" class="fa fa-link"></i></a>15.1. 查看进程</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell ps
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">USER     PID   PPID  VSIZE  RSS     WCHAN    PC        NAME
+root      1     0     8904   788   ffffffff 00000000 S /init
+root      2     0     0      0     ffffffff 00000000 S kthreadd
+...
+u0_a71    7779  5926  1538748 48896 ffffffff 00000000 S com.sohu.inputmethod.sogou:classic
+u0_a58    7963  5926  1561916 59568 ffffffff 00000000 S org.mazhuang.boottimemeasure
+...
+shell     8750  217   10640  740   00000000 b6f28340 R ps
+</code></pre>
+<p>各列含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">列名</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">USER</td>
+<td align="left">所属用户</td>
+</tr>
+<tr>
+<td align="left">PID</td>
+<td align="left">进程 ID</td>
+</tr>
+<tr>
+<td align="left">PPID</td>
+<td align="left">父进程 ID</td>
+</tr>
+<tr>
+<td align="left">NAME</td>
+<td align="left">进程名</td>
+</tr>
+</tbody>
+</table>
+<h3 id="anchor_96"><a class="anchor-navigation-ex-anchor" href="#anchor_96" name="anchor_96"><i aria-hidden="true" class="fa fa-link"></i></a>15.2. 查看实时资源占用情况</h3>
+<p>命令：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb shell top
+</code></pre>
+<p>输出示例：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">User 0%, System 6%, IOW 0%, IRQ 0%
+User 3 + Nice 0 + Sys 21 + Idle 280 + IOW 0 + IRQ 0 + SIRQ 3 = 307
+
+  PID PR CPU% S  #THR     VSS     RSS PCY UID      Name
+ 8763  0   3% R     1  10640K   1064K  fg shell    top
+  131  0   3% S     1      0K      0K  fg root     dhd_dpc
+ 6144  0   0% S   115 1682004K 115916K  fg system   system_server
+  132  0   0% S     1      0K      0K  fg root     dhd_rxf
+ 1731  0   0% S     6  20288K    788K  fg root     /system/bin/mpdecision
+  217  0   0% S     6  18008K    356K  fg shell    /sbin/adb
+ ...
+ 7779  2   0% S    19 1538748K  48896K  bg u0_a71   com.sohu.inputmethod.sogou:classic
+ 7963  0   0% S    18 1561916K  59568K  fg u0_a58   org.mazhuang.boottimemeasure
+ ...
+</code></pre>
+<p>各列含义：</p>
+<table>
+<thead>
+<tr>
+<th align="left">列名</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">PID</td>
+<td align="left">进程 ID</td>
+</tr>
+<tr>
+<td align="left">PR</td>
+<td align="left">优先级</td>
+</tr>
+<tr>
+<td align="left">CPU%</td>
+<td align="left">当前瞬间占用 CPU 百分比</td>
+</tr>
+<tr>
+<td align="left">S</td>
+<td align="left">进程状态（R= 运行，S= 睡眠，T= 跟踪 / 停止，Z= 僵尸进程）</td>
+</tr>
+<tr>
+<td align="left">#THR</td>
+<td align="left">线程数</td>
+</tr>
+<tr>
+<td align="left">VSS</td>
+<td align="left">Virtual Set Size 虚拟耗用内存（包含共享库占用的内存）</td>
+</tr>
+<tr>
+<td align="left">RSS</td>
+<td align="left">Resident Set Size 实际使用物理内存（包含共享库占用的内存）</td>
+</tr>
+<tr>
+<td align="left">PCY</td>
+<td align="left">调度策略优先级，SP_BACKGROUND/SPFOREGROUND</td>
+</tr>
+<tr>
+<td align="left">UID</td>
+<td align="left">进程所有者的用户 ID</td>
+</tr>
+<tr>
+<td align="left">NAME</td>
+<td align="left">进程名</td>
+</tr>
+</tbody>
+</table>
+<p><code class="language-vim">top</code> 命令还支持一些命令行参数，详细用法如下：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">Usage: top [ -m max_procs ] [ -n iterations ] [ -d delay ] [ -s sort_column ] [ -t ] [ -h ]
+    -m num  最多显示多少个进程
+    -n num  刷新多少次后退出
+    -d num  刷新时间间隔（单位秒，默认值 5）
+    -s col  按某列排序（可用 col 值：cpu, vss, rss, thr）
+    -t      显示线程信息
+    -h      显示帮助文档
+</code></pre>
+<h3 id="anchor_97"><a class="anchor-navigation-ex-anchor" href="#anchor_97" name="anchor_97"><i aria-hidden="true" class="fa fa-link"></i></a>15.3. 查看进程 UID</h3>
+<p>有两种方案：</p>
+<ol>
+<li>
+<p><code class="language-vim">adb shell dumpsys package &lt;packagename&gt; | grep userId=</code></p>
+<p>如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&gt; adb shell dumpsys package org.mazhuang.guanggoo | grep userId=
+  userId=10394
+</code></pre>
+</li>
+<li>
+<p>通过 ps 命令找到对应进程的 pid 之后 <code class="language-vim">adb shell cat /proc/&lt;pid&gt;/status | grep Uid</code></p>
+<p>如：</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">&gt; adb shell
+gemini:/ $ ps | grep org.mazhuang.guanggoo
+u0_a394   28635 770   1795812 78736 SyS_epoll_ 0000000000 S org.mazhuang.guanggoo
+gemini:/ $ cat /proc/28635/status | grep Uid
+Uid:    10394   10394   10394   10394
+gemini:/ $
+</code></pre>
+</li>
+</ol>
+<h3 id="anchor_98"><a class="anchor-navigation-ex-anchor" href="#anchor_98" name="anchor_98"><i aria-hidden="true" class="fa fa-link"></i></a>15.4. 其它</h3>
+<p>如下是其它常用命令的简单描述，前文已经专门讲过的命令不再额外说明：</p>
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code class="language-vim">cat</code></td>
+<td align="left">显示文件内容</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">cd</code></td>
+<td align="left">切换目录</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">chmod</code></td>
+<td align="left">改变文件的存取模式 / 访问权限</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">df</code></td>
+<td align="left">查看磁盘空间使用情况</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">grep</code></td>
+<td align="left">过滤输出</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">kill</code></td>
+<td align="left">杀死指定 PID 的进程</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">ls</code></td>
+<td align="left">列举目录内容</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">mount</code></td>
+<td align="left">挂载目录的查看和管理</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">mv</code></td>
+<td align="left">移动或重命名文件</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">ps</code></td>
+<td align="left">查看正在运行的进程</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">rm</code></td>
+<td align="left">删除文件</td>
+</tr>
+<tr>
+<td align="left"><code class="language-vim">top</code></td>
+<td align="left">查看进程的资源占用情况</td>
+</tr>
+</tbody>
+</table>
+
+                        <footer class="page-footer"><span class="copyright">© 2020 曾润平. 
+All rights reserved.</span><span class="footer-modification">
+<span id="busuanzi_container_site_uv" style="display:none">本站访客数 <span id="busuanzi_value_site_uv">
+</span> 人次</span></span></footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+
+</script>
+                    </section>
+                </div>
+                <div class="search-results">
+                    <div class="has-results">
+                        <h1 class="search-results-title"><span class='search-results-count'></span> 结果匹配 "<span class='search-query'></span>"</h1>
+                        <ul class="search-results-list"></ul>
+                    </div>
+                    <div class="no-results">
+                        <h1 class="search-results-title">没有匹配的结果 "<span class='search-query'></span>"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a aria-label="Previous page: 介绍" class="navigation navigation-prev" href="../index.html">
+    <i class="fa fa-angle-left"></i>
+</a>
+
+
+<a aria-label="Next page: Monkey" class="navigation navigation-next" href="monkey.html">
+    <i class="fa fa-angle-right"></i>
+</a>
+
+
+</div>
+<script>
+    var lsbook = lsbook || [];
+    lsbook.push(function () {
+        lsbook.page.hasChanged({
+            "config": {
+                "github_url":"https://liushilive.github.io/",
+                "language": "zh-cn",
+                "previous_page_link": "../index.html",
+                "next_page_link": "monkey.html"
+            },
+            "basePath": "..",
+            "js": {'prism': ['../../asserts/lsbook/prismjs/clipboard.min.js', '../../asserts/lsbook/prismjs/prism.js']}
+        });
+    });
+</script>
+</div>
+
+<script src="../../asserts/lsbook/jquery-3.3.1.min.js"></script>
+<script charset="UTF-8" src="../../asserts/lsbook/jquery_mar/jquery.mark.js"></script>
+<script src="../../asserts/lsbook/lightbox/js/lightbox.min.js"></script>
+<script src="../../asserts/lsbook/lsbook.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>Android 相关 - Monkey</title>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="" name="description">
+<meta content="曾润平" name="author">
+
+<link href="../../asserts/lsbook/less/website.css" rel="stylesheet">
+<link href="../../asserts/lsbook/katex/katex.min.css" rel="stylesheet">
+<link href="../../asserts/lsbook/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+<meta content="true" name="HandheldFriendly"/>
+<meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<link href="../../asserts/lsbook/images/apple-touch-icon-precomposed-152.png"
+      rel="apple-touch-icon-precomposed" sizes="152x152">
+<link href="../../asserts/lsbook/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<!--分页-->
+<link href="" rel="next"/>
+</head>
+<body>
+<div class="book match-braces"><div class="book-summary">
+    <div id="book-search-input" role="search">
+        <input placeholder="输入并搜索" type="text"/>
+    </div>
+    <nav role="navigation">
+        <ul class="summary">
+            <li class="header">Summary</li>
+<ul class="articles"><li class="chapter" data-level="1.1" data-path="../index.html"><a href="../index.html"><b>1.1.</b>介绍</a></li></ul>
+<li class="header">常用工具</li>
+<ul class="articles"><li class="chapter" data-level="2.1" data-path="adb.html"><a href="adb.html"><b>2.1.</b>ADB</a></li>
+<li class="chapter active" data-level="2.2" data-path="monkey.html"><a href="monkey.html"><b>2.2.</b>Monkey</a></li></ul>
+            <li class="divider"></li>
+            <li>
+                <a class="lsbook-link" href="https://github.com/andyzrp/RPbook" target="blank">
+                    本书使用 RPBook 发布
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="book-body">
+    <div class="body-inner">
+    <div class="book-header" role="navigation">
+        <!-- Title -->
+        <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i>
+            <a href="..">Monkey</a>
+        </h1>
+    </div>
+
+    <div class="page-wrapper" role="main" tabindex="-1">
+        <div class="page-inner">
+            <div class="search-plus" id="book-search-results">
+                <div class="search-noresults">
+                    <section class="normal markdown-section">
+                        <div id='anchor-navigation-ex-navbar'><i class='fa fa-anchor'></i><ul><li><span class='title-icon fa fa-hand-o-right'></span><a aria-label class='on-toolbar-action' href='' onclick="$('.fa.fa-align-justify').parent()[0].click();">目录</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_1'><b></b>Monkey</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_2'><b>1. </b>概述</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_3'><b>2. </b>Monkey 的基本用法</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_4'><b>3. </b>Monkey 压力测试实践</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_5'><b>4. </b>日志解析</a></li><ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_6'><b>4.1. </b>各事件的百分比</a></li></ul><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_7'><b>5. </b>Android 平台 Monkey 测试标准</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_8'><b>6. </b>猴运行业内标准</a></li><li><span class='title-icon fa fa-hand-o-right'></span><a href='#anchor_9'><b>7. </b>命令选项参考</a></li></ul></ul></div><a href='#anchor_1' id='anchorNavigationExGoTop'><i class='fa fa-arrow-up'></i></a>
+                        <h1 id="anchor_1"><a class="anchor-navigation-ex-anchor" href="#anchor_1" name="anchor_1"><i aria-hidden="true" class="fa fa-link"></i></a>Monkey</h1>
+<!-- [参考资料](https://testerhome.com/topics/12013) -->
+<p><a target=_Blank href="https://developer.android.com/studio/test/monkey">官方文档</a></p>
+<p>Monkey 是运行在你的模拟器或者设备上一个程序，它能产生伪随机事件，如用户点击，触摸，用户手势（译者：gestures 指用户的连续动作导致屏幕的动态显示，Android 上可以使用手指<code class="language-vim">拉动</code>屏幕的效果就是 gesture）, 以及一系列的系统级事件。你可以使用 Monkey 对你的程序进行压力测试，它可随机产生一些重复的东西。</p>
+<h2 id="anchor_2"><a class="anchor-navigation-ex-anchor" href="#anchor_2" name="anchor_2"><i aria-hidden="true" class="fa fa-link"></i></a>1. 概述</h2>
+<p>Monkey 是一个命令行程序，你可以跑在模拟器或者设备上。它发送随机的用户和系统事件，可以对你开发的应用程序进行压力测试。</p>
+<p>Monkey 包含一系列的选项，但可以分解为 4 个主要的类别：</p>
+<ol>
+<li>
+<p>基本设置选项，例如设置一些事件。</p>
+</li>
+<li>
+<p>操作限制，如限制测试某一个单独的包。</p>
+</li>
+<li>
+<p>事件类型以及频率。</p>
+</li>
+<li>
+<p>调试选项。</p>
+</li>
+</ol>
+<p>当 Monkey 运行时，它产生的事件被发送给系统。它会监视正在测试系统并寻找三种情况做特殊处理：</p>
+<ol>
+<li>
+<p>如果你限制 Monkey 在一个或者多个包里运行，如果发现程序试图使用其它包，就对其进行阻塞。</p>
+</li>
+<li>
+<p>如果你的程序崩溃或者收到任何无法处理的异常， Monkey 就会停止并且报告错误。</p>
+</li>
+<li>
+<p>如果你的程序产生一个程序没有答复的错误， Monkey 会停止并报告错误。</p>
+</li>
+</ol>
+<p>根据选项的冗长程度，你可以看到 Monkey 运行时候产生的报告，这个时候事件已经开始产生。</p>
+<h2 id="anchor_3"><a class="anchor-navigation-ex-anchor" href="#anchor_3" name="anchor_3"><i aria-hidden="true" class="fa fa-link"></i></a>2. Monkey 的基本用法</h2>
+<p>你可以通过命令或者脚本启动 <code class="language-vim">Monkey</code> 。因为 Monkey 运行在模拟器 / 设备里。你需要在这些环境的 shell 里启动它，使用时，在每个命令前加上 <code class="language-vim">adb shell</code>。</p>
+<p>基本语法：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell monkey [options] &lt;event-count&gt;
+</code></pre>
+<p>没有选项指定时，<code class="language-vim">Monkey</code> 安静（没有其它复杂内容）模式启动，然后发送事件给所有安装在你目标机器上的包里。</p>
+<p>这里有一个有代表性的命令，它能启动你的程序并发送 <code class="language-vim">500</code> 个随机的事件给程序。</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell monkey -p io.github.liushilive.at -v 500
+</code></pre>
+<h2 id="anchor_4"><a class="anchor-navigation-ex-anchor" href="#anchor_4" name="anchor_4"><i aria-hidden="true" class="fa fa-link"></i></a>3. Monkey 压力测试实践</h2>
+<ol>
+<li>
+<p>在手机 <strong>开发者选项</strong> 中，选中 <strong>USB 调试</strong></p>
+</li>
+<li>
+<p>确认手机与电脑连接：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb devices
+</code></pre>
+</li>
+<li>
+<p>安装测试 APP：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb install package.apk
+</code></pre>
+</li>
+<li>
+<p>获取 APP 包名，筛选日志输出：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">abd logcat | findstr Displayed
+</code></pre>
+<p>or</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">abd logcat | grep Displayed
+</code></pre>
+<p>or</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb logcat | findstr START
+</code></pre>
+<p>or</p>
+<pre class="line-numbers"><code class="lang-bash rainbow-braces">adb logcat | grep START
+</code></pre>
+</li>
+<li>
+<p>给指定包打压，延迟 500，事件数 1000：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell monkey -vvv --throttle 500 -p io.github.liushilive.at 1000 &gt; monkey.txt 2&gt;&amp;1
+</code></pre>
+</li>
+<li>
+<p>分析日志</p>
+<ol>
+<li>
+<p>程序无响应的情况：搜索关键字 <code class="language-vim">ANR</code></p>
+<ol>
+<li>
+<p>查看 <code class="language-vim">traces.txt</code> 文件：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell ls -l /data/anr/
+</code></pre>
+</li>
+<li>
+<p>提取 <code class="language-vim">traces.txt</code> 文件：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb pull /data/anr/traces.txt
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>部分国产过度定制机器可能无法正常导出 <code class="language-vim">traces.txt</code> 文件，会提示 <code class="language-vim">Permission Denied</code> 或 <code class="language-vim">文件不存在</code> 等信息</p>
+<p>亦可通过 <code class="language-vim">adb bugreport</code> 完成</p>
+</blockquote>
+</li>
+<li>
+<p>崩溃、闪退的情况 1：搜索关键字 <code class="language-vim">CRASH</code></p>
+</li>
+<li>
+<p>崩溃、闪退的情况 2：搜索关键字 <code class="language-vim">Exception</code></p>
+</li>
+<li>
+<p>内存溢出的情况：搜索关键字 <code class="language-vim">OOM</code></p>
+</li>
+<li>
+<p>测试成功的情况：搜索关键字 <code class="language-vim">Monkey finished</code></p>
+</li>
+</ol>
+</li>
+<li>
+<p>重现：</p>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell monkey -s 1546458727792 -vvv --throttle 500 -p io.github.liushilive.at 1000 &gt; monkey.txt 2&gt;&amp;1
+</code></pre>
+</li>
+</ol>
+<h2 id="anchor_5"><a class="anchor-navigation-ex-anchor" href="#anchor_5" name="anchor_5"><i aria-hidden="true" class="fa fa-link"></i></a>4. 日志解析</h2>
+<pre class="line-numbers"><code class="lang-batch rainbow-braces">adb shell monkey -vvv -p io.github.liushilive.at --pct-touch 1 --pct-motion 2 --pct-pinchzoom 3 --pct-trackball 4 --pct-rotation 5 --pct-permission 6 --pct-nav 7 --pct-majornav 8 --pct-syskeys 9 --pct-appswitch 10 --pct-flip 11 --pct-anyevent 34 --throttle 100 100 &gt; 1.txt 2&gt;&amp;1
+</code></pre>
+<h3 id="anchor_6"><a class="anchor-navigation-ex-anchor" href="#anchor_6" name="anchor_6"><i aria-hidden="true" class="fa fa-link"></i></a>4.1. 各事件的百分比</h3>
+<ul>
+<li>
+<p><code class="language-vim">--pct-touch</code></p>
+<p>0：触摸事件百分比（触摸事件是一个在屏幕单一位置的按下 - 抬起事件）</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-motion</code></p>
+<p>1：手势事件（手势事件是由一个在屏幕某处的按下事件、一系列的伪随机移动、一个抬起事件组成）即一个滑动操
+作，但是是直线的，不能拐弯</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-pinchzoom</code></p>
+<p>2：二指缩放事件，放大缩小手势操作</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-trackball</code></p>
+<p>3：轨迹事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-rotation</code></p>
+<p>4：屏幕旋转事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-permission</code></p>
+<p>5: 权限许可事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-nav</code></p>
+<p>6：基本导航事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-majornav</code></p>
+<p>7：主要导航事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-syskeys</code></p>
+<p>8：系统按键事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-appswitch</code></p>
+<p>9：启动 Activity 事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-flip</code></p>
+<p>10：键盘事件</p>
+</li>
+<li>
+<p><code class="language-vim">--pct-anyevent</code></p>
+<p>11：其他类型事件</p>
+</li>
+</ul>
+<pre class="line-numbers"><code class="lang-vim rainbow-braces"># 随机种子数，执行事件数量
+:Monkey: seed=1545952923355 count=100
+# 运行的应用列表
+:AllowPackage: io.github.liushilive.at
+# Category包含：LAUNCHER与MONKEY
+:IncludeCategory: android.intent.category.LAUNCHER
+:IncludeCategory: android.intent.category.MONKEY
+# 各事件的百分比
+// Event percentages:
+//   0: 1.0%
+//   1: 2.0%
+//   2: 3.0%
+//   3: 4.0%
+//   4: 5.0%
+//   5: 6.0%
+//   6: 7.0%
+//   7: 8.0%
+//   8: 9.0%
+//   9: 10.0%
+//   10: 11.0%
+//   11: 34.0%
+# 执行的事件流信息
+# 启动APP事件
+:Switch: #Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=cc.liushi.testapp/.HomeScreenActivity;end
+    // Allowing start of Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=cc.liushi.testapp/.HomeScreenActivity } in package cc.liushi.testapp
+# 点击事件
+:Sending Touch (ACTION_DOWN): 0:(698.0,306.0)
+:Sending Touch (ACTION_UP): 0:(703.8239,325.90808)
+....
+:Sending Touch (ACTION_UP): 0:(1184.9438,428.81464)
+:Sending Trackball (ACTION_MOVE): 0:(4.0,0.0)
+# 异常信息
+// CRASH: cc.liushi.testapp (pid 2901)
+// Short Msg: java.lang.ArithmeticException
+// Long Msg: java.lang.ArithmeticException: divide by zero
+# 机型和系统信息
+// Build Label: Android/sdk_phone_x86/generic_x86:7.0/NYC/4174735:userdebug/test-keys
+// Build Changelist: 4174735
+// Build Time: 1499888857000
+# crash详细信息
+// java.lang.ArithmeticException: divide by zero
+//     at android.widget.SimpleMonthView.findClosestColumn(SimpleMonthView.java:550)
+# Monkey执行结果信息
+** Monkey aborted due to error.
+Events injected: 437
+:Sending rotation degree=0, persist=false
+:Dropped: keys=1 pointers=0 trackballs=0 flips=0 rotations=0
+## Network stats: elapsed time=9984ms (0ms mobile, 0ms wifi, 9984ms not connected)
+** System appears to have crashed at event 437 of 1000 using seed 1515393057075
+</code></pre>
+<h2 id="anchor_7"><a class="anchor-navigation-ex-anchor" href="#anchor_7" name="anchor_7"><i aria-hidden="true" class="fa fa-link"></i></a>5. Android 平台 Monkey 测试标准</h2>
+<ul>
+<li>
+<p>系统稳定性测试</p>
+<ul>
+<li>
+<p>测试样机数量：5-10 台</p>
+</li>
+<li>
+<p>运行时间：25 小时</p>
+</li>
+<li>
+<p>测试要求：</p>
+<ol>
+<li>运行时间 <code class="language-vim">&gt;20</code> 小时</li>
+<li>样机运行时间按从小到大排序，取中间 2 个值，计算平均时间，要求时间中间值平均为 24 小时</li>
+<li>以上两个条件均满足则认为通过测试（运行过程中无异常）</li>
+</ol>
+</li>
+</ul>
+</li>
+<li>
+<p>单个 APK 运行稳定性测试</p>
+<ul>
+<li>
+<p>测试样机数量：<code class="language-vim">5-10</code> 台</p>
+</li>
+<li>
+<p>运行时间：<code class="language-vim">25</code> 小时</p>
+</li>
+<li>
+<p>测试要求：</p>
+<p>平均运行时间至少为 <code class="language-vim">20</code> 小时（ <code class="language-vim">&gt;380000</code> 个 ENVENT）, 测试过程中无 <code class="language-vim">ANR</code>、 <code class="language-vim">JAVACRASH</code>、<code class="language-vim">NativeCrash</code>、<code class="language-vim">WindowLeak</code>、 <code class="language-vim">Exceeds VM budget count</code> 等任何异常</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="anchor_8"><a class="anchor-navigation-ex-anchor" href="#anchor_8" name="anchor_8"><i aria-hidden="true" class="fa fa-link"></i></a>6. 猴运行业内标准</h2>
+<p>最终发布前，Monkey 跑完的总次数应为 <code class="language-vim">25W</code> 次，其结果里不允许有 <code class="language-vim">nullPointException</code> 出现。</p>
+<h2 id="anchor_9"><a class="anchor-navigation-ex-anchor" href="#anchor_9" name="anchor_9"><i aria-hidden="true" class="fa fa-link"></i></a>7. 命令选项参考</h2>
+<p>下面的表格里列出了所有包含在 Monkey 命令行的参数：</p>
+<table>
+    <tr>
+      <td><p>类别 </p></td>
+      <td><p>选项 </p></td>
+      <td><p>描述 </p></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><p>通用 </p></td>
+      <td><p>--help </p></td>
+      <td><p>打印使用向导。 </p></td>
+    </tr>
+    <tr>
+      <td><p>-v </p></td>
+      <td><p>每个 -v 在命令里都会增加日志级别，0 级别（默认）在启动、测试结束、最终结果之外只提供很少的信息，1 级别在运行时提供更详细的测试信息，例如每个发往你活动的事件。 2 级别提供更加详细的设置信息，如一个活动是否选中被测试。 </p></td>
+    </tr>
+    <tr>
+      <td rowspan="10"><p>事件 </p></td>
+      <td><p>-s &lt;seed&gt; </p></td>
+      <td><p>随机数字产生器的种子。如果你用同样的种子运行 Monkey ，它将会产生相同的事件。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--throttle
+          &lt;milliseconds&gt; </p></td>
+      <td><p>在事件中插入一个固定的延迟。一般使用这个命令去延缓 Monkey 程序。如果没有指定， Monkey 产生的事件将没有延迟并尽可能快的发送。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-touch &lt;percent&gt; </p></td>
+      <td><p>调整触摸事件的比例。（触摸事件是一个在屏幕上单点按下的事件） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-motion &lt;percent&gt; </p></td>
+      <td><p>调整手势事件的比例。（手势事件由一系列屏幕上的按下事件组成，一系列的伪随机移动和一个松开事件） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-trackball
+          &lt;percent&gt; </p></td>
+      <td><p>调整跟踪球事件（跟踪球由一个或多个随机移动事件组成，有时还会接一个单击事件） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-nav &lt;percent&gt; </p></td>
+      <td><p>调整”基本”导航事件。（导航事件由上 / 下 / 左 / 右组成，这些事件由输入设备输入） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-majornav
+          &lt;percent&gt; </p></td>
+      <td><p>调整“主要”的导航事件的比例。（有些导航事件将会在你的 UI 里导致一些动作，例如在 5 向键里的中间，退出键，或者菜单键） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-syskeys &lt;percent&gt; </p></td>
+      <td><p>调整“系统”事件的比例。（有些键通常是系统保留的，如 主界面，退出，电话，结束通话，或者声音调节 ） </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-appswitch
+          &lt;percent&gt; </p></td>
+      <td><p>调整活动被运行的比例。 在一些随机的间隔里， Monkey 会调用一个 startActivity（）的调用，以最大程序得覆盖你包里的所有的活动。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--pct-anyevent
+          &lt;percent&gt; </p></td>
+      <td><p>调整其他类型事件的比例。 这包含所有其他的事件，如用户按键，其他设备上不常用的的按键，等等。 </p></td>
+    </tr>
+    <tr>
+      <td rowspan="2"><p>限制 </p></td>
+      <td><p>-p
+          &lt;allowed-package-name&gt; </p></td>
+      <td><p>如果你指定一个或者多个包， Monkey 程序仅仅允许系统访问这些包里的活动。如果你的应用程序需要进入其他包的活动（例如选择一个联系人），你也需要指定这个包。如果你不指定任何包， Monkey 将允许系统运行所有包里活动。 </p>
+        <p class="MsoNormal1" style="margin-top:12.0pt;margin-right:0cm;margin-bottom:
+  0cm;margin-left:0cm;margin-bottom:.0001pt;line-height:120%">指定多个包，可以多次使用 -p 选项 —— 一个—每个 p 选项选一个包。 </p></td>
+    </tr>
+    <tr>
+      <td><p>-c &lt;main-category&gt; </p></td>
+      <td><p>如果你指定一个或多个类别（category）， Monkey 将仅仅允许系统访问这些指定类别里的一个活动。如果你不指定任何类别， Monkey 将选择 Intel.CATEGORY
+          _LAUNCHER 或者 CATEGORY_MONKEY 列出的活动。如果要选择多个类别，多次使用 -c 选项 —— 每个 -c 选一个类别。 </p></td>
+    </tr>
+    <tr>
+      <td rowspan="8"><p>调试 </p></td>
+      <td><p>--dbg-no-events </p></td>
+      <td><p>当被指定时， Monkey 将在测试活动里执行初始化运行程序，但还没有产生任何事件。 最好的是集成 -v， 能使一个或多个包被限制，这样一个非 0 的控制能保证 Monkey 程序运行 30 秒或更长时间。这提供一个环境，你可以监视你的应用程序调用的包的所有变化。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--hprof </p></td>
+      <td><p>如果设置这个选项，系统会在 Monkey 事件序列前后都立即产生程序分析报告。这将会产生巨大的（~5M）数据文件，所以请谨慎使用。</p></td>
+    </tr>
+    <tr>
+      <td><p>--ignore-crashes </p></td>
+      <td><p>通常情况下， Monkey 会因为程序崩溃或者遇到一些无法处理的异常而停止，但你指定了这个选项， Monkey 会继续发事件给系统，直到事件计数器结束。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--ignore-timeouts </p></td>
+      <td><p>通常情况下， Monkey 会因为程序超时而停止，例如程序弹出“应用程序没有答复”的对话框。如果你指定了这个选项， Monkey 会继续发事件给系统，直到事件计数器结束。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--ignore-security-exceptions </p></td>
+      <td><p>通常情况下， Monkey 会因为一些权限错误而停止，例如，它试图运行一个需要特殊权限的活动。 如果指定这个选项， Monkey 会继续发送事件给系统，直到事件计数器结束。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--kill-process-after-error </p></td>
+      <td><p>通常情况下， Monkey 会因为错误停止，应用程序失败但会并停留在运行状态，当这个条件设置后，它会发消息给系统在错误发生的地方停止进程。 评注：在程序正常（成功）的完成，运行的程序不会停止，设备会收到结束事件而停留在最后的状态上。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--monitor-native-crashes </p></td>
+      <td><p>监视并报告 Android 系统代码里的崩溃事件。如果设置了 --kill-process-after-error, 系统将会停止。 </p></td>
+    </tr>
+    <tr>
+      <td><p>--wait-dbg </p></td>
+      <td><p>停止 Monkey 直到调试工具连接上程序。 </p></td>
+    </tr>
+</table>
+
+                        <footer class="page-footer"><span class="copyright">© 2020 曾润平. 
+All rights reserved.</span><span class="footer-modification">
+<span id="busuanzi_container_site_uv" style="display:none">本站访客数 <span id="busuanzi_value_site_uv">
+</span> 人次</span></span></footer>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script>
+
+</script>
+                    </section>
+                </div>
+                <div class="search-results">
+                    <div class="has-results">
+                        <h1 class="search-results-title"><span class='search-results-count'></span> 结果匹配 "<span class='search-query'></span>"</h1>
+                        <ul class="search-results-list"></ul>
+                    </div>
+                    <div class="no-results">
+                        <h1 class="search-results-title">没有匹配的结果 "<span class='search-query'></span>"</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<a aria-label="Previous page: ADB" class="navigation navigation-prev" href="adb.html">
+    <i class="fa fa-angle-left"></i>
+</a>
+
+
+
+</div>
+<script>
+    var lsbook = lsbook || [];
+    lsbook.push(function () {
+        lsbook.page.hasChanged({
+            "config": {
+                "github_url":"https://liushilive.github.io/",
+                "language": "zh-cn",
+                "previous_page_link": "adb.html",
+                "next_page_link": ""
+            },
+            "basePath": "..",
+            "js": {'prism': ['../../asserts/lsbook/prismjs/clipboard.min.js', '../../asserts/lsbook/prismjs/prism.js']}
+        });
+    });
+</script>
+</div>
+
+<script src="../../asserts/lsbook/jquery-3.3.1.min.js"></script>
+<script charset="UTF-8" src="../../asserts/lsbook/jquery_mar/jquery.mark.js"></script>
+<script src="../../asserts/lsbook/lightbox/js/lightbox.min.js"></script>
+<script src="../../asserts/lsbook/lsbook.min.js"></script>
+
+</body>
+</html>
