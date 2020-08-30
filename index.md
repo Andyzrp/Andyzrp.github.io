@@ -114,7 +114,7 @@
 
 ## 操作系统
 
-* [Android 相关](github_exercise_android/)
+* [Android 相关](github_exercise_rjpcs_ex/)
 
 <!-- * [ADB 命令](android/ADB) -->
 
