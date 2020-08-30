@@ -1,2 +1,2 @@
-# 润平
-个人主页
+# 个人主页
+https://andyzrp.github.io
