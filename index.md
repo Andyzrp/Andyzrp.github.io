@@ -92,7 +92,7 @@
 
 <!--* [软件测试](github_testing/)-->
 
-<!--* [软件测试词典](github_software_testing_dictionary/)--->
+* [软件测试词典](github_software_testing_dictionary/)
 
 ## UI 测试
 
