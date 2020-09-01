@@ -94,6 +94,8 @@
 
 * [软件测试词典](github_software_testing_dictionary/)
 
+* [自动化测试平台](sosotest_doc)
+
 ## UI 测试
 
 * [页面元素模拟](html_example/)
