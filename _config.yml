@@ -1,14 +1,7 @@
-title: '曾润平'
+name: '曾润平'
 description: '个人主页'
 encoding: 'utf-8'
 url: 'https://Andyzrp.github.io/'
 baseurl: '/'
 author: '曾润平'
-# theme: jekyll-theme-cayman
-remote-theme: kaeyleo/jekyll-theme-H2O
-
-
-# Navigation links
-nav:
-  home: '/'
-  tags: '/tags.html'
+theme: jekyll-theme-cayman
