@@ -6,3 +6,9 @@ baseurl: '/'
 author: '曾润平'
 # theme: jekyll-theme-cayman
 remote-theme: kaeyleo/jekyll-theme-H2O
+
+
+# Navigation links
+nav:
+  home: '/'
+  tags: '/tags.html'[object Object]
