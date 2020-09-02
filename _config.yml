@@ -4,4 +4,4 @@ encoding: 'utf-8'
 url: 'https://Andyzrp.github.io/'
 baseurl: '/'
 author: '曾润平'
-theme: jekyll-theme-h2o
+theme: jekyll-theme-cayman
