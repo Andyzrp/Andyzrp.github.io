@@ -115,6 +115,8 @@ AIDA64 Business 商业版  UBCK4-XFRD6-PBDN9-SDM8Y-N4A2Y
 
 * [格式工厂](http://www.pcfreetime.com/)
 
+* [ScreenToGif](https://www.screentogif.com/)
+
 ## 电子画板
 
 * [SmoothDraw](http://www.smoothdraw.com/sd_zh)
